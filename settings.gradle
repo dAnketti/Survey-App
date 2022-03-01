@@ -1,2 +1,3 @@
 rootProject.name = 'Survey-App'
+include 'auth-service'
 

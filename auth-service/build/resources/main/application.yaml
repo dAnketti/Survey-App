@@ -1,0 +1,16 @@
+server:
+  port: ${AUTH_SERVICE_PORT}
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      format-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${AUTH_SERVICE_DATASOURCE_URL}
+    username: ${AUTH_SERVICE_DATASOURCE_USERNAME}
+    password: ${AUTH_SERVICE_DATASOURCE_PASSWORD}
+
+
