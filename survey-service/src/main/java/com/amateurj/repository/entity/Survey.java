@@ -1,5 +1,6 @@
 package com.amateurj.repository.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,23 +8,22 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
-@Entity
-@Table(name = "tbl_auth")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Auth implements Serializable {
+@Entity
+@Table(name ="tbl_survey" )
+public class Survey implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private long id;
-   private String name;
-   private String lastName;
-   private String email;
-   private int status;
-   private long createdDate;
-   private long updateDate;
+    private long id;
+    private String title;
+    @OneToMany(mappedBy = "survey")
+    private List<Question> questions;
+    private long date;
 
 }

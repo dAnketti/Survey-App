@@ -1,0 +1,11 @@
+server:
+  port: 8081
+spring:
+  data:
+    mongodb:
+      database: surveydb
+      username: sercan
+      password: root
+      host: localhost
+      port: 27017
+
