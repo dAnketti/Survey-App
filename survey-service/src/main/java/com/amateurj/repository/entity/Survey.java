@@ -24,6 +24,8 @@ public class Survey implements Serializable {
     private String title;
     @OneToMany(mappedBy = "survey")
     private List<Question> questions;
-    private long date;
+//    private String subjects;
+
+    private long createdDate = System.currentTimeMillis();
 
 }

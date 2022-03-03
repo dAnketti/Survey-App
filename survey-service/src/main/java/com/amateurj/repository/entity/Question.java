@@ -22,15 +22,19 @@ public class Question implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
+
     @OneToMany(mappedBy ="question")
     private List<Response> responses;
-    private String body;
-    private long date;
+
+    private String questionBody;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "survey_id")
     private Survey survey;
+
     private String type;
+    private long createdDate = System.currentTimeMillis();
 
 
 

@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
@@ -18,19 +19,21 @@ public class Response implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String response;
+    private long id;
+
+    private String responseBody;
+
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "question_id")
     private Question question;
+
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
     private long date;
+    private boolean isText;
+    private boolean isNumeric;
+    private boolean isYesNo;
 
-
-//    private boolean isText;
-//    private boolean isNumeric;
-//    private boolean isYesNo;
 //
 //
 //    public Response (  String response, Question question, long date ) {
