@@ -7,6 +7,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import RadioButton from "./QuestionAnswerTypes/RadioButton";
 import MultipleChoice from "./QuestionAnswerTypes/MultipleChoice";
 import QuestionPage from "./QuestionAnswerTypes/QuestionPage";
+import PreviewQuestion from "./QuestionAnswerTypes/PreviewQuestion";
+import AllQuestionsPreview from "./QuestionAnswerTypes/AllQuestionsPreview";
+import NewQuestion from "./QuestionAnswerTypes/NewQuestion";
 
 function Form() {
   const { handleSubmit, handleChange, values } = useFormik({
@@ -20,6 +23,26 @@ function Form() {
       postQuestion(body);
     },
   });
+  
+
+  const [question,setQuestion]=useState(
+    {
+      content:'Aşağıdaki soruları cevapla.',
+      answers:["Erkek","Kadın"],
+      type:'checkbox'
+    }
+  );
+
+  const [question2,setQuestion2]=useState(
+    {
+      content:'Aşağıdaki soruları cevapla.',
+      answers:["Erkek","Kadın"],
+      type:'radio'
+    }
+  );
+
+  const [questions,setQuestions]=useState([question,question,question2]);
+  
 
   return (
     <div className="container">
@@ -29,63 +52,31 @@ function Form() {
             <img
               style={{ borderRadius: 10 }}
               src={logoDanket}
-              alt=""
-              alt=""
+              alt=""            
               width="70"
             />
           </a>
         </div>
+       
       </nav>
-
-      <div className="row mt-5">
-        <div className="col-md-3 "></div>
-        <div id="question-area" className="col-md-6">
-          <form onSubmit={handleSubmit}>
-            <label for="exampleFormControlInput1" className="form-label">
-              Enter your question
-            </label>
-            <textarea
-              className="form-control"
-              name="questionBody"
-              value={values.questionBody}
-              onChange={handleChange}
-              aria-label="With textarea"
-              readonly
-            ></textarea>
-
-            <Router>
-              <div
-                className="btn-group btn-group-lg d-flex justify-content-between mt-3"
-                role="group"
-                aria-label="Option Selection"
-              >
-                <button className="btn btn-group">
-                  <Link className="text-decoration-none" to="/">
-                    Multichoice
-                  </Link>
-                </button>
-                <button className="btn btn-group">
-                  <Link className=" text-decoration-none" to="/radiobutton">
-                    Radiobutton
-                  </Link>
-                </button>
-                <button className="btn btn-group">
-                  <Link className="text-decoration-none" to="/textfield">
-                    Text Field
-                  </Link>
-                </button>
-              </div>
-
-              <QuestionPage />
-            </Router>
-            <div className="float-right mt-2">
-              <button type="button" className="btn btn-group border ">
-                Submit
-              </button>
-            </div>
-          </form>
+      {/* Tüm Sorular gösterildiği Satırı */}
+      <div className="container col-md-6">
+        <div >
+          <AllQuestionsPreview questions={questions}/>
         </div>
-        <div className="col-md-3"></div>
+      
+      
+     
+      {/* Form Satırı */}
+      
+      <div className="row mt-5">       
+     
+        <div id="question-area" className="col">  
+      {/* Yeni soru oluştur Satırı */}
+        <NewQuestion/>
+        </div>  
+        </div>
+        
       </div>
     </div>
   );
