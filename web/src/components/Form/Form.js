@@ -59,24 +59,27 @@ function Form() {
                 role="group"
                 aria-label="Option Selection"
               >
-                <p className="pt-3">Answer Type:</p>
-                <Link id="navbutton" to="/">
-                  <button className="btn ">Multichoice</button>
-                </Link>
-
-                <Link id="navbutton" to="/radiobutton">
-                  <button className="btn ">Radiobutton</button>
-                </Link>
-
-                <Link id="navbutton" to="/textfield">
-                  <button className="btn ">Text Field</button>
-                </Link>
+                <button className="btn btn-group">
+                  <Link className="text-decoration-none" to="/">
+                    Multichoice
+                  </Link>
+                </button>
+                <button className="btn btn-group">
+                  <Link className=" text-decoration-none" to="/radiobutton">
+                    Radiobutton
+                  </Link>
+                </button>
+                <button className="btn btn-group">
+                  <Link className="text-decoration-none" to="/textfield">
+                    Text Field
+                  </Link>
+                </button>
               </div>
 
               <QuestionPage />
             </Router>
             <div className="float-right mt-2">
-              <button type="button" id="navbutton" className="btn ">
+              <button type="button" className="btn btn-group border ">
                 Submit
               </button>
             </div>

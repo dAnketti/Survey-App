@@ -28,3 +28,10 @@ button > p {
   padding: 30px;
   border-radius: 20px;
 }
+
+#submitbutton {
+}
+
+#option-button {
+  text-decoration: none;
+}
