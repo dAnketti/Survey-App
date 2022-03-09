@@ -14,7 +14,7 @@ public class SurveyDto {
     private String subjects;
     private String className;
     private boolean isDraft;
-    private List<QuestionDto> questionList;
+    private List<QuestionRequestDto> questionList;
     private long createdDate = System.currentTimeMillis();
 
 }

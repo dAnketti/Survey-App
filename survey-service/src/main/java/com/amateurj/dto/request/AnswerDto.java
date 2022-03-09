@@ -6,10 +6,12 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 @Builder
-public class ResponseDto {
+public class AnswerDto {
 
-    private String responseBody;
-    private String responseType;
+    private long questionId;
+    private String answerBody;
+    private String answerType;
     private long createdDate = System.currentTimeMillis();
+
 
 }

@@ -6,27 +6,26 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name ="tbl_response" )
+@Table(name ="tbl_answer" )
 
-public class Response implements Serializable {
+public class Answer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String responseBody;
+    private String answerBody;
     /**
      * Text = 0
      * MultipleChoice = 1
      * YesNo = 2
      * Numeric = 3
      */
-    private String responseType;
+    private String answerType;
 
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "question_id")

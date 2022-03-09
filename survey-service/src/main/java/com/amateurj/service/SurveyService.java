@@ -1,19 +1,16 @@
 package com.amateurj.service;
 
-import com.amateurj.dto.request.QuestionDto;
-import com.amateurj.dto.request.SurveyDto;
+import com.amateurj.dto.response.QuestionResponseDto;
+import com.amateurj.mapper.AnswerMapper;
 import com.amateurj.mapper.QuestionMapper;
-import com.amateurj.mapper.ResponseMapper;
 import com.amateurj.mapper.SurveyMapper;
 import com.amateurj.repository.IQuestionRepository;
 import com.amateurj.repository.ISurveyRepository;
 import com.amateurj.repository.entity.Question;
-import com.amateurj.repository.entity.Response;
 import com.amateurj.repository.entity.Survey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +25,6 @@ public class SurveyService {
 
     private final QuestionMapper questionMapper;
 
-    private final SurveyMapper surveyMapper;
-
-    private final ResponseMapper responseMapper;
 
     public void save(Survey survey) {
         surveyRepository.save(survey);
@@ -60,9 +54,15 @@ public class SurveyService {
         return survey;
     }
 
-    public List<Question> getAllQuestions(long id){
+    public List<QuestionResponseDto> getAllQuestions(long id){
         Optional<Survey> survey = surveyRepository.findById(id);
-        return survey.get().getQuestionList();
+        List<QuestionResponseDto> responseDtoList = new ArrayList<>();
+        for (int i = 0; i < survey.get().getQuestionList().size(); i++) {
+            responseDtoList.add(questionMapper.toResponseDto(survey.get().getQuestionList().get(i)));
+
+        }
+
+        return responseDtoList;
     }
 
     public void addQuestionList (List<Question> qList, long id){

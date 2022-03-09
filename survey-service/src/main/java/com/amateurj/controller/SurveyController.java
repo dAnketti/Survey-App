@@ -1,14 +1,13 @@
 package com.amateurj.controller;
 
 
-import com.amateurj.dto.request.QuestionDto;
+import com.amateurj.dto.request.QuestionRequestDto;
 import com.amateurj.dto.request.SurveyDto;
 import com.amateurj.dto.response.FindAllSurveyDto;
+import com.amateurj.dto.response.QuestionResponseDto;
 import com.amateurj.mapper.QuestionMapper;
 
-import com.amateurj.mapper.ResponseMapper;
 import com.amateurj.mapper.SurveyMapper;
-import com.amateurj.repository.ISurveyRepository;
 import com.amateurj.repository.entity.Question;
 import com.amateurj.repository.entity.Survey;
 import com.amateurj.service.SurveyService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/survey")
@@ -29,7 +27,7 @@ public class SurveyController {
     private final SurveyService surveyService;
     private final SurveyMapper surveyMapper;
     private final QuestionMapper questionMapper;
-    private final ResponseMapper responseMapper;
+
 
     @PostMapping("/saveSurvey")
     public ResponseEntity<Void> save(@RequestBody SurveyDto dto){
@@ -72,18 +70,18 @@ public class SurveyController {
     }
 
     @PostMapping("/addNewQuestion")
-    public ResponseEntity<Void> addNewQuestion(@RequestBody QuestionDto questionDto, long id){
-        surveyService.addNewQuestion(id,questionMapper.toQuestion(questionDto));
+    public ResponseEntity<Void> addNewQuestion(@RequestBody QuestionRequestDto questionRequestDto, long id){
+        surveyService.addNewQuestion(id,questionMapper.toQuestion(questionRequestDto));
         return ResponseEntity.ok().build();
 
     }
     @PostMapping("/surveys/{id}/addNewQuestionList")
-    public ResponseEntity<String> addNewQuestionList(@RequestBody List<QuestionDto> questionDtoList, @PathVariable long id) {
+    public ResponseEntity<String> addNewQuestionList(@RequestBody List<QuestionRequestDto> questionRequestDtoList, @PathVariable long id) {
 
         List<Question> qList = new ArrayList<>();
 
-        for (int i = 0; i < questionDtoList.size(); i++) {
-            qList.add(questionMapper.toQuestion(questionDtoList.get(i)));
+        for (int i = 0; i < questionRequestDtoList.size(); i++) {
+            qList.add(questionMapper.toQuestion(questionRequestDtoList.get(i)));
         }
         surveyService.addQuestionList(qList,id);
 
@@ -91,8 +89,8 @@ public class SurveyController {
 
     }
 
-    @PostMapping("/surveys/{id}/getQuestionList")
-    public ResponseEntity<List<Question>> getAllQuestions(@RequestBody @PathVariable long id){
+    @GetMapping("/surveys/{id}/getQuestionList")
+    public ResponseEntity<List<QuestionResponseDto>> getAllQuestions(@PathVariable long id){
 
        return ResponseEntity.ok(surveyService.getAllQuestions(id));
 

@@ -25,11 +25,11 @@ public class Question{
     private long id;
 
     @OneToMany(mappedBy ="question")
-    private List<Response> responseList;
+    private List<Answer> answerList;
 
     private String questionBody;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "survey_id")
     @JsonIgnoreProperties("questionList")
     private Survey survey;

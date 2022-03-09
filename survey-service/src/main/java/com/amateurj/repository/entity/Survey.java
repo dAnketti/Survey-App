@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

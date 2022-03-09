@@ -1,14 +1,14 @@
 package com.amateurj.mapper;
 
-import com.amateurj.dto.request.QuestionDto;
-import com.amateurj.dto.request.ResponseDto;
+import com.amateurj.dto.request.AnswerDto;
+import com.amateurj.dto.request.QuestionRequestDto;
 import com.amateurj.dto.request.SurveyDto;
 import com.amateurj.dto.response.FindAllSurveyDto;
 import com.amateurj.dto.response.FindAllSurveyDto.FindAllSurveyDtoBuilder;
+import com.amateurj.repository.entity.Answer;
+import com.amateurj.repository.entity.Answer.AnswerBuilder;
 import com.amateurj.repository.entity.Question;
 import com.amateurj.repository.entity.Question.QuestionBuilder;
-import com.amateurj.repository.entity.Response;
-import com.amateurj.repository.entity.Response.ResponseBuilder;
 import com.amateurj.repository.entity.Survey;
 import com.amateurj.repository.entity.Survey.SurveyBuilder;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-09T14:20:48+0300",
+    date = "2022-03-09T17:44:29+0300",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
@@ -35,7 +35,7 @@ public class SurveyMapperImpl implements SurveyMapper {
         survey.title( dto.getTitle() );
         survey.subjects( dto.getSubjects() );
         survey.className( dto.getClassName() );
-        survey.questionList( questionDtoListToQuestionList( dto.getQuestionList() ) );
+        survey.questionList( questionRequestDtoListToQuestionList( dto.getQuestionList() ) );
         survey.createdDate( dto.getCreatedDate() );
 
         return survey.build();
@@ -57,55 +57,55 @@ public class SurveyMapperImpl implements SurveyMapper {
         return findAllSurveyDto.build();
     }
 
-    protected Response responseDtoToResponse(ResponseDto responseDto) {
-        if ( responseDto == null ) {
+    protected Answer answerDtoToAnswer(AnswerDto answerDto) {
+        if ( answerDto == null ) {
             return null;
         }
 
-        ResponseBuilder response = Response.builder();
+        AnswerBuilder answer = Answer.builder();
 
-        response.responseBody( responseDto.getResponseBody() );
-        response.responseType( responseDto.getResponseType() );
-        response.createdDate( responseDto.getCreatedDate() );
+        answer.answerBody( answerDto.getAnswerBody() );
+        answer.answerType( answerDto.getAnswerType() );
+        answer.createdDate( answerDto.getCreatedDate() );
 
-        return response.build();
+        return answer.build();
     }
 
-    protected List<Response> responseDtoListToResponseList(List<ResponseDto> list) {
+    protected List<Answer> answerDtoListToAnswerList(List<AnswerDto> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<Response> list1 = new ArrayList<Response>( list.size() );
-        for ( ResponseDto responseDto : list ) {
-            list1.add( responseDtoToResponse( responseDto ) );
+        List<Answer> list1 = new ArrayList<Answer>( list.size() );
+        for ( AnswerDto answerDto : list ) {
+            list1.add( answerDtoToAnswer( answerDto ) );
         }
 
         return list1;
     }
 
-    protected Question questionDtoToQuestion(QuestionDto questionDto) {
-        if ( questionDto == null ) {
+    protected Question questionRequestDtoToQuestion(QuestionRequestDto questionRequestDto) {
+        if ( questionRequestDto == null ) {
             return null;
         }
 
         QuestionBuilder question = Question.builder();
 
-        question.responseList( responseDtoListToResponseList( questionDto.getResponseList() ) );
-        question.questionBody( questionDto.getQuestionBody() );
-        question.questionType( questionDto.getQuestionType() );
+        question.answerList( answerDtoListToAnswerList( questionRequestDto.getAnswerList() ) );
+        question.questionBody( questionRequestDto.getQuestionBody() );
+        question.questionType( questionRequestDto.getQuestionType() );
 
         return question.build();
     }
 
-    protected List<Question> questionDtoListToQuestionList(List<QuestionDto> list) {
+    protected List<Question> questionRequestDtoListToQuestionList(List<QuestionRequestDto> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Question> list1 = new ArrayList<Question>( list.size() );
-        for ( QuestionDto questionDto : list ) {
-            list1.add( questionDtoToQuestion( questionDto ) );
+        for ( QuestionRequestDto questionRequestDto : list ) {
+            list1.add( questionRequestDtoToQuestion( questionRequestDto ) );
         }
 
         return list1;
