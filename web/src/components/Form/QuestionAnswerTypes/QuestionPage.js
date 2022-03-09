@@ -2,12 +2,12 @@ import React from "react";
 import TextFieldAnswer from "./TextFieldAnswer";
 import RadioButton from "./RadioButton";
 import MultipleChoice from "./MultipleChoice";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function QuestionPage() {
   return (
     <div>
-      <Switch>
+      <Routes>
         <Route path="/radiobutton">
           <RadioButton />
         </Route>
@@ -17,7 +17,7 @@ function QuestionPage() {
         <Route path="/">
           <MultipleChoice />
         </Route>
-      </Switch>
+      </Routes>
     </div>
   );
 }

@@ -1,0 +1,21 @@
+body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0.3) 0%,
+    rgba(233, 212, 141, 0.196516106442577) 35%,
+    rgba(0, 212, 255, 0.2) 100%
+  );
+}
+
+.loginborder {
+  padding: 40px;
+  border: 15px;
+  border-radius: 5%;
+  color: black;
+  background-color: rgb(230, 224, 175) !important;
+}
+
+.form-label {
+  opacity: 75%;
+}
