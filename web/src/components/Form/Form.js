@@ -1,48 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import logoDanket from "../../danketlow.png";
 import "../../App.css";
-import { useFormik } from "formik";
-import { postQuestion } from "../../api/ApiCalls";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import RadioButton from "./QuestionAnswerTypes/RadioButton";
-import MultipleChoice from "./QuestionAnswerTypes/MultipleChoice";
-import QuestionPage from "./QuestionAnswerTypes/QuestionPage";
-import PreviewQuestion from "./QuestionAnswerTypes/PreviewQuestion";
 import AllQuestionsPreview from "./QuestionAnswerTypes/AllQuestionsPreview";
 import NewQuestion from "./QuestionAnswerTypes/NewQuestion";
 
 function Form() {
-  const { handleSubmit, handleChange, values } = useFormik({
-    initialValues: {
-      questionBody: "",
-    },
-    onSubmit: (values) => {
-      const body = {
-        questionBody: values.questionBody,
-      };
-      postQuestion(body);
-    },
-  });
-  
 
-  const [question,setQuestion]=useState(
-    {
-      content:'Aşağıdaki soruları cevapla.',
-      answers:["Erkek","Kadın"],
-      type:'checkbox'
-    }
-  );
+const [questions,setQuestions]=useState([]);
 
-  const [question2,setQuestion2]=useState(
-    {
-      content:'Aşağıdaki soruları cevapla.',
-      answers:["Erkek","Kadın"],
-      type:'radio'
-    }
-  );
+const callbackHandlerAllQuestions=(q)=>{
+  setQuestions(questions=>[...questions,q]);
+}
 
-  const [questions,setQuestions]=useState([question,question,question2]);
-  
+
 
   return (
     <div className="container">
@@ -61,11 +31,10 @@ function Form() {
       </nav>
       {/* Tüm Sorular gösterildiği Satırı */}
       <div className="container col-md-6">
-        <div >
-          <AllQuestionsPreview questions={questions}/>
-        </div>
-      
-      
+      <div >
+        <AllQuestionsPreview questions={questions}/>
+      </div>
+          
      
       {/* Form Satırı */}
       
@@ -73,7 +42,7 @@ function Form() {
      
         <div id="question-area" className="col">  
       {/* Yeni soru oluştur Satırı */}
-        <NewQuestion/>
+        <NewQuestion callbackHandlerAllQuestions={callbackHandlerAllQuestions} />
         </div>  
         </div>
         

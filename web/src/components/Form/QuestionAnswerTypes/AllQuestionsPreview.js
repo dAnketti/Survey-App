@@ -8,6 +8,7 @@ const AllQuestionsPreview = (props) => {
             <div id="question-area" >
                 <h1>Anket</h1>
             {
+            questions &&
             questions.map( (question, index) =>{
                 return <>                
 

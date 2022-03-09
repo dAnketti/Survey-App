@@ -29,9 +29,14 @@ button > p {
   border-radius: 20px;
 }
 
-#submitbutton {
-}
+
 
 #option-button {
   text-decoration: none;
+}
+
+.btn-sml {
+  padding: 10px 10px;
+  font-size: 22px;
+  border-radius: 8px;
 }
