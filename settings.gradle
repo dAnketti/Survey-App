@@ -1,4 +1,5 @@
 rootProject.name = 'Survey-App'
 include 'auth-service'
 include 'survey-service'
+include 'response-service'
 

@@ -1,11 +1,16 @@
 server:
   port: 8081
 spring:
-  data:
-    mongodb:
-      database: surveydb
-      username: sercan
-      password: root
-      host: localhost
-      port: 27017
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      format-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/surveydb
+    username: postgres
+    password: root
+
 

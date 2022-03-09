@@ -1,30 +1,35 @@
 package com.amateurj.repository.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name ="tbl_survey" )
-public class Survey implements Serializable {
+public class Survey {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
+    private String subjects;
+    private String className;
+    private boolean isDraft;
+//    private long creatorId;
+
     @OneToMany(mappedBy = "survey")
-    private List<Question> questions;
-//    private String subjects;
+    @JsonIgnoreProperties("survey")
+    private List<Question> questionList;
+
 
     private long createdDate = System.currentTimeMillis();
 

@@ -17,7 +17,7 @@ public class QuestionService {
 
     private final IQuestionRepository repository;
 
-    public void save(Question question){
+    public void update(Question question){
         repository.save(question);
     }
 
@@ -26,11 +26,11 @@ public class QuestionService {
         return repository.findAll();
     }
 
-    public List<Response> getAllResponses(long id){
-        Optional<Question> question;
-        question = repository.findById(id);
-        return question.get().getResponses();
-
-    }
+//    public List<Response> getAllResponses(long id){
+//        Optional<Question> question;
+//        question = repository.findById(id);
+//        return question.get().getResponseList();
+//
+//    }
 
 }
