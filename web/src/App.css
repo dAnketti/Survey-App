@@ -28,3 +28,15 @@ button > p {
   padding: 30px;
   border-radius: 20px;
 }
+
+
+
+#option-button {
+  text-decoration: none;
+}
+
+.btn-sml {
+  padding: 10px 10px;
+  font-size: 22px;
+  border-radius: 8px;
+}

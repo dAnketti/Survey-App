@@ -3,10 +3,11 @@ import "../../../Login.css";
 import { useFormik } from "formik";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
-import FloatingLabel from "react-bootstrap-floating-label";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -14,6 +15,7 @@ function Login() {
     },
     onSubmit: (values) => {
       console.log(values);
+      navigate("/home");
     },
   });
   return (
