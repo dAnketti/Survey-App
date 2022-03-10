@@ -4,6 +4,7 @@ import "../../../Login.css";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Button from "react-bootstrap/Button";
 
 function Register() {
   useEffect(() => {
@@ -91,9 +92,11 @@ function Register() {
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Check me out" />
               </Form.Group>
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
+              <div className="d-grid mt-2 gap-2 ">
+                <Button variant="primary" type="submit" size="md">
+                  Register
+                </Button>
+              </div>
             </form>
           </div>
         </div>

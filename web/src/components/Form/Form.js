@@ -13,7 +13,7 @@ function Form() {
   };
 
   return (
-    <div className="container">
+    <div className="text-center col-mt-50">
       <NavigationBar />
       {/* Tüm Sorular gösterildiği Satırı */}
       <div className="container col-md-6">
