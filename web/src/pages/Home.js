@@ -14,7 +14,7 @@ import NavigationBar from "./NavigationBar";
 function Home(props) {
   return (
     <div>
-      <NavigationBar />
+      {/* <NavigationBar /> */}
       <Container className="text-center ">
         <Row>
           <Col md={5}>

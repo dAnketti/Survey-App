@@ -5,15 +5,16 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
+import { register } from "../../../api/ApiCalls";
 
 function Register() {
   useEffect(() => {
     localStorage.clear();
   }, []);
+
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      localStorageKey: 0,
       name: "",
       phoneNumber: "",
       email: "",
@@ -21,7 +22,9 @@ function Register() {
       createdDate: Date.now(),
     },
     onSubmit: (values) => {
-      console.log(values);
+      register(values).then((res) => {
+        alert(res.data);
+      });
       localStorage.setItem(`user`, JSON.stringify(formik.values));
 
       navigate("/");

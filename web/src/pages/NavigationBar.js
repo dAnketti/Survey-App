@@ -39,8 +39,8 @@ function NavigationBar() {
                   Signed in as:{" "}
                   <a href="#login">
                     {localStorage
-                      .getItem("username")
-                      .slice(0, localStorage.getItem("username").indexOf("@"))}
+                      .getItem("email")
+                      .slice(0, localStorage.getItem("email").indexOf("@"))}
                   </a>
                 </span>
               </Navbar.Text>

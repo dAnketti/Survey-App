@@ -5,24 +5,25 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../../api/ApiCalls";
 
 function Login() {
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     onSubmit: (values) => {
       console.log(values);
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (values.username == user.email && values.password == user.password) {
-        localStorage.setItem("username", values.username);
-        localStorage.setItem("password", values.password);
-        navigate("/home");
-      } else {
-        alert("Kullanıcı adı veya şifre hatalı");
-      }
+      login(values).then((res) => {
+        if (res.status == 200) {
+          alert(res.data);
+          navigate("/home");
+        } else {
+          alert("Kullanıcı adı veya şifre hatalı");
+        }
+      });
     },
   });
 
@@ -38,8 +39,8 @@ function Login() {
               <Form.Control
                 id="floatingInputCustom"
                 type="email"
-                name="username"
-                value={formik.values.username}
+                name="email"
+                value={formik.values.email}
                 placeholder="name@example.com"
                 onChange={formik.handleChange}
               />
