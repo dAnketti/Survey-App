@@ -1,7 +1,10 @@
 package com.amateurj.service;
 
-import com.amateurj.repository.IUserRepository;
-import com.amateurj.repository.entity.Auth;
+import com.amateurj.dto.request.LoginRequestDto;
+import com.amateurj.dto.request.RegisterRequestDto;
+import com.amateurj.mapper.IUserMapper;
+import com.amateurj.repository.IAuthUserRepository;
+import com.amateurj.repository.entity.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,23 +14,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final IUserRepository iUserRepository ;
+    private final IAuthUserRepository iAuthUserRepository;
 
-    public void save ( Auth auth) {
-        iUserRepository.save ( auth );
+    private final IUserMapper iUserMapper;
+
+    public void save ( AuthUser authUser) {
+        iAuthUserRepository.save (authUser);
     }
 
-    public void update ( Auth auth) {
-        iUserRepository.save ( auth );
+    public AuthUser saveReturnUser(RegisterRequestDto dto){
+        AuthUser authUser = iUserMapper.registerToUser(dto);
+        return iAuthUserRepository.save(authUser);
     }
 
-    public void delete ( Auth auth) {
-        iUserRepository.delete ( auth );
+    public void update ( AuthUser authUser) {
+        iAuthUserRepository.save (authUser);
     }
 
-    public List<Auth> findAll () {
+    public void delete ( AuthUser authUser) {
+        iAuthUserRepository.delete (authUser);
+    }
 
-        return iUserRepository.findAll ();
+    public List<AuthUser> findAll () {
+
+        return iAuthUserRepository.findAll ();
+    }
+
+    public void findByEmailAndPassword (LoginRequestDto loginRequestDto){
+        iAuthUserRepository.findByEmailAndPassword(loginRequestDto.getEmail(), loginRequestDto.getPassword());
     }
 
 
