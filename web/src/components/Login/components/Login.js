@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../../Login.css";
 import { useFormik } from "formik";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -15,9 +15,17 @@ function Login() {
     },
     onSubmit: (values) => {
       console.log(values);
-      navigate("/home");
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (values.username == user.email && values.password == user.password) {
+        localStorage.setItem("username", values.username);
+        localStorage.setItem("password", values.password);
+        navigate("/home");
+      } else {
+        alert("Kullanıcı adı veya şifre hatalı");
+      }
     },
   });
+
   return (
     <div className="container">
       <div className="row">

@@ -1,15 +1,18 @@
 import React from "react";
-import { Navigate, Redirect } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap-floating-label";
 import "../../../Login.css";
 import { useFormik } from "formik";
-import Home from "../../../pages/Home";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Register() {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+  let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
+      localStorageKey: 0,
       name: "",
       phoneNumber: "",
       email: "",
@@ -18,10 +21,12 @@ function Register() {
     },
     onSubmit: (values) => {
       console.log(values);
+      localStorage.setItem(`user`, JSON.stringify(formik.values));
 
-      <Navigate to="/home" />;
+      navigate("/");
     },
   });
+
   return (
     <div>
       <div className="container">

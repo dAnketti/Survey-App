@@ -15,10 +15,10 @@ function Home(props) {
   return (
     <div>
       <NavigationBar />
-      <Container className="text-center">
+      <Container className="text-center ">
         <Row>
           <Col md={5}>
-            <a href="">
+            <a href="/form">
               <Image src={logoDanket} alt="some pic" width={"300px"} />
             </a>
           </Col>
