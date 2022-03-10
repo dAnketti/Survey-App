@@ -35,7 +35,7 @@ function Login() {
                 placeholder="name@example.com"
                 onChange={formik.handleChange}
               />
-              <label htmlFor="floatingInputCustom">Email address</label>
+              <label htmlFor="floatingInputCus">Email address</label>
             </Form.Floating>
             <Form.Floating>
               <Form.Control
@@ -50,7 +50,7 @@ function Login() {
             </Form.Floating>
 
             <div className="d-grid mt-2 gap-2 ">
-              <Button variant="secondary" type="submit" size="md">
+              <Button variant="primary" type="submit" size="md">
                 Login
               </Button>
             </div>
@@ -62,17 +62,20 @@ function Login() {
               </div>
             </div>
 
-            <div className="d-flex justify-content-end ">
+            <div className="d-flex justify-content-end">
               <p>
-                Kaydolmak için{" "}
-                <Link to="/register" size="md">
-                  tıklayın
+                {" "}
+                <Link to="/register" size="md" className="link-prop">
+                  Click Here to Register
                 </Link>
               </p>
             </div>
             <div className="d-flex justify-content-end ">
               <p className="forgot-password text-right">
-                Forgot <a href="#">password?</a>
+                {" "}
+                <a href="#" className="link-prop">
+                  Forgot password?
+                </a>
               </p>
             </div>
           </form>

@@ -14,15 +14,15 @@ function NavigationBar() {
   return (
     <div>
       {/* navbar-start */}
-      <Navbar bg="light" expand="lg">
+      <Navbar expand="lg" className="navbar-bg">
         <Container>
-          <Navbar.Brand href="#home" img="">
-            Danket
+          <Navbar.Brand href="/home">
+            <Image src={logoDanket} alt="some pic" width={"30px"} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Ana Sayfa</Nav.Link>
+              <Nav.Link href="/home">AnaSayfa</Nav.Link>
 
               <NavDropdown title="Anketlerim" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Anket-1</NavDropdown.Item>
