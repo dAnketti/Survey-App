@@ -14,16 +14,19 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Auth implements Serializable {
+public class AuthUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
    private String name;
-   private String lastName;
    private String email;
-   private int status;
+   private String password;
+   private String phoneNumber;
+   //private int status;
    private long createdDate;
-   private long updateDate;
+   //private long updateDate;
+
+
 
 }
