@@ -30,7 +30,6 @@ function Form() {
               style={{ borderRadius: 10 }}
               src={logoDanket}
               alt=""
-              alt=""
               width="70"
             />
           </a>

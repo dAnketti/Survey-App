@@ -1,9 +1,11 @@
 import React from "react";
+import { Navigate, Redirect } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap-floating-label";
 import "../../../Login.css";
 import { useFormik } from "formik";
+import Home from "../../../pages/Home";
 
 function Register() {
   const formik = useFormik({
@@ -12,9 +14,12 @@ function Register() {
       phoneNumber: "",
       email: "",
       password: "",
+      createdDate: Date.now(),
     },
     onSubmit: (values) => {
       console.log(values);
+
+      <Navigate to="/home" />;
     },
   });
   return (

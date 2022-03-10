@@ -14,7 +14,6 @@ function Login() {
     },
     onSubmit: (values) => {
       console.log(values);
-      <Link></Link>;
     },
   });
   return (
