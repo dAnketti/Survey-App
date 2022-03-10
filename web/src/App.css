@@ -29,8 +29,6 @@ button > p {
   border-radius: 20px;
 }
 
-
-
 #option-button {
   text-decoration: none;
 }
@@ -39,4 +37,11 @@ button > p {
   padding: 10px 10px;
   font-size: 22px;
   border-radius: 8px;
+}
+
+.link-prop {
+  text-decoration: none;
+}
+.navbar-bg {
+  background-color: rgb(230, 224, 175) !important;
 }
