@@ -3,6 +3,7 @@ package com.amateurj.service;
 import com.amateurj.dto.request.LoginRequestDto;
 import com.amateurj.dto.request.RegisterRequestDto;
 import com.amateurj.dto.response.AuthIdDto;
+import com.amateurj.exception.AuthFailedException;
 import com.amateurj.manager.IUserManager;
 import com.amateurj.mapper.IAuthUserMapper;
 import com.amateurj.repository.IAuthUserRepository;
@@ -54,6 +55,8 @@ public class AuthService {
             String response = userManager.findUserByAuthId(authIdDto).getBody();
             return ResponseEntity.ok(response);
         }
-        return ResponseEntity.ok("Kullanıcı Bulunamadı");
+        else {
+            throw new AuthFailedException("Kullanıcı adı veya şifre hatalı");
+        }
     }
 }
