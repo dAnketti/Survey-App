@@ -12,4 +12,5 @@ public interface IAuthUserMapper {
     AuthUser registerToUser(RegisterRequestDto dto);
     @Mapping(source = "id",target = "authId")
     UserRequestDto toUserRequestDto(AuthUser dto);
+    //this is a mapper interface
 }
