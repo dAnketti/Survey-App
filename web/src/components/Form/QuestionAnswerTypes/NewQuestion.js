@@ -1,3 +1,4 @@
+import { Dropdown } from "react-bootstrap";
 import React, { useState } from "react";
 import {
   QUESTION_MULTIPLE,
@@ -38,15 +39,15 @@ const NewQuestion = (props) => {
     <div className="container">
       <div className="form-group row">
         <label for="content" class="col-sm-2 col-form-label">
-          Question{" "}
+          {" "}
         </label>
-        <div className="col-sm-10">
+        <div className="col-form-label">
           <textarea
             className="form-control col-mb-5"
             id="content"
             rows="3"
             value={content}
-            placeholder="Question text"
+            placeholder="Please enter yout question here"
             onChange={(event) => {
               setQuestion({ ...question, content: event.target.value });
             }}
@@ -54,43 +55,46 @@ const NewQuestion = (props) => {
         </div>
         <div className="form-group row">
           <label for="content" class="col-sm-2 col-form-label">
-            Answer Type{" "}
+            {" "}
           </label>
-          <div className="col-sm-10">
+          <div className="col-md-11">
             <div class="btn-group" role="group">
-              <button
-                className="btn btn-sm btn-primary ms-2"
-                onClick={(event) =>
-                  setQuestion({
-                    ...question,
-                    choseQuestionType: QUESTION_MULTIPLE,
-                  })
-                }
-              >
-                MultipleChoice{" "}
-              </button>
-              <button
-                className="btn btn-sm btn-primary ms-2"
-                onClick={(event) =>
-                  setQuestion({
-                    ...question,
-                    choseQuestionType: QUESTION_LINEER,
-                  })
-                }
-              >
-                Lineer Scale
-              </button>
-              <button
-                className="btn btn-sm btn-primary ms-2"
-                onClick={(event) =>
-                  setQuestion({
-                    ...question,
-                    choseQuestionType: QUESTION_PARAGRAPH,
-                  })
-                }
-              >
-                Paragraph
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle>Select question type</Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={(event) =>
+                      setQuestion({
+                        ...question,
+                        choseQuestionType: QUESTION_MULTIPLE,
+                      })
+                    }
+                  >
+                    Multiple Choice
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={(event) =>
+                      setQuestion({
+                        ...question,
+                        choseQuestionType: QUESTION_LINEER,
+                      })
+                    }
+                  >
+                    Lineer Scale Answer
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={(event) =>
+                      setQuestion({
+                        ...question,
+                        choseQuestionType: QUESTION_PARAGRAPH,
+                      })
+                    }
+                  >
+                    Paragraph
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </div>
@@ -127,7 +131,7 @@ const NewQuestion = (props) => {
             className="btn btn-primary"
             onClick={onSaveBtnClick}
           >
-            SAVE SURVEY
+            SAVE QUESTION
           </button>
         </div>
       </div>
