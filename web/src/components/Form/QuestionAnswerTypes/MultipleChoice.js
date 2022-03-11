@@ -29,37 +29,30 @@ function MultipleChoice(props) {
 
   return (
     <div>
-      <div className="row ">
-        <div className="col-sm-10">
-          {answers &&
-            answers.map((ans, index) => {
-              return (
-                <div className="list-group">
-                  <li className="list-group-item">
-                    <button
-                      className="btn btn-sm btn-danger ms-5"
-                      value={index}
-                      onClick={deleteAnswerToArray}
-                    >
-                      &times;
-                    </button>
-                    <input
-                      type="radio"
-                      key={index}
-                      id={index}
-                      placeholder={ans}
-                    />
-                    {ans}
-                  </li>
-                </div>
-              );
-            })}
-        </div>
-      </div>
+      {answers &&
+        answers.map((ans, index) => {
+          return (
+            <div className="row">
+              <div className="col col-md-11">
+                <input type="radio" key={index} id={index} placeholder={ans} />
+                {ans}
+              </div>
+              <div className="col col-md-1">
+                <button
+                  className="btn-sm btn-danger ms-2"
+                  value={index}
+                  onClick={deleteAnswerToArray}
+                >
+                  x
+                </button>
+              </div>
+            </div>
+          );
+        })}
 
       <div className="row">
         <label className="col-form-label">Add Choices</label>
-        <div className="input-group mb-3">
+        <div className="col col-md-11">
           <input
             class="form-control"
             type="text"
@@ -67,7 +60,10 @@ function MultipleChoice(props) {
             value={answer}
             onChange={answerChangeListener}
           />
-          <button className="btn btn-primary ms-2 " onClick={addAnswer}>
+        </div>
+        <div className="col col-md-1">
+          {" "}
+          <button className="btn btn-sm btn-primary ms-2 " onClick={addAnswer}>
             +
           </button>
         </div>

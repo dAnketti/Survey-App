@@ -25,50 +25,53 @@ const LineerScaleAnswer = (props) => {
       <div className="row">
         <div className="col col-md-4">
           <p>Min Value</p>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary">
-              {minValue + "" || "En Küçük"}
-            </Dropdown.Toggle>
+          <span>
+            <Dropdown>
+              <Dropdown.Toggle variant="primary">
+                {minValue + "" || "En Küçük"}
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item
-                eventKey="0"
-                onClick={(event) => {
-                  setMinValue(parseInt(event.target.innerHTML));
-                }}
-              >
-                0
-              </Dropdown.Item>
-              <Dropdown.Item
-                eventKey="1"
-                onClick={(event) => {
-                  setMinValue(parseInt(event.target.innerHTML));
-                }}
-              >
-                1
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  eventKey="0"
+                  onClick={(event) => {
+                    setMinValue(parseInt(event.target.innerHTML));
+                  }}
+                >
+                  0
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="1"
+                  onClick={(event) => {
+                    setMinValue(parseInt(event.target.innerHTML));
+                  }}
+                >
+                  1
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Dropdown>
+              <Dropdown.Toggle variant="primary">
+                {maxValue || "En Büyük"}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {[...Array(9)].map((x, i) => (
+                  <Dropdown.Item
+                    eventKey={i + 2}
+                    onClick={(event) => {
+                      setMaxValue(parseInt(event.target.innerHTML));
+                    }}
+                  >
+                    {i + 2}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </span>
         </div>
         <div className="col col-md-4">
           <p>Max Value</p>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary">
-              {maxValue || "En Büyük"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {[...Array(9)].map((x, i) => (
-                <Dropdown.Item
-                  eventKey={i + 2}
-                  onClick={(event) => {
-                    setMaxValue(parseInt(event.target.innerHTML));
-                  }}
-                >
-                  {i + 2}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
         </div>
       </div>
       {/* Lineer değer açıklamaları */}
