@@ -17,6 +17,7 @@ function Login() {
     onSubmit: (values) => {
       console.log(values);
       login(values).then((res) => {
+        console.log(res);
         if (res.status == 200) {
           alert(res.data);
           navigate("/home");

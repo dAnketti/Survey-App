@@ -36,12 +36,7 @@ function NavigationBar() {
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 <span>
-                  Signed in as:{" "}
-                  <a href="#login">
-                    {localStorage
-                      .getItem("email")
-                      .slice(0, localStorage.getItem("email").indexOf("@"))}
-                  </a>
+                  Signed in as: <a href="#login"></a>
                 </span>
               </Navbar.Text>
               <Navbar.Text gap={2}>

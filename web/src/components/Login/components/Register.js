@@ -25,7 +25,6 @@ function Register() {
       register(values).then((res) => {
         alert(res.data);
       });
-      localStorage.setItem(`user`, JSON.stringify(formik.values));
 
       navigate("/");
     },
