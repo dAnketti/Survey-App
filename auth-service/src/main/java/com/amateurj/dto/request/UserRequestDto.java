@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class FindByAuthIdDto {
-    private long id;
+public class UserRequestDto {
+    private long authId;
+    private String name;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private long createdDate;
 }

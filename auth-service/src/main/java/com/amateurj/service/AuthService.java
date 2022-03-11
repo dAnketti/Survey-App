@@ -2,47 +2,58 @@ package com.amateurj.service;
 
 import com.amateurj.dto.request.LoginRequestDto;
 import com.amateurj.dto.request.RegisterRequestDto;
-import com.amateurj.mapper.IUserMapper;
+import com.amateurj.dto.response.AuthIdDto;
+import com.amateurj.manager.IUserManager;
+import com.amateurj.mapper.IAuthUserMapper;
 import com.amateurj.repository.IAuthUserRepository;
 import com.amateurj.repository.entity.AuthUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final IAuthUserRepository iAuthUserRepository;
+    private final IAuthUserRepository authUserRepository;
 
-    private final IUserMapper iUserMapper;
+    private final IAuthUserMapper authUserMapper;
+
+    private final IUserManager userManager;
 
     public void save ( AuthUser authUser) {
-        iAuthUserRepository.save (authUser);
+        authUserRepository.save (authUser);
     }
 
     public AuthUser saveReturnUser(RegisterRequestDto dto){
-        AuthUser authUser = iUserMapper.registerToUser(dto);
-        return iAuthUserRepository.save(authUser);
+        AuthUser authUser = authUserMapper.registerToUser(dto);
+        return authUserRepository.save(authUser);
     }
 
     public void update ( AuthUser authUser) {
-        iAuthUserRepository.save (authUser);
+        authUserRepository.save (authUser);
     }
 
     public void delete ( AuthUser authUser) {
-        iAuthUserRepository.delete (authUser);
+        authUserRepository.delete (authUser);
     }
 
     public List<AuthUser> findAll () {
 
-        return iAuthUserRepository.findAll ();
+        return authUserRepository.findAll ();
     }
 
-    public void findByEmailAndPassword (LoginRequestDto loginRequestDto){
-        iAuthUserRepository.findByEmailAndPassword(loginRequestDto.getEmail(), loginRequestDto.getPassword());
+    public ResponseEntity<String> getUser(LoginRequestDto loginDto){
+        Optional<AuthUser> authUser = authUserRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
+        if (authUser.isPresent()){
+            AuthIdDto authIdDto = new AuthIdDto();
+            authIdDto.setAuthId(authUser.get().getId());
+            String response = userManager.findUserByAuthId(authIdDto).getBody();
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.ok("Kullanıcı Bulunamadı");
     }
-
-
 }
