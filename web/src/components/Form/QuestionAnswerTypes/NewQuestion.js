@@ -58,7 +58,7 @@ const NewQuestion = (props) => {
             {" "}
           </label>
           <div className="col-md-11">
-            <div class="btn-group" role="group">
+            <div class="btn-group mb-3" role="group">
               <Dropdown>
                 <Dropdown.Toggle>Select question type</Dropdown.Toggle>
 
