@@ -1,23 +1,23 @@
 import React from "react";
 import PreviewQuestion from "./PreviewQuestion";
+import { useDispatch, useSelector } from "react-redux";
 
 const AllQuestionsPreview = (props) => {
-  const { questions } = props;
+  
+  const { survey: tempSurvey } = useSelector(store => ({ survey: store.survey }));
 
   return (
     <div id="question-area" className="mt-5">
       <h1>Survey Preview</h1>
-      {questions &&
-        questions.map((question, index) => {
-          return (
+      {tempSurvey.questions &&
+      Object.entries(tempSurvey.questions).map(([key,question],index)=>(                
             <>
-              <PreviewQuestion
-                caption={`soru ${index + 1}`}
+              <PreviewQuestion                
                 question={question}
               />
             </>
-          );
-        })}
+          
+      ))}
     </div>
   );
 };

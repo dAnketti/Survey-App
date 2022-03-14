@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { QUESTION_MULTIPLE } from '../shared/Constants.js';
 import surveyReducer from './surveyReducer.js';
   
 
@@ -15,9 +16,9 @@ let survey_app= {
         id:"",
         order:"",
         subject:"",
-        chooseQuestionType: "",
+        chooseQuestionType: QUESTION_MULTIPLE,
         content: "",    
-        answers: []     
+        answers: {}     
       },
     survey: {
         id:"",
@@ -26,7 +27,7 @@ let survey_app= {
         startDate:0,
         expirationDate:0,
         isDraft:true,
-        questions:[]   
+        questions:{}   
       }  
 };   
 

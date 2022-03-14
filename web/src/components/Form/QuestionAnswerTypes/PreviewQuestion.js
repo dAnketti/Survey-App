@@ -1,30 +1,46 @@
 import React from 'react';
-import { QUESTION_MULTIPLE, QUESTION_PARAGRAPH } from '../../../shared/Constants';
+import { useDispatch } from 'react-redux';
+import { deleteQuestionByOrderInSurvey } from '../../../redux/surveyActions';
+import { QUESTION_MULTIPLE, QUESTION_PARAGRAPH,QUESTION_LINEER } from '../../../shared/Constants';
 
 const PreviewQuestion = (props) => {
-    const {question,caption}= props;
-    const {content,choseQuestionType,answers}=question;
-    const randomUUD=parseInt(Math.random()*200);
+    const {question}= props;
+    const {content,chooseQuestionType,answers,order}=question;
+    
+    const dispatch=useDispatch();
+
+    const deleteClickQuestionByOrderInSurvey= (event)=>{
+        dispatch(deleteQuestionByOrderInSurvey(order));
+    }
     return (
-        <div>
-            <h4>{caption}</h4>
+        <div >
+            <div className='row d-flex '>
+                <div className='col d-flex'>
+                    <h4 className='float-left'>{`Soru : ${order}`}</h4>
+                </div>
+                <div className='col d-flex float-right'>
+                    <span  class="material-icons float-right" style={{ cursor: 'pointer' }} onClick={deleteClickQuestionByOrderInSurvey} >delete</span>
+                    <span class="material-icons float-right">arrow_drop_up</span>
+                    <span class="material-icons float-right">arrow_drop_down</span>
+                </div>
+            </div>
             <label>{content}</label> 
            <ol>
-            {      
+            {   chooseQuestionType===QUESTION_PARAGRAPH 
+                    ? <textarea className="form-control" id="content" rows="3"  placeholder="Cevap Metni kullanıcı tarafından girilecek" ></textarea> 
+                    :    
                 answers && Object.entries(answers).map(([key,answer],index)=>(
                     <>
-                    {choseQuestionType===QUESTION_PARAGRAPH 
-                    ? <textarea className="form-control" id="content" rows="3"  placeholder="Cevap Metni kullanıcı tarafından girilecek" ></textarea> 
-                    : choseQuestionType===QUESTION_MULTIPLE ? 
+                    {chooseQuestionType===QUESTION_MULTIPLE ? 
                     <div className="form-check">
-                        <input className="form-check-input" id={`${randomUUD}-${key}`}  type="radio"  name={randomUUD} />
-                        <label className="form-check-label ms-2" for={`${randomUUD}-${key}`} >
+                        <input className="form-check-input" id={`${order}-${key}`}  type="radio"  name={order} />
+                        <label className="form-check-label ms-2" for={`${order}-${key}`} >
                             {answer}
                         </label>
-                    </div> : 
+                    </div> : chooseQuestionType===QUESTION_LINEER &&
                     <li value={key}>
-                        <input className="form-check-input" id={`${randomUUD}-${key}`} type="radio" name={randomUUD}/>                            
-                        <label className="form-check-label ms-2" for={`${randomUUD}-${key}`}>
+                        <input className="form-check-input" id={`${order}-${key}`} type="radio" name={order}/>                            
+                        <label className="form-check-label ms-2" for={`${order}-${key}`}>
                             {answer}
                         </label>                           
                     

@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Dropdown } from "react-bootstrap";
+import Stack from "react-bootstrap/Stack";
+import { useDispatch, useSelector } from "react-redux";
+import {updateAnswers} from '../../../redux/surveyActions';
 const LineerScaleAnswer = (props) => {
- 
+  const { answers: tempAnswers } = useSelector(store => ({ answers: store.question.answers }));
   const [minValue, setMinValue] = useState(parseInt(0));
   const [maxValue, setMaxValue] = useState(5);
-  const [answerArray, setAnswerArray] = useState({});
-
-
+  const dispatch=useDispatch();
 
   const onChangeAnswer = (event) => {
     const { name, value } = event.target;
-    setAnswerArray({
-      ...answerArray,
+    const answers={
+      ...tempAnswers,
       [name]: value,
-    });
+    };
+    dispatch(updateAnswers(answers));
   };
 
   return (
@@ -24,10 +26,12 @@ const LineerScaleAnswer = (props) => {
         <div className="col col-md-4">
           <p>Min Value</p>
           <span>
-            <Dropdown>
-              <Dropdown.Toggle variant="primary">
-                {minValue + "" || "En Küçük"}
-              </Dropdown.Toggle>
+            <Stack direction="horizontal" gap={3}>
+              <p>Min / Max Value </p>
+              <Dropdown>
+                <Dropdown.Toggle variant="primary">
+                  {minValue + "" || "En Küçük"}
+                </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item
@@ -66,6 +70,7 @@ const LineerScaleAnswer = (props) => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
+            </Stack>
           </span>
         </div>
         <div className="col col-md-4">
@@ -77,15 +82,17 @@ const LineerScaleAnswer = (props) => {
       <ul class="list-group">
         {[...Array(minValue === 0 ? maxValue + 1 : maxValue)].map((x, i) => (
           <li class="list-group-item">
+           
             <div className="row">
               <div className="col col-1">
                 <span>{i + minValue})</span>
               </div>
               <div className="col col-8">
-                <input
-                  name={i + minValue}
-                  type="text"
+                <input                  
+                  type="text"  
+                  name={parseInt(i+minValue)}              
                   onChange={onChangeAnswer}
+                  placeholder="options description"
                 />
               </div>
             </div>
