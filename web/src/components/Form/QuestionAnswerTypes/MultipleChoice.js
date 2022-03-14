@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function MultipleChoice(props) {
+  
   const { answerCallbackHandler } = props;
   const [answers, setAnswers] = useState([]);
 
