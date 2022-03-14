@@ -9,6 +9,7 @@ const AllQuestionsPreview = (props) => {
       <h1>Survey Preview</h1>
       {questions &&
         questions.map((question, index) => {
+          localStorage.setItem(`soru ${index + 1}`, JSON.stringify(question));
           return (
             <>
               <PreviewQuestion
