@@ -27,7 +27,7 @@ const LineerScaleAnswer = (props) => {
         <div className="col col-md-4">
           <span>
             <Stack direction="horizontal" gap={3}>
-              <p>Min / Max Value</p>
+              <p>Min / Max Value </p>
               <Dropdown>
                 <Dropdown.Toggle variant="primary">
                   {minValue + "" || "En Küçük"}
