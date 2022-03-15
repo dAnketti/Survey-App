@@ -1,8 +1,11 @@
 import React from "react";
 import PreviewQuestion from "./PreviewQuestion";
+import { useDispatch, useSelector } from "react-redux";
 
 const AllQuestionsPreview = (props) => {
-  const { questions } = props;
+  const { survey: tempSurvey } = useSelector((store) => ({
+    survey: store.survey,
+  }));
 
   return (
     <div
@@ -10,18 +13,12 @@ const AllQuestionsPreview = (props) => {
       className="mt-5 background-color-light color-dark border border-dark "
     >
       <h1>Survey Preview</h1>
-      {questions &&
-        questions.map((question, index) => {
-          localStorage.setItem(`soru ${index + 1}`, JSON.stringify(question));
-          return (
-            <>
-              <PreviewQuestion
-                caption={`soru ${index + 1}`}
-                question={question}
-              />
-            </>
-          );
-        })}
+      {tempSurvey.questions &&
+        tempSurvey.questions.map((question, index) => (
+          <>
+            <PreviewQuestion question={question.question} />
+          </>
+        ))}
     </div>
   );
 };

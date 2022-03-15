@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { QUESTION_MULTIPLE } from '../shared/Constants.js';
 import surveyReducer from './surveyReducer.js';
   
 
@@ -15,9 +16,9 @@ let survey_app= {
         id:"",
         order:"",
         subject:"",
-        chooseQuestionType: "",
+        chooseQuestionType: QUESTION_MULTIPLE,
         content: "",    
-        answers: []     
+        answers: {}     
       },
     survey: {
         id:"",
@@ -31,14 +32,22 @@ let survey_app= {
 };   
 
 if(survey_state){
-    survey_app= JSON.parse(survey_app);
+    survey_app= JSON.parse(survey_state);
 }  
   
+
+const updateStateInStorage = newState => {
+    localStorage.setItem('survey_app', JSON.stringify(newState));
+  };
 
 const ConfigureStore = () => {
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(surveyReducer, survey_app, composeEnhancers(applyMiddleware(thunk)));
+
+  store.subscribe(() => {
+    updateStateInStorage(store.getState());   
+  });
 
   
       return store;

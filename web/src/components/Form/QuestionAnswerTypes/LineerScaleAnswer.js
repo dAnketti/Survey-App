@@ -3,28 +3,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Dropdown } from "react-bootstrap";
 import Stack from "react-bootstrap/Stack";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAnswers } from "../../../redux/surveyActions";
 const LineerScaleAnswer = (props) => {
-  const { answerCallbackHandler } = props;
+  const { answers: tempAnswers } = useSelector((store) => ({
+    answers: store.question.answers,
+  }));
   const [minValue, setMinValue] = useState(parseInt(0));
   const [maxValue, setMaxValue] = useState(5);
-  const [answerArray, setAnswerArray] = useState({});
-
-  useEffect(() => {
-    answerCallbackHandler(answerArray);
-  }, [answerArray]);
+  const dispatch = useDispatch();
 
   const onChangeAnswer = (event) => {
     const { name, value } = event.target;
-    setAnswerArray({
-      ...answerArray,
+    const answers = {
+      ...tempAnswers,
       [name]: value,
-    });
+    };
+    dispatch(updateAnswers(answers));
   };
 
   return (
     <div className="container">
-      <div className="row mb-3">
+      <div className="row">
         <div className="col col-md-4">
+          <p>Min Value</p>
           <span>
             <Stack direction="horizontal" gap={3}>
               <p>Min / Max Value </p>
@@ -74,7 +76,9 @@ const LineerScaleAnswer = (props) => {
             </Stack>
           </span>
         </div>
-        <div className="col col-md-4"></div>
+        <div className="col col-md-4">
+          <p>Max Value</p>
+        </div>
       </div>
       {/* Lineer değer açıklamaları */}
 
@@ -87,9 +91,10 @@ const LineerScaleAnswer = (props) => {
               </div>
               <div className="col col-8">
                 <input
-                  name={i + minValue}
                   type="text"
+                  name={parseInt(i + minValue)}
                   onChange={onChangeAnswer}
+                  placeholder="options description"
                 />
               </div>
             </div>

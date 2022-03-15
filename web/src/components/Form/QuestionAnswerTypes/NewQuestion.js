@@ -1,5 +1,7 @@
 import { Dropdown } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {newQuestionAction,addQuestionToTheSurvey, clearQuestionAction} from '../../../redux/surveyActions';
 import {
   QUESTION_MULTIPLE,
   QUESTION_LINEER,
@@ -8,32 +10,43 @@ import {
 import LineerScaleAnswer from "./LineerScaleAnswer";
 import MultipleChoice from "./MultipleChoice";
 
-const NewQuestion = (props) => {
-  const { callbackHandlerAllQuestions } = props;
-  const [question, setQuestion] = useState({
-    content: "",
-    answers: [],
-    choseQuestionType: QUESTION_MULTIPLE,
-  });
 
-  const answerCallbackHandler = (answers) => {
-    setQuestion({
-      ...question,
-      answers: answers,
-    });
-  };
+
+const NewQuestion = (props) => {
+  let { question: tempQuestion } = useSelector(store => ({ question: store.question }));
+  const [content,setContent]=useState(tempQuestion.content);
+  const [chooseQuestionType,setChooseQuestionType]=useState(tempQuestion.chooseQuestionType);
+
+  const dispatch=useDispatch();
+       
+  useEffect( ()=>{
+    dispatch(newQuestionAction(      
+      {
+        ...tempQuestion, 
+        content
+      }
+    ))
+  },[content]);
+
+  useEffect( ()=>{
+    dispatch(newQuestionAction(      
+      {
+        ...tempQuestion, 
+        chooseQuestionType
+      }
+    ))
+  },[chooseQuestionType])
+
 
   const onSaveBtnClick = (event) => {
-    callbackHandlerAllQuestions(question);
-
-    setQuestion({
-      content: "",
-      answers: [],
-      choseQuestionType: QUESTION_MULTIPLE,
-    });
+    if(content){      
+      dispatch(addQuestionToTheSurvey(tempQuestion))
+      dispatch(clearQuestionAction())
+      setContent("");
+    }
   };
 
-  const { choseQuestionType, content, answers } = question;
+  
 
   return (
     <div className="container border border-dark">
@@ -48,8 +61,9 @@ const NewQuestion = (props) => {
             rows="3"
             value={content}
             placeholder="Please enter yout question here"
+            value={content}
             onChange={(event) => {
-              setQuestion({ ...question, content: event.target.value });
+              setContent(event.target.value)
             }}
           ></textarea>
         </div>
@@ -67,30 +81,21 @@ const NewQuestion = (props) => {
                 <Dropdown.Menu>
                   <Dropdown.Item
                     onClick={(event) =>
-                      setQuestion({
-                        ...question,
-                        choseQuestionType: QUESTION_MULTIPLE,
-                      })
+                      setChooseQuestionType(QUESTION_MULTIPLE)
                     }
                   >
                     Multiple Choice
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={(event) =>
-                      setQuestion({
-                        ...question,
-                        choseQuestionType: QUESTION_LINEER,
-                      })
+                      setChooseQuestionType(QUESTION_LINEER)
                     }
                   >
                     Lineer Scale Answer
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={(event) =>
-                      setQuestion({
-                        ...question,
-                        choseQuestionType: QUESTION_PARAGRAPH,
-                      })
+                      setChooseQuestionType(QUESTION_PARAGRAPH)
                     }
                   >
                     Paragraph
@@ -102,22 +107,16 @@ const NewQuestion = (props) => {
         </div>
       </div>
 
-      {choseQuestionType === QUESTION_MULTIPLE ? (
-        <MultipleChoice
-          isEmpty={answers}
-          answerCallbackHandler={answerCallbackHandler}
-        />
-      ) : choseQuestionType === QUESTION_LINEER ? (
-        <LineerScaleAnswer
-          isEmpty={answers}
-          answerCallbackHandler={answerCallbackHandler}
-        />
+      {chooseQuestionType === QUESTION_MULTIPLE ? (
+        <MultipleChoice    />
+      ) : chooseQuestionType === QUESTION_LINEER ? (
+        <LineerScaleAnswer   />
       ) : (
         <div className="col-sm-10">
           <textarea
             className="form-control"
             id="content"
-            rows="3"
+            rows="1"
             disabled="true"
             placeholder="Answer will create by user "
           ></textarea>

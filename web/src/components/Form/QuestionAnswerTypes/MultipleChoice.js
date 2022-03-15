@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from "react";
-
+import React, {  useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {updateAnswers} from '../../../redux/surveyActions';
 function MultipleChoice(props) {
-  const { answerCallbackHandler } = props;
-  const [answers, setAnswers] = useState([]);
-
+  let { answers: tempAnswers } = useSelector(store => ({ answers: store.question.answers }));
   const [answer, setAnswer] = useState();
-  useEffect(() => {
-    answerCallbackHandler(answers);
-  }, [answers]);
+  const dispatch=useDispatch();
+  const [length,setLenght]=useState(0);
   //State de tanımlı listemize input daki değeri ekliyor.
-  const addAnswer = () => {
-    answer && setAnswers((oldAnswers) => [...oldAnswers, answer]);
+
+  useEffect( ()=>{
+    setLenght(length+1)    
+  },[tempAnswers]
+
+  )
+  const addAnswer = (key) => {
+    
+    tempAnswers={
+      ...tempAnswers,
+      [length]:answer
+    }
+
+    dispatch(updateAnswers(tempAnswers));
     setAnswer("");
   };
   //input'daki değişiklikleri dinleyip answer değişkenini güncelliyor.
@@ -19,19 +29,23 @@ function MultipleChoice(props) {
   };
 
   const deleteAnswerToArray = (event) => {
-    const array = [...answers];
+    
     const index = event.target.value;
     if (index !== undefined && index !== -1) {
-      array.splice(index, 1);
-      setAnswers(array);
+     
+      const array={
+        ...tempAnswers    
+      }
+      delete array[index]
+      dispatch(updateAnswers(array));
     }
   };
 
   return (
     <div>
-      {answers &&
-        answers.map((ans, index) => {
-          return (
+      {tempAnswers &&
+      Object.entries(tempAnswers).map(([key,ans],index)=>         
+           (
             <div className="row">
               <div className="col col-md-11">
                 <input type="radio" key={index} id={index} placeholder={ans} />
@@ -40,15 +54,15 @@ function MultipleChoice(props) {
               <div className="col col-md-1">
                 <button
                   className="btn-sm btn-danger ms-2"
-                  value={index}
+                  value={key}
                   onClick={deleteAnswerToArray}
                 >
                   x
                 </button>
               </div>
             </div>
-          );
-        })}
+          )
+        )}
 
       <div className="row">
         <label className="col-form-label">Add Choices</label>

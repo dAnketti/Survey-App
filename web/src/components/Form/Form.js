@@ -6,19 +6,14 @@ import NewQuestion from "./QuestionAnswerTypes/NewQuestion";
 import NavigationBar from "../../pages/NavigationBar";
 
 function Form() {
-  const [questions, setQuestions] = useState([]);
-
-  const callbackHandlerAllQuestions = (q) => {
-    setQuestions((questions) => [...questions, q]);
-  };
-
+  
   return (
     <div className="text-left col-mt-50">
       <NavigationBar />
       {/* Tüm Sorular gösterildiği Satırı */}
       <div className="container col-md-6">
         <div>
-          <AllQuestionsPreview questions={questions} />
+          <AllQuestionsPreview />
         </div>
 
         {/* Form Satırı */}
@@ -26,9 +21,7 @@ function Form() {
         <div className="row mt-5">
           <div id="question-area" className="col">
             {/* Yeni soru oluştur Satırı */}
-            <NewQuestion
-              callbackHandlerAllQuestions={callbackHandlerAllQuestions}
-            />
+            <NewQuestion />
           </div>
         </div>
       </div>
