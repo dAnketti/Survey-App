@@ -9,8 +9,7 @@ function MultipleChoice(props) {
   //State de tanımlı listemize input daki değeri ekliyor.
 
   useEffect( ()=>{
-    setLenght(length+1)
-    console.log("length: "+ length);
+    setLenght(length+1)    
   },[tempAnswers]
 
   )

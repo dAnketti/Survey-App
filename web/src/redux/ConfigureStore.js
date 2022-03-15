@@ -27,19 +27,27 @@ let survey_app= {
         startDate:0,
         expirationDate:0,
         isDraft:true,
-        questions:{}   
+        questions:[]   
       }  
 };   
 
 if(survey_state){
-    survey_app= JSON.parse(survey_app);
+    survey_app= JSON.parse(survey_state);
 }  
   
+
+const updateStateInStorage = newState => {
+    localStorage.setItem('survey_app', JSON.stringify(newState));
+  };
 
 const ConfigureStore = () => {
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(surveyReducer, survey_app, composeEnhancers(applyMiddleware(thunk)));
+
+  store.subscribe(() => {
+    updateStateInStorage(store.getState());   
+  });
 
   
       return store;

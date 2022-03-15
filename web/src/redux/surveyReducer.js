@@ -3,6 +3,7 @@ import {
   ADD_QUESTION_SURVEY, 
   NEW_QUESTION, 
   UPDATE_ANSWERS,
+  REPLACE_ORDER_NUMBER,
   DELETE_QUESTION_BY_ORDER,
   CLEAR_QUESTION_STATE } from './ReduceConstants';
 
@@ -30,7 +31,7 @@ let survey_app= {
         startDate:0,
         expirationDate:0,
         isDraft:true,
-        questions:{}  
+        questions:[]  
       }  
 };
 
@@ -56,13 +57,12 @@ const surveyReducer = (state = {...survey_app}, action) => {
           
         case ADD_QUESTION_SURVEY:
           let count=1;
-          state.survey.questions && Object.entries(state.survey.questions).map(([key,question],index)=>{
-            count=parseInt(question.order)+1;
-            console.log("reduce length: "+count)  
+          state.survey.questions 
+          && state.survey.questions.length>0  
+          && state.survey.questions.map((m,i)=>{console.log(m.order)
+          count=parseInt(m.order)+1;
           }); 
 
-               
-                  
         const question={
           ...action.question,
           order:parseInt(count)
@@ -72,8 +72,9 @@ const surveyReducer = (state = {...survey_app}, action) => {
               ...state,
               survey:{
                   ...state.survey,
-                questions:{...state.survey.questions,
-                  [count]:question}
+                questions:[...state.survey.questions,
+                  {order:count, question:question}
+                  ]
               }
               
           };
@@ -91,10 +92,27 @@ const surveyReducer = (state = {...survey_app}, action) => {
         case DELETE_QUESTION_BY_ORDER:
             
             const index = action.order;
-            const array={
-              ...state.survey.questions    
-            }
-            delete array[index]                    
+            let array=state.survey.questions.filter(
+              (value,i,arr)=>{
+                let or=value.order;              
+                return  or!==index
+              }                          
+            );
+            
+            array= array.filter(
+              (value,i,arr)=>{                
+                let q=value.question;
+                value.order=i+1;
+                q={
+                  ...q,
+                  order:parseInt(i)+1
+                };  
+                value.question=q;          
+                return value;
+              }                          
+            );
+            
+                              
             
           return {
               ...state,
@@ -104,9 +122,43 @@ const surveyReducer = (state = {...survey_app}, action) => {
               }
               
           };
-        default:
+        
+          case REPLACE_ORDER_NUMBER:
+            const tempQuestions=state.survey.questions;
+            const orderNum=parseInt(action.order)-1;
+            const process=action.process; // up/down
+            if(process==='down' && orderNum<(tempQuestions.length-1)){
+                let temp=tempQuestions[orderNum];
+                tempQuestions[orderNum]=tempQuestions[orderNum+1]; 
+                tempQuestions[orderNum].order=orderNum+1; 
+                tempQuestions[orderNum].question.order=orderNum+1;         
+                tempQuestions[orderNum+1]=temp;
+                tempQuestions[orderNum+1].order=orderNum+2;
+                tempQuestions[orderNum+1].question.order=orderNum+2;
+                
+                
+            }else if(process==='up' && orderNum>0){
+              let temp=tempQuestions[orderNum]; //2
+                tempQuestions[orderNum]=tempQuestions[orderNum-1]; //1
+                tempQuestions[orderNum].order=orderNum+1; 
+                tempQuestions[orderNum].question.order=orderNum+1;         
+                tempQuestions[orderNum-1]=temp;
+                tempQuestions[orderNum-1].order=orderNum;
+                tempQuestions[orderNum-1].question.order=orderNum;
+              
+            }
+
+            return{
+              ...state,
+              survey:{
+                ...state.survey,
+                questions:tempQuestions
+              } 
+            };
+          default:
           return state;
       }  
+      
 };
 
 export default surveyReducer;

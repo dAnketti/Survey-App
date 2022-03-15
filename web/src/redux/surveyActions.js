@@ -4,6 +4,7 @@ import {
   CLEAR_QUESTION_STATE,
   NEW_QUESTION,
   UPDATE_ANSWERS,
+  REPLACE_ORDER_NUMBER,
   DELETE_QUESTION_BY_ORDER
 } from "./ReduceConstants";
 
@@ -41,6 +42,14 @@ export const updateAnswers = answers => {
   return {
     type: UPDATE_ANSWERS,
     answers
+  };
+};
+
+export const replaceSequenceNumberWithAHigherSequenceNumber = (order,process) => {
+  return {
+    type: REPLACE_ORDER_NUMBER,
+    order,
+    process
   };
 };
 

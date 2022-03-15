@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteQuestionByOrderInSurvey } from '../../../redux/surveyActions';
+import { deleteQuestionByOrderInSurvey,replaceSequenceNumberWithAHigherSequenceNumber } from '../../../redux/surveyActions';
 import { QUESTION_MULTIPLE, QUESTION_PARAGRAPH,QUESTION_LINEER } from '../../../shared/Constants';
 
 const PreviewQuestion = (props) => {
@@ -12,16 +12,23 @@ const PreviewQuestion = (props) => {
     const deleteClickQuestionByOrderInSurvey= (event)=>{
         dispatch(deleteQuestionByOrderInSurvey(order));
     }
+
+    const replaceUp= ()=>{      
+        dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order,'up'))
+    }
+    const replaceDown= ()=>{    
+        dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order,'down'))
+    }
     return (
         <div >
             <div className='row d-flex '>
                 <div className='col d-flex'>
-                    <h4 className='float-left'>{`Soru : ${order}`}</h4>
+                    <h4 className='float-left'>{`Soru : ${order}`} </h4>
                 </div>
                 <div className='col d-flex float-right'>
                     <span  class="material-icons float-right" style={{ cursor: 'pointer' }} onClick={deleteClickQuestionByOrderInSurvey} >delete</span>
-                    <span class="material-icons float-right">arrow_drop_up</span>
-                    <span class="material-icons float-right">arrow_drop_down</span>
+                    <span class="material-icons float-right"  style={{ cursor: 'pointer' }} onClick={replaceUp}>arrow_drop_up </span>
+                    <span class="material-icons float-right"  style={{ cursor: 'pointer' }} onClick={replaceDown}>arrow_drop_down </span>
                 </div>
             </div>
             <label>{content}</label> 

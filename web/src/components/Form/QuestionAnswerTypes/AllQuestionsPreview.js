@@ -10,10 +10,10 @@ const AllQuestionsPreview = (props) => {
     <div id="question-area" className="mt-5">
       <h1>Survey Preview</h1>
       {tempSurvey.questions &&
-      Object.entries(tempSurvey.questions).map(([key,question],index)=>(                
-            <>
-              <PreviewQuestion                
-                question={question}
+      tempSurvey.questions.map((question,index)=>(                
+            <>                  
+              <PreviewQuestion                               
+                question={question.question}
               />
             </>
           

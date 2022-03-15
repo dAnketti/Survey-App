@@ -14,7 +14,7 @@ import MultipleChoice from "./MultipleChoice";
 
 const NewQuestion = (props) => {
   let { question: tempQuestion } = useSelector(store => ({ question: store.question }));
-  const [content,setContent]=useState();
+  const [content,setContent]=useState(tempQuestion.content);
   const [chooseQuestionType,setChooseQuestionType]=useState(tempQuestion.chooseQuestionType);
 
   const dispatch=useDispatch();
@@ -39,8 +39,11 @@ const NewQuestion = (props) => {
 
 
   const onSaveBtnClick = (event) => {
-    dispatch(addQuestionToTheSurvey(tempQuestion))
-    dispatch(clearQuestionAction())
+    if(content){      
+      dispatch(addQuestionToTheSurvey(tempQuestion))
+      dispatch(clearQuestionAction())
+      setContent("");
+    }
   };
 
   
@@ -58,6 +61,7 @@ const NewQuestion = (props) => {
             rows="3"
             value={content}
             placeholder="Please enter yout question here"
+            value={content}
             onChange={(event) => {
               setContent(event.target.value)
             }}
