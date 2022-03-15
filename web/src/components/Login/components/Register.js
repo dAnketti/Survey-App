@@ -37,7 +37,12 @@ function Register() {
           <div className="col-md-3"></div>
           <div className="col-md-6 mt-5 loginborder  shadow-lg">
             <form onSubmit={formik.handleSubmit}>
-              <h3>Register</h3>
+              <h3
+                className="
+                          color-primary"
+              >
+                Register
+              </h3>
 
               <Form.Floating className="mb-3">
                 <Form.Control
@@ -95,7 +100,12 @@ function Register() {
                 <Form.Check type="checkbox" label="Check me out" />
               </Form.Group>
               <div className="d-grid mt-2 gap-2 ">
-                <Button variant="primary" type="submit" size="md">
+                <Button
+                  variant="dark"
+                  type="submit"
+                  size="md"
+                  className="background-color-primary"
+                >
                   Register
                 </Button>
               </div>

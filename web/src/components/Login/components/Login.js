@@ -34,7 +34,12 @@ function Login() {
         <div className="col-md-3"></div>
         <div className="col-md-6 mt-5 loginborder  shadow-lg">
           <form onSubmit={formik.handleSubmit}>
-            <h3>Log in</h3>
+            <h3
+              className="
+            color-primary"
+            >
+              Log in
+            </h3>
 
             <Form.Floating className="mb-3">
               <Form.Control
@@ -60,7 +65,12 @@ function Login() {
             </Form.Floating>
 
             <div className="d-grid mt-2 gap-2 ">
-              <Button variant="primary" type="submit" size="md">
+              <Button
+                className="background-color-primary"
+                variant="dark"
+                type="submit"
+                size="md"
+              >
                 Login
               </Button>
             </div>
@@ -75,7 +85,11 @@ function Login() {
             <div className="d-flex justify-content-end">
               <p>
                 {" "}
-                <Link to="/register" size="md" className="link-prop">
+                <Link
+                  to="/register"
+                  size="md"
+                  className="link-prop color-primary"
+                >
                   Click Here to Register
                 </Link>
               </p>
@@ -83,7 +97,7 @@ function Login() {
             <div className="d-flex justify-content-end ">
               <p className="forgot-password text-right">
                 {" "}
-                <a href="#" className="link-prop">
+                <a href="#" className="link-prop color-primary">
                   Forgot password?
                 </a>
               </p>

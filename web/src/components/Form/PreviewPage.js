@@ -16,7 +16,7 @@ function PreviewPage(props) {
 
       <Container className="text-center ">
         <Row>
-          <Col className="bg-white" md={2}>
+          <Col className="background-color-primary" md={2}>
             <Accordion>
               <h4 className="mt-5">Surveys</h4>
               <Accordion.Item eventKey="0">

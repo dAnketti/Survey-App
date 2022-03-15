@@ -15,7 +15,7 @@ function NavigationBar() {
   return (
     <div>
       {/* navbar-start */}
-      <Navbar expand="lg" className="navbar-bg">
+      <Navbar expand="lg" className="background-color-mid color-light">
         <Container>
           <Navbar.Brand href="/home">
             <Image src={logoDanket} alt="some pic" width={"150px"} />
@@ -23,26 +23,40 @@ function NavigationBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/home">AnaSayfa</Nav.Link>
+              <Nav.Link className="color-light" href="/home">
+                AnaSayfa
+              </Nav.Link>
 
-              <NavDropdown title="Anketlerim" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Anket-1</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Anket-2</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Anket-3</NavDropdown.Item>
+              <NavDropdown
+                className="color-light"
+                title="Anketlerim"
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item className="color-dark" href="#action/3.1">
+                  Anket-1
+                </NavDropdown.Item>
+                <NavDropdown.Item className="color-dark" href="#action/3.2">
+                  Anket-2
+                </NavDropdown.Item>
+                <NavDropdown.Item className="color-dark" href="#action/3.3">
+                  Anket-3
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
           <Nav>
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
-                <span>
+                <span className="color-light">
                   Signed in as: <a href="#login"></a>
                 </span>
               </Navbar.Text>
               <Navbar.Text gap={2}>
-                <span>
+                <span className="color-light">
                   {" "}
-                  <a href="/">Çıkış</a>{" "}
+                  <a className="color-light" href="/">
+                    Çıkış
+                  </a>{" "}
                 </span>
               </Navbar.Text>
             </Navbar.Collapse>

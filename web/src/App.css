@@ -24,9 +24,10 @@ button > p {
 }
 
 #question-area {
-  background: rgba(223, 225, 195, 0.3);
-  padding: 30px;
-  border-radius: 20px;
+  background: #eeeeee;
+  padding: 40px;
+  border: 15px;
+  border-radius: 5%;
 }
 
 #option-button {
@@ -37,11 +38,57 @@ button > p {
   padding: 10px 10px;
   font-size: 22px;
   border-radius: 8px;
+  opacity: 75%;
 }
 
 .link-prop {
   text-decoration: none;
 }
-.navbar-bg {
-  background-color: rgb(230, 224, 175) !important;
+
+.color-dark {
+  color: #222831 !important;
+}
+
+.color-mid {
+  color: #393e46 !important;
+}
+
+.color-primary {
+  color: #00adb5 !important;
+}
+
+.color-light {
+  color: #eeeeee !important;
+}
+
+.background-color-dark {
+  background-color: #222831 !important;
+}
+
+.background-color-mid {
+  background-color: #393e46 !important;
+}
+
+.background-color-primary {
+  background-color: #00adb5 !important;
+  border-color: #222831 !important;
+}
+
+.background-color-light {
+  background-color: #eeeeee !important;
+}
+
+.border-color-primary {
+  border-color: #00adb5 !important;
+}
+
+body {
+  background-color: #eeeeee;
+}
+
+.loginborder {
+  padding: 40px;
+  border: 15px;
+  border-radius: 5%;
+  background-color: #eeeeee !important;
 }

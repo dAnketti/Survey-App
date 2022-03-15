@@ -13,7 +13,7 @@ import NavigationBar from "./NavigationBar";
 
 function Home(props) {
   return (
-    <div>
+    <div className="color-light">
       <NavigationBar />
       <Container className="text-center ">
         <Row>

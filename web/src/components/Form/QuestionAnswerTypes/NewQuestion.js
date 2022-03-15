@@ -36,8 +36,8 @@ const NewQuestion = (props) => {
   const { choseQuestionType, content, answers } = question;
 
   return (
-    <div className="container">
-      <div className="form-group row">
+    <div className="container border border-dark">
+      <div className="form-group row ">
         <label for="content" class="col-sm-2 col-form-label">
           {" "}
         </label>
@@ -58,9 +58,11 @@ const NewQuestion = (props) => {
             {" "}
           </label>
           <div className="col-md-11">
-            <div class="btn-group mb-3" role="group">
+            <div class="btn-group mb-3 color-primary " role="group">
               <Dropdown>
-                <Dropdown.Toggle>Select question type</Dropdown.Toggle>
+                <Dropdown.Toggle className="background-color-primary ">
+                  Select question type
+                </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                   <Dropdown.Item
@@ -125,10 +127,10 @@ const NewQuestion = (props) => {
       <div className="form-group row">
         <div className="d-grid mt-2 gap-2">
           <button
-            variant="secondary"
+            variant="dark"
             type="submit"
             size="md"
-            className="btn btn-primary"
+            className="btn background-color-primary color-light"
             onClick={onSaveBtnClick}
           >
             SAVE QUESTION

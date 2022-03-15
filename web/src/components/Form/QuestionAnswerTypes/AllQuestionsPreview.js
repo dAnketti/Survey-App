@@ -5,7 +5,10 @@ const AllQuestionsPreview = (props) => {
   const { questions } = props;
 
   return (
-    <div id="question-area" className="mt-5">
+    <div
+      id="question-area"
+      className="mt-5 background-color-light color-dark border border-dark "
+    >
       <h1>Survey Preview</h1>
       {questions &&
         questions.map((question, index) => {

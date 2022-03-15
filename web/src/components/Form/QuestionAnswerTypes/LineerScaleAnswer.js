@@ -29,12 +29,13 @@ const LineerScaleAnswer = (props) => {
             <Stack direction="horizontal" gap={3}>
               <p>Min / Max Value </p>
               <Dropdown>
-                <Dropdown.Toggle variant="primary">
+                <Dropdown.Toggle variant="dark background-color-primary">
                   {minValue + "" || "En Küçük"}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                   <Dropdown.Item
+                    className="background-color-primary"
                     eventKey="0"
                     onClick={(event) => {
                       setMinValue(parseInt(event.target.innerHTML));
@@ -54,7 +55,7 @@ const LineerScaleAnswer = (props) => {
               </Dropdown>
 
               <Dropdown>
-                <Dropdown.Toggle variant="primary">
+                <Dropdown.Toggle variant="dark background-color-primary">
                   {maxValue || "En Büyük"}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>

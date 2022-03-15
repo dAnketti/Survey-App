@@ -63,7 +63,10 @@ function MultipleChoice(props) {
         </div>
         <div className="col col-md-1">
           {" "}
-          <button className="btn btn-sm btn-primary ms-2 " onClick={addAnswer}>
+          <button
+            className="btn btn-sm background-color-primary ms-2  "
+            onClick={addAnswer}
+          >
             +
           </button>
         </div>
