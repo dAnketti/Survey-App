@@ -5,6 +5,7 @@ import {
   UPDATE_ANSWERS,
   REPLACE_ORDER_NUMBER,
   DELETE_QUESTION_BY_ORDER,
+  UPDATE_QUESTION_IN_SURVEY,
   CLEAR_QUESTION_STATE } from './ReduceConstants';
 
 
@@ -20,7 +21,7 @@ let survey_app= {
         subject:"",
         chooseQuestionType: QUESTION_MULTIPLE,
         content: "",    
-        answers: {}
+        answers: []
         
       },
     survey: {
@@ -50,7 +51,7 @@ const surveyReducer = (state = {...survey_app}, action) => {
           return {
               ...state,
               question:{
-                ...action.question,
+                ...survey_app.question,
                 chooseQuestionType
               }
           };
@@ -123,7 +124,7 @@ const surveyReducer = (state = {...survey_app}, action) => {
               
           };
         
-          case REPLACE_ORDER_NUMBER:
+        case REPLACE_ORDER_NUMBER:
             const tempQuestions=state.survey.questions;
             const orderNum=parseInt(action.order)-1;
             const process=action.process; // up/down
@@ -155,7 +156,19 @@ const surveyReducer = (state = {...survey_app}, action) => {
                 questions:tempQuestions
               } 
             };
-          default:
+        
+        case UPDATE_QUESTION_IN_SURVEY:
+          const temp=state.survey.questions;
+          temp[parseInt(action.question.order)-1].question=action.question;
+
+          return {
+            ...state,
+            survey:{
+              ...state.survey,
+              questions:temp
+            }
+          }    
+            default:
           return state;
       }  
       

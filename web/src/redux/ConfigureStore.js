@@ -18,7 +18,7 @@ let survey_app= {
         subject:"",
         chooseQuestionType: QUESTION_MULTIPLE,
         content: "",    
-        answers: {}     
+        answers: []     
       },
     survey: {
         id:"",

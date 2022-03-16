@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
+  newQuestionAction,
   deleteQuestionByOrderInSurvey,
   replaceSequenceNumberWithAHigherSequenceNumber,
 } from "../../../redux/surveyActions";
@@ -26,6 +27,13 @@ const PreviewQuestion = (props) => {
   const replaceDown = () => {
     dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order, "down"));
   };
+
+ 
+
+  const updateClickQuestion=()=>{
+    console.log("update");
+    dispatch(newQuestionAction(question));
+  }
   return (
     <div>
       <div className="row d-flex ">
@@ -46,7 +54,7 @@ const PreviewQuestion = (props) => {
             onClick={replaceUp}
           >
             arrow_drop_up{" "}
-          </span>
+          </span>          
           <span
             class="material-icons float-right"
             style={{ cursor: "pointer" }}
@@ -54,9 +62,15 @@ const PreviewQuestion = (props) => {
           >
             arrow_drop_down{" "}
           </span>
+          <span class="material-icons" 
+          style={{ cursor: "pointer" }}
+          onClick={updateClickQuestion}>
+          edit
+          </span>
         </div>
       </div>
       <label>{content}</label>
+      <div>
       <ol>
         {chooseQuestionType === QUESTION_PARAGRAPH ? (
           <textarea
@@ -66,8 +80,10 @@ const PreviewQuestion = (props) => {
             placeholder="Cevap Metni kullanıcı tarafından girilecek"
           ></textarea>
         ) : (
-          answers &&
-          Object.entries(answers).map(([key, answer], index) => (
+          answers && 
+          answers.map((value, index) => {
+            const {answerOrder:key,answer}=value;
+            return(
             <>
               {chooseQuestionType === QUESTION_MULTIPLE ? (
                 <div className="form-check">
@@ -103,9 +119,10 @@ const PreviewQuestion = (props) => {
                 )
               )}{" "}
             </>
-          ))
+          )})
         )}
       </ol>
+      </div>
     </div>
   );
 };

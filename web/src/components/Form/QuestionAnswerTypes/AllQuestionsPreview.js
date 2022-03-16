@@ -1,6 +1,7 @@
 import React from "react";
 import PreviewQuestion from "./PreviewQuestion";
 import { useDispatch, useSelector } from "react-redux";
+import {newQuestionAction} from '../../../redux/surveyActions';
 
 const AllQuestionsPreview = (props) => {
   const { survey: tempSurvey } = useSelector((store) => ({

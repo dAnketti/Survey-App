@@ -1,7 +1,11 @@
 import { Dropdown } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {newQuestionAction,addQuestionToTheSurvey, clearQuestionAction} from '../../../redux/surveyActions';
+import {newQuestionAction,
+  addQuestionToTheSurvey, 
+  updateQuestionAction,
+  clearQuestionAction
+  } from '../../../redux/surveyActions';
 import {
   QUESTION_MULTIPLE,
   QUESTION_LINEER,
@@ -39,10 +43,17 @@ const NewQuestion = (props) => {
 
 
   const onSaveBtnClick = (event) => {
-    if(content){      
-      dispatch(addQuestionToTheSurvey(tempQuestion))
-      dispatch(clearQuestionAction())
+    if(tempQuestion.content){ 
+     
+      if(tempQuestion.order && tempQuestion.order>0){
+        dispatch(updateQuestionAction(tempQuestion))                   
+      }else{
+        dispatch(addQuestionToTheSurvey(tempQuestion))        
+      }  
+
+      dispatch(clearQuestionAction())     
       setContent("");
+      
     }
   };
 
@@ -59,9 +70,8 @@ const NewQuestion = (props) => {
             className="form-control col-mb-5"
             id="content"
             rows="3"
-            value={content}
-            placeholder="Please enter yout question here"
-            value={content}
+            value={tempQuestion.content}
+            placeholder="Please enter yout question here"           
             onChange={(event) => {
               setContent(event.target.value)
             }}
@@ -107,9 +117,9 @@ const NewQuestion = (props) => {
         </div>
       </div>
 
-      {chooseQuestionType === QUESTION_MULTIPLE ? (
+      {tempQuestion.chooseQuestionType === QUESTION_MULTIPLE ? (
         <MultipleChoice    />
-      ) : chooseQuestionType === QUESTION_LINEER ? (
+      ) : tempQuestion.chooseQuestionType === QUESTION_LINEER ? (
         <LineerScaleAnswer   />
       ) : (
         <div className="col-sm-10">

@@ -5,20 +5,22 @@ function MultipleChoice(props) {
   let { answers: tempAnswers } = useSelector(store => ({ answers: store.question.answers }));
   const [answer, setAnswer] = useState();
   const dispatch=useDispatch();
-  const [length,setLenght]=useState(0);
+ 
   //State de tanımlı listemize input daki değeri ekliyor.
 
-  useEffect( ()=>{
-    setLenght(length+1)    
-  },[tempAnswers]
-
-  )
+  
   const addAnswer = (key) => {
-    
-    tempAnswers={
+    let count=1;
+    tempAnswers    
+    && tempAnswers.map((k,i)=>{ 
+      const {answerOrder}=k;   
+      count=parseInt(answerOrder)+1;
+    }); 
+    tempAnswers=[
       ...tempAnswers,
-      [length]:answer
-    }
+      { answerOrder:count,
+        answer}
+    ]
 
     dispatch(updateAnswers(tempAnswers));
     setAnswer("");
@@ -31,21 +33,21 @@ function MultipleChoice(props) {
   const deleteAnswerToArray = (event) => {
     
     const index = event.target.value;
-    if (index !== undefined && index !== -1) {
-     
-      const array={
-        ...tempAnswers    
-      }
-      delete array[index]
+    
+    let array=tempAnswers.filter(
+      (value,i)=>(parseInt(index) !== parseInt(value.answerOrder))
+    );  
+   
       dispatch(updateAnswers(array));
-    }
+    
   };
 
   return (
     <div>
-      {tempAnswers &&
-      Object.entries(tempAnswers).map(([key,ans],index)=>         
-           (
+      {tempAnswers && 
+      tempAnswers.map((arr,index)=> {        
+          const {answer:ans,answerOrder:key}=arr          
+          return(
             <div className="row">
               <div className="col col-md-11">
                 <input type="radio" key={index} id={index} placeholder={ans} />
@@ -62,6 +64,8 @@ function MultipleChoice(props) {
               </div>
             </div>
           )
+      }        
+
         )}
 
       <div className="row">

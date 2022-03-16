@@ -5,16 +5,25 @@ import {
   NEW_QUESTION,
   UPDATE_ANSWERS,
   REPLACE_ORDER_NUMBER,
+  UPDATE_QUESTION_IN_SURVEY,
   DELETE_QUESTION_BY_ORDER
 } from "./ReduceConstants";
 
 
+
 export const newQuestionAction = question => {
-  
+
         return {
           type: NEW_QUESTION,
           question
         };
+};
+
+export const updateQuestionAction = question => {
+  return {
+    type: UPDATE_QUESTION_IN_SURVEY,
+    question
+  };
 };
 
 export const clearQuestionAction = question => {
