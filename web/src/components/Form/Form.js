@@ -4,29 +4,58 @@ import "../../App.css";
 import AllQuestionsPreview from "./QuestionAnswerTypes/AllQuestionsPreview";
 import NewQuestion from "./QuestionAnswerTypes/NewQuestion";
 import NavigationBar from "../../pages/NavigationBar";
+import SurveyInformationForm from "./QuestionAnswerTypes/SurveyInformationForm";
 
-function Form() {
-  
-  return (
-    <div className="text-left col-mt-50">
-      <NavigationBar />
-      {/* Tüm Sorular gösterildiği Satırı */}
-      <div className="container col-md-6">
-        <div>
-          <AllQuestionsPreview />
-        </div>
+import React, { Component } from 'react'
 
-        {/* Form Satırı */}
+export default class Form extends Component {
+  state={
+    step:1
+  }
 
-        <div className="row mt-5">
-          <div id="question-area" className="col">
-            {/* Yeni soru oluştur Satırı */}
-            <NewQuestion />
+  nextStep =()=>{
+    const {step}=this.state;
+    this.setState({
+      step:step+1
+    });
+  };
+  prevStep = () =>{
+    const {step}=this.state;
+    this.setState({
+      step:step*1-1*1
+    });
+  };
+
+  render() {
+    const {step}=this.state;
+    switch (step) {
+      case 1*1:
+      return( <div className="text-left col-mt-50">              
+            <div className="container col-md-6">
+                <div>
+                  <AllQuestionsPreview 
+                  nextStep={this.nextStep}
+                  prevStep={this.prevStep}   />
+                </div>                           
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
+    )
+    break;
+
+    case 2*1:
+      return( <div className="text-left col-mt-50">
+          <NavigationBar />      
+            <div className="container col-md-6">
+                <div>
+                  <SurveyInformationForm prevStep={this.prevStep} />
+                </div>                           
+            </div>
+          </div>
+    )
+    break;
+      default:
+        break;
+    }
+  }
 }
 
-export default Form;

@@ -1,9 +1,10 @@
 import React from "react";
 import PreviewQuestion from "./PreviewQuestion";
-import { useDispatch, useSelector } from "react-redux";
-import {newQuestionAction} from '../../../redux/surveyActions';
+import {  useSelector } from "react-redux";
+import NewQuestion from "./NewQuestion";
 
 const AllQuestionsPreview = (props) => {
+  const {nextStep}=props;
   const { survey: tempSurvey } = useSelector((store) => ({
     survey: store.survey,
   }));
@@ -20,6 +21,16 @@ const AllQuestionsPreview = (props) => {
             <PreviewQuestion question={question.question} />
           </>
         ))}
+        <div className="float-end">
+          <button className="btn btn-sm btn-info" 
+          disabled={tempSurvey.questions.length<=0} 
+          onClick={event=>(nextStep(+1))}>
+            Next
+          </button>
+        </div>
+        <div>
+          <NewQuestion />
+        </div>
     </div>
   );
 };
