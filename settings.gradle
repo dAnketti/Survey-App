@@ -1,5 +1,9 @@
 rootProject.name = 'Survey-App'
 include 'auth-service'
 include 'survey-service'
+<<<<<<< HEAD
 include 'user-service'
+=======
+include 'response-service'
+>>>>>>> origin/burak
 

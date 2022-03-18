@@ -3,7 +3,6 @@ package com.amateurj.service;
 import com.amateurj.repository.IQuestionRepository;
 import com.amateurj.repository.ISurveyRepository;
 import com.amateurj.repository.entity.Question;
-import com.amateurj.repository.entity.Response;
 import com.amateurj.repository.entity.Survey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class QuestionService {
 
     private final IQuestionRepository repository;
 
-    public void save(Question question){
+    public void update(Question question){
         repository.save(question);
     }
 
@@ -26,11 +25,11 @@ public class QuestionService {
         return repository.findAll();
     }
 
-    public List<Response> getAllResponses(long id){
-        Optional<Question> question;
-        question = repository.findById(id);
-        return question.get().getResponses();
-
-    }
+//    public List<Response> getAllResponses(long id){
+//        Optional<Question> question;
+//        question = repository.findById(id);
+//        return question.get().getResponseList();
+//
+//    }
 
 }
