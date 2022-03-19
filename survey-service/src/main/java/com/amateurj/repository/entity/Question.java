@@ -4,11 +4,15 @@ package com.amateurj.repository.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +32,12 @@ public class Question{
     private List<Answer> answerList;
 
     private String questionBody;
+
+    @ElementCollection
+    @CollectionTable(name = "question_choices_mapping",
+            joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "choices_id")
+    private Map<Integer,String> choicesBody;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "survey_id")

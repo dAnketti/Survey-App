@@ -10,13 +10,15 @@ import com.amateurj.repository.entity.Answer.AnswerBuilder;
 import com.amateurj.repository.entity.Question;
 import com.amateurj.repository.entity.Question.QuestionBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-09T17:44:29+0300",
+    date = "2022-03-19T15:16:09+0300",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
@@ -32,6 +34,10 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         question.answerList( answerDtoListToAnswerList( dto.getAnswerList() ) );
         question.questionBody( dto.getQuestionBody() );
+        Map<Integer, String> map = dto.getChoicesBody();
+        if ( map != null ) {
+            question.choicesBody( new HashMap<Integer, String>( map ) );
+        }
         question.questionType( dto.getQuestionType() );
 
         return question.build();
@@ -48,6 +54,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.id( dto.getId() );
         question.answerList( answerDtoListToAnswerList( dto.getAnswerList() ) );
         question.questionBody( dto.getQuestionBody() );
+        Map<Integer, String> map = dto.getChoicesBody();
+        if ( map != null ) {
+            question.choicesBody( new HashMap<Integer, String>( map ) );
+        }
         question.questionType( dto.getQuestionType() );
 
         return question.build();
@@ -65,6 +75,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionResponseDto.answerList( answerListToAnswerDtoList( question.getAnswerList() ) );
         questionResponseDto.questionBody( question.getQuestionBody() );
         questionResponseDto.questionType( question.getQuestionType() );
+        Map<Integer, String> map = question.getChoicesBody();
+        if ( map != null ) {
+            questionResponseDto.choicesBody( new HashMap<Integer, String>( map ) );
+        }
 
         return questionResponseDto.build();
     }

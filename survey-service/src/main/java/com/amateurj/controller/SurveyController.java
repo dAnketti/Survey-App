@@ -36,7 +36,7 @@ public class SurveyController {
         return ResponseEntity.ok().build();
 
     }
-    @PostMapping("/updateSurvey")
+    @PutMapping("/{id}/updateSurvey")
     public ResponseEntity<Void> update(@RequestBody SurveyDto dto){
         surveyService.save(surveyMapper.toSurvey(dto));
         return ResponseEntity.ok().build();
@@ -47,8 +47,8 @@ public class SurveyController {
 //        return ResponseEntity.ok().build();
 //    }
 
-    @PostMapping("/deleteById")
-    public ResponseEntity<Void> deleteById(@RequestBody long id){
+    @DeleteMapping("/{id}/deleteById")
+    public ResponseEntity<Void> deleteById(@RequestBody @PathVariable long id){
         surveyService.deleteById(id);
         return ResponseEntity.ok().build();
     }
@@ -95,11 +95,5 @@ public class SurveyController {
        return ResponseEntity.ok(surveyService.getAllQuestions(id));
 
     }
-
-
-
-
-
-
 
 }

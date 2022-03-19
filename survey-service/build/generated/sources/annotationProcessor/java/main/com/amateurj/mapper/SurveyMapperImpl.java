@@ -12,13 +12,15 @@ import com.amateurj.repository.entity.Question.QuestionBuilder;
 import com.amateurj.repository.entity.Survey;
 import com.amateurj.repository.entity.Survey.SurveyBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-09T17:44:29+0300",
+    date = "2022-03-19T15:16:09+0300",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
@@ -93,6 +95,10 @@ public class SurveyMapperImpl implements SurveyMapper {
 
         question.answerList( answerDtoListToAnswerList( questionRequestDto.getAnswerList() ) );
         question.questionBody( questionRequestDto.getQuestionBody() );
+        Map<Integer, String> map = questionRequestDto.getChoicesBody();
+        if ( map != null ) {
+            question.choicesBody( new HashMap<Integer, String>( map ) );
+        }
         question.questionType( questionRequestDto.getQuestionType() );
 
         return question.build();
