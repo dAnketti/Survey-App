@@ -1,61 +1,72 @@
 import { QUESTION_MULTIPLE } from "../shared/Constants";
-import { 
+import {
   ADD_QUESTION_SURVEY,
   CLEAR_QUESTION_STATE,
   NEW_QUESTION,
   UPDATE_ANSWERS,
   REPLACE_ORDER_NUMBER,
-  DELETE_QUESTION_BY_ORDER
+  DELETE_QUESTION_BY_ORDER,
+  UPDATE_SURVEY,
 } from "./ReduceConstants";
 
-
-export const newQuestionAction = question => {
-  
-        return {
-          type: NEW_QUESTION,
-          question
-        };
+export const newQuestionAction = (question) => {
+  return {
+    type: NEW_QUESTION,
+    question,
+  };
 };
 
-export const clearQuestionAction = question => {
+export const updateSurveyInformation = (caption, expirationDate) => {
+  console.log(caption, expirationDate);
+  return {
+    type: UPDATE_SURVEY,
+    caption,
+    expirationDate,
+  };
+};
+
+export const clearQuestionAction = (question) => {
   return {
     type: CLEAR_QUESTION_STATE,
-    question:{
-      id:"",
-      order:"",
-      subject:"",
+    question: {
+      id: "",
+      order: "",
+      subject: "",
       chooseQuestionType: QUESTION_MULTIPLE,
-      content: "",    
-      answers: {}    
-    }
+      content: "",
+      answers: {},
+    },
   };
 };
 
-export const addQuestionToTheSurvey = question => {
-    return {
-      type: ADD_QUESTION_SURVEY,
-      question
-    };
+export const addQuestionToTheSurvey = (question) => {
+  return {
+    type: ADD_QUESTION_SURVEY,
+    question,
+  };
 };
 
-export const updateAnswers = answers => {
+export const updateAnswers = (answers) => {
   return {
     type: UPDATE_ANSWERS,
-    answers
+    answers,
   };
 };
 
-export const replaceSequenceNumberWithAHigherSequenceNumber = (order,process) => {
+export const replaceSequenceNumberWithAHigherSequenceNumber = (
+  order,
+  process
+) => {
   return {
     type: REPLACE_ORDER_NUMBER,
     order,
-    process
+    process,
   };
 };
 
-export const deleteQuestionByOrderInSurvey = order => {
+export const deleteQuestionByOrderInSurvey = (order) => {
   return {
     type: DELETE_QUESTION_BY_ORDER,
-    order
+    order,
   };
 };
