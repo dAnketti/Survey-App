@@ -13,7 +13,7 @@ const AllQuestionsPreview = (props) => {
       id="question-area"
       className="mt-5 background-color-light color-dark border border-dark "
     >
-      <h1>Survey Preview</h1>
+      <h1>{tempSurvey.caption}</h1>
       {tempSurvey.questions &&
         tempSurvey.questions.map((question, index) => (
           <>
