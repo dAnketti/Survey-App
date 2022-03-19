@@ -5,6 +5,9 @@ import PreviewQuestion from "./QuestionAnswerTypes/PreviewQuestion";
 import logoDanket from "../../pages/danketlow.png";
 import MultipleSelect from "../Login/components/MultipleSelect";
 import Accordion from "react-bootstrap/Accordion";
+import SurveyInformation from "./QuestionAnswerTypes/SurveyInformation";
+
+import Form from "./QuestionAnswerTypes/Form";
 
 function PreviewPage(props) {
   const { questions } = props;
@@ -29,8 +32,8 @@ function PreviewPage(props) {
               </Accordion.Item>
             </Accordion>
           </Col>
-          <Col className="bg-primary" md={7}>
-            <Image src={logoDanket} alt="some pic" width={"100%"} />
+          <Col className="bg-mid" md={7}>
+            <Form />
           </Col>
           <Col className="bg-secondary" md={3}>
             <h4 className="mt-5">Select Class To Share Survey</h4>
