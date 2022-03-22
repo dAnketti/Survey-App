@@ -17,7 +17,7 @@ let survey_app= {
         order:"",
         subject:"",
         chooseQuestionType: QUESTION_MULTIPLE,
-        content: "",    
+        questionBody: "",    
         answers: []     
       },
     survey: {

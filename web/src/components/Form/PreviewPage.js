@@ -7,9 +7,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Form from "./QuestionAnswerTypes/Form";
 
 function PreviewPage(props) {
-  const { questions } = props;
-  const items = { ...localStorage };
-  console.log(JSON.stringify(items));
+
   return (
     <div>
       <Container className="text-left ">

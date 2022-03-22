@@ -13,7 +13,7 @@ import {
 
 const PreviewQuestion = (props) => {
   const { question } = props;
-  const { content, chooseQuestionType, answers, order } = question;
+  const { questionBody, chooseQuestionType, answers, order } = question;
 
   const dispatch = useDispatch();
 
@@ -28,8 +28,7 @@ const PreviewQuestion = (props) => {
     dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order, "down"));
   };
 
-  const updateClickQuestion = () => {
-    console.log("update");
+  const updateClickQuestion = () => {   
     dispatch(newQuestionAction(question));
   };
   return (
@@ -69,13 +68,13 @@ const PreviewQuestion = (props) => {
           </span>
         </div>
       </div>
-      <label>{content}</label>
+      <label>{questionBody}</label>
       <div>
         <ol>
           {chooseQuestionType === QUESTION_PARAGRAPH ? (
             <textarea
               className="form-control"
-              id="content"
+              id="questionBody"
               rows="3"
               placeholder="Cevap Metni kullanıcı tarafından girilecek"
             ></textarea>

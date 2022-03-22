@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "../../../Login.css";
 import { useFormik } from "formik";
 import Button from "react-bootstrap/Button";
@@ -6,25 +5,25 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../api/ApiCalls";
-
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../../redux/AuthAction";
 function Login() {
+  const dispatch=useDispatch();
+
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
-      login(values).then((res) => {
-        console.log(res);
-        if (res.status == 200) {
-          alert(res.data);
-          navigate("/home");
-        } else {
-          alert("Kullanıcı adı veya şifre hatalı");
-        }
-      });
+    onSubmit: async(values) => {      
+      try{
+        const response = await login(values)
+        dispatch(loginSuccess(response.data));
+        navigate("/home")
+      }catch(e){
+          console.log(e.data);
+      }
     },
   });
 
@@ -97,9 +96,9 @@ function Login() {
             <div className="d-flex justify-content-end ">
               <p className="forgot-password text-right">
                 {" "}
-                <a href="#" className="link-prop color-primary">
+                <Link to="/" className="link-prop color-primary">
                   Forgot password?
-                </a>
+                </Link>
               </p>
             </div>
           </form>
