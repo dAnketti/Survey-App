@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
-import logoImg from '../assets/logo.png'
+import logoImg from "../assets/logo.png";
 import { BsFillPersonFill } from "react-icons/bs";
 
 function NavigationBar() {
@@ -34,13 +34,19 @@ function NavigationBar() {
 
               <NavDropdown title="Admin Yetkileri" id="basic-nav-dropdown">
                 <NavDropdown.Item className="color-dark" href="#action/3.1">
-                  Şube Aç
+                  <Nav.Link className="color-dark" href="/newoffice">
+                    New Office
+                  </Nav.Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.2">
-                  Yönetici Ekle
+                  <Nav.Link className="color-dark" href="/newmanager">
+                    New Manager
+                  </Nav.Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.3">
-                  Öğretmen Ekle
+                  <Nav.Link className="color-dark" href="/newtrainer">
+                    New Trainer
+                  </Nav.Link>
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
