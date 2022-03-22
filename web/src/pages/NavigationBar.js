@@ -52,12 +52,12 @@ function NavigationBar() {
 
               <NavDropdown title="Manager Tools" id="basic-nav-dropdown">
                 <NavDropdown.Item className="color-dark" href="#action/3.1">
-                  <Nav.Link className="color-dark" href="/newoffice">
+                  <Nav.Link className="color-dark" href="/newstudent">
                     New Student
                   </Nav.Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.2">
-                  <Nav.Link className="color-dark" href="/newmanager">
+                  <Nav.Link className="color-dark" href="/newclass">
                     New Class
                   </Nav.Link>
                 </NavDropdown.Item>
