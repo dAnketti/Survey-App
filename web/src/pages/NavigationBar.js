@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
-import logoDanket from "./DANKET-logos_transparent.png";
+import logoImg from '../assets/logo.png'
 import { BsFillPersonFill } from "react-icons/bs";
 
 function NavigationBar() {
@@ -23,7 +23,7 @@ function NavigationBar() {
       >
         <Container>
           <Navbar.Brand href="/home">
-            <Image src={logoDanket} alt="some pic" width={"150px"} />
+            <Image src={logoImg} alt="some pic" width={"150px"} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
