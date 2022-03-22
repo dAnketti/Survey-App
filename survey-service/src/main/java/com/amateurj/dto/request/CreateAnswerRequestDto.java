@@ -6,12 +6,12 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 @Builder
-public class AnswerDto {
+public class CreateAnswerRequestDto {
 
     private long questionId;
     private String answerBody;
     private String answerType;
-    private long createdDate = System.currentTimeMillis();
+
 
 
 }

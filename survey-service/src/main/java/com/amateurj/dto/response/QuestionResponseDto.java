@@ -1,6 +1,6 @@
 package com.amateurj.dto.response;
 
-import com.amateurj.dto.request.AnswerDto;
+import com.amateurj.dto.request.CreateAnswerRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class QuestionResponseDto {
 
     private long id;
-    private List<AnswerDto> answerList;
+    private List<CreateAnswerRequestDto> answerList;
     private String questionBody;
     private String questionType;
     private Map<Integer,String> choicesBody;

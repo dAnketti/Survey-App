@@ -1,21 +1,18 @@
 package com.amateurj.controller;
 
 
-import com.amateurj.dto.request.QuestionRequestDto;
-import com.amateurj.dto.request.SurveyDto;
-import com.amateurj.dto.response.FindAllSurveyDto;
-import com.amateurj.dto.response.QuestionResponseDto;
+import com.amateurj.dto.request.CreateSurveyRequestDto;
+import com.amateurj.dto.request.UpdateSurveyRequestDto;
+import com.amateurj.dto.response.GetQuestionResponseDto;
+import com.amateurj.dto.response.GetSurveyResponseDto;
 import com.amateurj.mapper.QuestionMapper;
 
 import com.amateurj.mapper.SurveyMapper;
-import com.amateurj.repository.entity.Question;
-import com.amateurj.repository.entity.Survey;
 import com.amateurj.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,68 +27,35 @@ public class SurveyController {
 
 
     @PostMapping("/saveSurvey")
-    public ResponseEntity<Void> save(@RequestBody SurveyDto dto){
-        System.out.println(dto.toString());
-        surveyService.save(surveyMapper.toSurvey(dto));
-        return ResponseEntity.ok().build();
+    public ResponseEntity<GetSurveyResponseDto> save(@RequestBody CreateSurveyRequestDto dto){
+        return ResponseEntity.ok(new GetSurveyResponseDto(surveyService.saveSurvey(dto)));
 
     }
-    @PutMapping("/{id}/updateSurvey")
-    public ResponseEntity<Void> update(@RequestBody SurveyDto dto){
-        surveyService.save(surveyMapper.toSurvey(dto));
-        return ResponseEntity.ok().build();
+    @PutMapping("/updateSurvey/{id}")
+    public ResponseEntity<GetSurveyResponseDto> update(@RequestParam @RequestBody UpdateSurveyRequestDto dto){
+        return ResponseEntity.ok(new GetSurveyResponseDto(surveyService.updateSurvey(dto)));
     }
-//    @PostMapping("/deleteSurvey")
-//    public ResponseEntity<Void> delete(@RequestBody SurveyDto dto){
-//        surveyService.delete(surveyMapper.toSurvey(dto));
-//        return ResponseEntity.ok().build();
-//    }
+//
 
-    @DeleteMapping("/{id}/deleteById")
-    public ResponseEntity<Void> deleteById(@RequestBody @PathVariable long id){
-        surveyService.deleteById(id);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/deleteById/{id}/")
+    public ResponseEntity<String> deleteById(@RequestBody @PathVariable long id){
+        return ResponseEntity.ok(surveyService.deleteById(id));
     }
 
     @GetMapping("/findAllSurvey")
-    public ResponseEntity<List<FindAllSurveyDto>> findAll(){
-        List<FindAllSurveyDto> fList = new ArrayList<>();
-        for (int i = 0; i < surveyService.findAll().size() ; i++) {
-            fList.add(surveyMapper.toFindAllSurvey(surveyService.findAll().get(i)));
-        }
-
-        return ResponseEntity.ok(fList);
+    public ResponseEntity<List<GetSurveyResponseDto>> findAllSurvey(){
+        return ResponseEntity.ok(surveyService.findAllSurvey());
     }
 
 
     @GetMapping("/findSurveyById/{id}")
-    public ResponseEntity<Survey> findSurveyById(@PathVariable int id) {
-        return ResponseEntity.ok(surveyService.findSurveyById(id));
+    public ResponseEntity<GetSurveyResponseDto> findSurveyById(@PathVariable int id) {
+        return ResponseEntity.ok(new GetSurveyResponseDto(surveyService.findSurveyById(id)));
     }
 
-    @PostMapping("/addNewQuestion")
-    public ResponseEntity<Void> addNewQuestion(@RequestBody QuestionRequestDto questionRequestDto, long id){
-        surveyService.addNewQuestion(id,questionMapper.toQuestion(questionRequestDto));
-        return ResponseEntity.ok().build();
-
-    }
-    @PostMapping("/surveys/{id}/addNewQuestionList")
-    public ResponseEntity<String> addNewQuestionList(@RequestBody List<QuestionRequestDto> questionRequestDtoList, @PathVariable long id) {
-
-        List<Question> qList = new ArrayList<>();
-
-        for (int i = 0; i < questionRequestDtoList.size(); i++) {
-            qList.add(questionMapper.toQuestion(questionRequestDtoList.get(i)));
-        }
-        surveyService.addQuestionList(qList,id);
-
-        return ResponseEntity.ok("List ekleme başarılı oldu");
-
-    }
 
     @GetMapping("/surveys/{id}/getQuestionList")
-    public ResponseEntity<List<QuestionResponseDto>> getAllQuestions(@PathVariable long id){
-
+    public ResponseEntity<List<GetQuestionResponseDto>> getAllQuestions(@PathVariable long id){
        return ResponseEntity.ok(surveyService.getAllQuestions(id));
 
     }

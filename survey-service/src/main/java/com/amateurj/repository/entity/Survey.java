@@ -3,9 +3,9 @@ package com.amateurj.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-
+import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,16 +20,22 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    private String subjects;
+    private String caption;
     private String className;
     private boolean isDraft;
 //    private long creatorId;
 
+    private Date updatedDate;
+    private Date startDate;
+    private Date expirationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Date createdDate;
+
+
+
     @OneToMany(mappedBy = "survey")
-    @JsonIgnoreProperties("survey")
-    private List<Question> questionList;
-
-
-    private long createdDate = System.currentTimeMillis();
+    private List<Question> questions;
 
 }

@@ -18,21 +18,13 @@ public class Answer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String answerBody;
-    /**
-     * Text = 0
-     * MultipleChoice = 1
-     * YesNo = 2
-     * Numeric = 3
-     */
-    private String answerType;
+    private int answerOrder;
+    private String answer;
 
-    @ManyToOne(fetch = FetchType.LAZY )
-    @JoinColumn(name = "question_id")
-    private Question question;
 
-    private long createdDate = System.currentTimeMillis();
-
+//    @ManyToOne(fetch = FetchType.LAZY )
+//    @JoinColumn(name = "question_id")
+//    private Question question;
 
 
 
