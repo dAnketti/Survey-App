@@ -17,7 +17,7 @@ function PreviewPage(props) {
     <div>
       <NavigationBar />
 
-      <Container className="text-center ">
+      <Container className="text-left ">
         <Row>
           <Col className="background-color-primary" md={2}>
             <Accordion>

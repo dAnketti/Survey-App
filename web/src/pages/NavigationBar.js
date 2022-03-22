@@ -15,7 +15,12 @@ function NavigationBar() {
   return (
     <div>
       {/* navbar-start */}
-      <Navbar expand="lg" className="background-color-mid color-light">
+      <Navbar
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        className="background-color-mid color-light"
+      >
         <Container>
           <Navbar.Brand href="/home">
             <Image src={logoDanket} alt="some pic" width={"150px"} />
@@ -23,23 +28,19 @@ function NavigationBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className="color-light" href="/home">
-                AnaSayfa
-              </Nav.Link>
+              <Nav.Link href="/home">AnaSayfa</Nav.Link>
 
-              <NavDropdown
-                className="color-light"
-                title="Anketlerim"
-                id="basic-nav-dropdown"
-              >
+              <Nav.Link href="/preview">Surveys</Nav.Link>
+
+              <NavDropdown title="Admin Yetkileri" id="basic-nav-dropdown">
                 <NavDropdown.Item className="color-dark" href="#action/3.1">
-                  Anket-1
+                  Şube Aç
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.2">
-                  Anket-2
+                  Yönetici Ekle
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.3">
-                  Anket-3
+                  Öğretmen Ekle
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
