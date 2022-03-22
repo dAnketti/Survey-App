@@ -3,15 +3,22 @@ import {
   Container,
   Navbar,
   NavDropdown,
-  Row,
-  Col,
   Image,
 } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
+import { useDispatch } from "react-redux";
 import logoImg from '../assets/logo.png'
-import { BsFillPersonFill } from "react-icons/bs";
+import { logoutSurvey } from "../redux/AuthAction";
+
 
 function NavigationBar() {
+
+  const dispatch=useDispatch();
+
+  const onLogOutClickBtn=(e)=>{
+    dispatch(logoutSurvey());  
+  }
+
   return (
     <div>
       {/* navbar-start */}
@@ -28,36 +35,28 @@ function NavigationBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/home">AnaSayfa</Nav.Link>
+              <Nav.Link href="/home">Home Page</Nav.Link>
 
               <Nav.Link href="/preview">Surveys</Nav.Link>
 
-              <NavDropdown title="Admin Yetkileri" id="basic-nav-dropdown">
+              <NavDropdown title="Manager Tools" id="basic-nav-dropdown">
                 <NavDropdown.Item className="color-dark" href="#action/3.1">
-                  Şube Aç
+                Create Branch 
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.2">
-                  Yönetici Ekle
+                 Create Manager
                 </NavDropdown.Item>
                 <NavDropdown.Item className="color-dark" href="#action/3.3">
-                  Öğretmen Ekle
+                 Create Teacher
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
           <Nav>
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                <span className="color-light">
-                  Signed in as: <a href="#login"></a>
-                </span>
-              </Navbar.Text>
+            <Navbar.Collapse className="justify-content-end">             
               <Navbar.Text gap={2}>
-                <span className="color-light">
-                  {" "}
-                  <a className="color-light" href="/">
-                    Çıkış
-                  </a>{" "}
+                <span className="color-light" style={{ cursor: "pointer" }} onClick={onLogOutClickBtn}>                                
+                    Logout                 
                 </span>
               </Navbar.Text>
             </Navbar.Collapse>

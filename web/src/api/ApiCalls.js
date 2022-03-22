@@ -11,6 +11,6 @@ export const register = (body) => {
   return axios.post(Urls.AUTH_URL + Urls.AUTH_REGISTER, body);
 };
 
-export const login = (body) => {
-  return axios.post(Urls.AUTH_URL + Urls.AUTH_LOGIN, body);
+export const login = (credentials) => {
+  return axios.post(Urls.AUTH_URL + Urls.AUTH_LOGIN, credentials);
 };

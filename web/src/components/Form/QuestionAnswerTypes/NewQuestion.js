@@ -18,7 +18,7 @@ import MultipleChoice from "./MultipleChoice";
 
 const NewQuestion = (props) => {
   let { question: tempQuestion } = useSelector(store => ({ question: store.question }));
-  const [content,setContent]=useState(tempQuestion.content);
+  const [questionBody,setquestionBody]=useState(tempQuestion.questionBody);
   const [chooseQuestionType,setChooseQuestionType]=useState(tempQuestion.chooseQuestionType);
 
   const dispatch=useDispatch();
@@ -27,10 +27,10 @@ const NewQuestion = (props) => {
     dispatch(newQuestionAction(      
       {
         ...tempQuestion, 
-        content
+        questionBody
       }
     ))
-  },[content]);
+  },[questionBody]);
 
   useEffect( ()=>{
     dispatch(newQuestionAction(      
@@ -43,7 +43,7 @@ const NewQuestion = (props) => {
 
 
   const onSaveBtnClick = (event) => {
-    if(tempQuestion.content){ 
+    if(tempQuestion.questionBody){ 
      
       if(tempQuestion.order && tempQuestion.order>0){
         dispatch(updateQuestionAction(tempQuestion))                   
@@ -52,7 +52,7 @@ const NewQuestion = (props) => {
       }  
 
       dispatch(clearQuestionAction())     
-      setContent("");
+      setquestionBody("");
       
     }
   };
@@ -62,23 +62,23 @@ const NewQuestion = (props) => {
   return (
     <div className="container border border-dark">
       <div className="form-group row ">
-        <label for="content" class="col-sm-2 col-form-label">
+        <label for="questionBody" class="col-sm-2 col-form-label">
           {" "}
         </label>
         <div className="col-form-label">
           <textarea
             className="form-control col-mb-5"
-            id="content"
+            id="questionBody"
             rows="3"
-            value={tempQuestion.content}
+            value={tempQuestion.questionBody}
             placeholder="Please enter yout question here"           
             onChange={(event) => {
-              setContent(event.target.value)
+              setquestionBody(event.target.value)
             }}
           ></textarea>
         </div>
         <div className="form-group row">
-          <label for="content" class="col-sm-2 col-form-label">
+          <label for="questionBody" class="col-sm-2 col-form-label">
             {" "}
           </label>
           <div className="col-md-11">
@@ -125,7 +125,7 @@ const NewQuestion = (props) => {
         <div className="col-sm-10">
           <textarea
             className="form-control"
-            id="content"
+            id="questionBody"
             rows="1"
             disabled="true"
             placeholder="Answer will create by user "

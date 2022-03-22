@@ -7,6 +7,8 @@ import {
   DELETE_QUESTION_BY_ORDER,
   UPDATE_QUESTION_IN_SURVEY,
   UPDATE_SURVEY,
+  LOGIN_ACTION,
+  LOG_OUT_SURVEY,
   CLEAR_QUESTION_STATE } from './ReduceConstants';
 
 
@@ -21,7 +23,7 @@ let survey_app= {
         order:"",
         subject:"",
         chooseQuestionType: QUESTION_MULTIPLE,
-        content: "",    
+        questionBody: "",    
         answers: []
         
       },
@@ -46,6 +48,22 @@ const surveyReducer = (state = {...survey_app}, action) => {
               ...state,
               question:action.question
           };
+        case LOGIN_ACTION:
+          return {
+              ...state,
+              auth:{
+                isLoggedIn: true,
+                authID: action.payload
+              }
+          };
+        case LOG_OUT_SURVEY:
+          return {
+              ...state,
+              auth:{
+                isLoggedIn: false,
+                authID: action.payload
+              }
+          };
         
         case CLEAR_QUESTION_STATE:
             const chooseQuestionType=state.question.chooseQuestionType;
@@ -61,8 +79,8 @@ const surveyReducer = (state = {...survey_app}, action) => {
           let count=1;
           state.survey.questions 
           && state.survey.questions.length>0  
-          && state.survey.questions.map((m,i)=>{console.log(m.order)
-          count=parseInt(m.order)+1;
+          && state.survey.questions.map((m,i)=>{
+          count=parseInt(m.order)+1;          
           }); 
 
         const question={

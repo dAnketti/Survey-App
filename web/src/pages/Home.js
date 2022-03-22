@@ -6,21 +6,22 @@ import {
   Image,
 } from "react-bootstrap";
 import danketImg from '../assets/danket.png';
+import { Link } from "react-router-dom";
 function Home(props) {
   return (
     <div className="color-light">     
       <Container className="text-center ">
         <Row>
           <Col md={5}>
-            <a href="/form">
+          <Link to="/preview">
               <Image src={danketImg} alt="some pic" width={"300px"} />
-            </a>
+            </Link>
           </Col>
           <Col md={2}></Col>
           <Col md={5}>
-            <a href="">
+            <Link to="/preview">
               <Image src={danketImg} alt="some pic" width={"300px"} />
-            </a>
+            </Link>
           </Col>
         </Row>
       </Container>
