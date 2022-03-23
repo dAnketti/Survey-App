@@ -21,6 +21,10 @@ public class Answer implements Serializable {
     private int answerOrder;
     private String answer;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "question_id")
+    private Question question;
+
 
 //    @ManyToOne(fetch = FetchType.LAZY )
 //    @JoinColumn(name = "question_id")

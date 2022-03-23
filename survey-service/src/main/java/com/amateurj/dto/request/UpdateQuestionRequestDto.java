@@ -20,7 +20,8 @@ public class UpdateQuestionRequestDto {
     private String questionBody;
     private String subject;
     private String chooseQuestionType;
-    private Map<Integer,String> answers;
+    private int place;
+    private List<UpdateAnswerRequestDto> answers;
 //    private List<CreateAnswerRequestDto> answerGivenByUsers;
 
 

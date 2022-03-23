@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -25,16 +26,14 @@ public class Question{
     private String questionBody;
     private String subject;
     private String chooseQuestionType;
+    private int place;
 //    private int order;
 
 //    @OneToMany(mappedBy ="question")
 //    private List<Answer> answerGivenByUsers;
 
-    @ElementCollection
-    @CollectionTable(name = "question_answers_mapping",
-            joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")})
-    @MapKeyColumn(name = "answers_id")
-    private Map<Integer,String> answers;
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "survey_id")
