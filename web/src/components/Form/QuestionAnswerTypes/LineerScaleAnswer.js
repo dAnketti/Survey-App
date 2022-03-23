@@ -113,43 +113,6 @@ const LineerScaleAnswer = (props) => {
           <p>Max Value</p>
         </div>
       </div>
-<<<<<<< HEAD
-
-      <ul class="list-group">
-        {[...Array(parseInt(maxValue))].map((x, j) => {
-          //döngü başı
-
-          const { answerOrder, answer } =
-            tempAnswers[j + minValue * 1] &&
-            tempAnswers &&
-            tempAnswers.length > 0 &&
-            j < tempAnswers.length
-              ? tempAnswers[j + minValue * 1]
-              : { answerOrder: j + minValue * 1, answer: " " };
-          const o = answerOrder * 1 + minValue * 1;
-          const a = answer;
-          return (
-            <li class="list-group-item">
-              <div className="row">
-                <div className="col col-1">
-                  <span>{o})</span>
-                </div>
-                <div className="col col-8">
-                  <input
-                    type="text"
-                    key={o}
-                    name={o}
-                    value={a}
-                    onChange={onChangeAnswer}
-                    placeholder="options description"
-                  />
-                </div>
-              </div>
-            </li>
-          );
-          //döngü sonu
-        })}
-=======
      
       
       <ul class="list-group">   
@@ -207,7 +170,6 @@ const LineerScaleAnswer = (props) => {
             );
           })
         }        
->>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
       </ul>
     </div>
   );
