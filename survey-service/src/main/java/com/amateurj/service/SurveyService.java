@@ -1,7 +1,9 @@
 package com.amateurj.service;
 
-import com.amateurj.dto.response.QuestionResponseDto;
-import com.amateurj.mapper.AnswerMapper;
+import com.amateurj.dto.request.CreateSurveyRequestDto;
+import com.amateurj.dto.request.UpdateSurveyRequestDto;
+import com.amateurj.dto.response.GetQuestionResponseDto;
+import com.amateurj.dto.response.GetSurveyResponseDto;
 import com.amateurj.mapper.QuestionMapper;
 import com.amateurj.mapper.SurveyMapper;
 import com.amateurj.repository.IQuestionRepository;
@@ -11,79 +13,67 @@ import com.amateurj.repository.entity.Survey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SurveyService {
 
     private final ISurveyRepository surveyRepository;
-
     private final IQuestionRepository questionRepository;
-
     private final QuestionMapper questionMapper;
+    private final SurveyMapper surveyMapper;
 
 
-    public void save(Survey survey) {
-        surveyRepository.save(survey);
+    public String deleteById(long id){
+        surveyRepository.delete(findSurveyById(id));
+        return "Selected item has been deleted successfully";
     }
 
-    public void update(Survey survey) {
-        surveyRepository.save(survey);}
+    public List<GetSurveyResponseDto> findAllSurvey(){
 
-    public void delete(Survey survey) {
-        surveyRepository.delete(survey);
-    }
+        return surveyRepository.findAll().stream().map(GetSurveyResponseDto::new).collect(Collectors.toList());
 
-    public void deleteById(long id){
-        surveyRepository.deleteById(id);
-    }
-
-    public List<Survey> findAll(){
-        return surveyRepository.findAll();
     }
 
     public Survey findSurveyById(long id) {
         Optional<Survey> surveyOptional= surveyRepository.findById(id);
-        Survey survey = new Survey();
-        if (surveyOptional.isPresent()){
-            survey = surveyOptional.get();
+        if (surveyOptional.isEmpty()){
+           throw new EntityNotFoundException("Unable to find survey by given "+ id);
         }
-        return survey;
+        return surveyOptional.get();
     }
 
-    public List<QuestionResponseDto> getAllQuestions(long id){
-        Optional<Survey> survey = surveyRepository.findById(id);
-        List<QuestionResponseDto> responseDtoList = new ArrayList<>();
-        for (int i = 0; i < survey.get().getQuestionList().size(); i++) {
-            responseDtoList.add(questionMapper.toResponseDto(survey.get().getQuestionList().get(i)));
-
-        }
-
-        return responseDtoList;
+    public List<GetQuestionResponseDto> getAllQuestions(long id){
+        Survey survey = findSurveyById(id);
+        return survey.getQuestionList().stream().map(questionMapper::fromQuestion).collect(Collectors.toList());
     }
 
-    public void addQuestionList (List<Question> qList, long id){
-        Survey survey = surveyRepository.findById(id).get();
-        survey.setQuestionList(qList);
-        for (int i = 0; i < qList.size(); i++) {
-           Question question = qList.get(i);
+    public Survey saveSurvey (CreateSurveyRequestDto dto){
+        Survey survey = surveyRepository.save(surveyMapper.fromCreateDto(dto));
+        List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromCreateDto).collect(Collectors.toList());
+        qList.forEach((question)->{
             question.setSurvey(survey);
             questionRepository.save(question);
-        }
+        });
+        survey.setQuestionList(qList);
+        return survey;
+
+    }
+
+    public Survey updateSurvey(UpdateSurveyRequestDto dto){
+        Survey survey = surveyMapper.fromUpdateDto(dto);
+        List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromUpdateDto).collect(Collectors.toList());
         surveyRepository.save(survey);
+        qList.stream().map((question)->{
+            question.setSurvey(survey);
+            return questionRepository.save(question);
+        }).collect(Collectors.toList());
+        survey.setQuestionList(qList);
+        return survey;
     }
-
-    public void addNewQuestion(long id, Question question){
-        Survey survey = surveyRepository.findById(id).get();
-//        Optional<Survey> survey = repository.findById(id);
-        question.setSurvey(survey);
-        survey.getQuestionList().add(question);
-        questionRepository.save(question);
-
-    }
-
-
 }

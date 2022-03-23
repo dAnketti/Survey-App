@@ -11,14 +11,5 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnswerService {
 
-    private final IAnswerRepository answerRepository;
-
-    public void save(Answer answer){
-        answerRepository.save(answer);
-    }
-
-    public List<Answer> findAll(){
-        return answerRepository.findAll();
-    }
 
 }
