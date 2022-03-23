@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-23T22:41:40+0300",
+    date = "2022-03-23T22:44:58+0300",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -34,6 +34,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.questionBody( dto.getQuestionBody() );
         question.subject( dto.getSubject() );
         question.chooseQuestionType( dto.getChooseQuestionType() );
+        question.place( dto.getPlace() );
         question.answers( createAnswerRequestDtoListToAnswerList( dto.getAnswers() ) );
 
         return question.build();
@@ -51,6 +52,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.questionBody( dto.getQuestionBody() );
         question.subject( dto.getSubject() );
         question.chooseQuestionType( dto.getChooseQuestionType() );
+        question.place( dto.getPlace() );
         question.answers( updateAnswerRequestDtoListToAnswerList( dto.getAnswers() ) );
 
         return question.build();
@@ -72,6 +74,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         if ( list != null ) {
             getQuestionResponseDto.answers( new ArrayList<Answer>( list ) );
         }
+        getQuestionResponseDto.place( question.getPlace() );
 
         return getQuestionResponseDto.build();
     }

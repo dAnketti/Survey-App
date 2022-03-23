@@ -26,6 +26,7 @@ public class Question{
     private String questionBody;
     private String subject;
     private String chooseQuestionType;
+    private int place;
 //    private int order;
 
 //    @OneToMany(mappedBy ="question")
