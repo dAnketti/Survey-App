@@ -41,7 +41,7 @@ export const clearQuestionAction = (question) => {
       orders: "",
       subject: "",
       chooseQuestionType: QUESTION_MULTIPLE,
-      content: "",
+      questionBody: "",
       answers: {},
     },
   };

@@ -1,32 +1,27 @@
 import React from "react";
 import {
   Container,
-  Navbar,
-  NavDropdown,
   Row,
   Col,
   Image,
 } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import logoDanket from "../danketlow.png";
-import NavigationBar from "./NavigationBar";
-
+import danketImg from '../assets/danket.png';
+import { Link } from "react-router-dom";
 function Home(props) {
   return (
-    <div className="color-light">
-      <NavigationBar />
+    <div className="color-light">     
       <Container className="text-center ">
         <Row>
           <Col md={5}>
-            <a href="/form">
-              <Image src={logoDanket} alt="some pic" width={"300px"} />
-            </a>
+          <Link to="/preview">
+              <Image src={danketImg} alt="some pic" width={"300px"} />
+            </Link>
           </Col>
           <Col md={2}></Col>
           <Col md={5}>
-            <a href="">
-              <Image src={logoDanket} alt="some pic" width={"300px"} />
-            </a>
+            <Link to="/preview">
+              <Image src={danketImg} alt="some pic" width={"300px"} />
+            </Link>
           </Col>
         </Row>
       </Container>

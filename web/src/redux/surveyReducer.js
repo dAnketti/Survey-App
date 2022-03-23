@@ -7,6 +7,7 @@ import {
   DELETE_QUESTION_BY_ORDER,
   UPDATE_QUESTION_IN_SURVEY,
   UPDATE_SURVEY,
+<<<<<<< HEAD
   CLEAR_QUESTION_STATE,
 } from "./ReduceConstants";
 
@@ -34,6 +35,38 @@ let survey_app = {
     draft: true,
     questions: [],
   },
+=======
+  LOGIN_ACTION,
+  LOG_OUT_SURVEY,
+  CLEAR_QUESTION_STATE } from './ReduceConstants';
+
+
+let survey_app= {
+    auth:{
+        isLoggedIn: false,
+        userID: undefined,
+        username: undefined        
+    },
+    question: {
+        id:"",
+        order:"",
+        subject:"",
+        chooseQuestionType: QUESTION_MULTIPLE,
+        questionBody: "",    
+        answers: []
+        
+      },
+    survey: {
+        id:"",
+        title:"",
+        caption:"",
+        groupList:[],
+        startDate:0,
+        expirationDate:0,
+        isDraft:true,
+        questions:[]  
+      }  
+>>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
 };
 
 const surveyReducer = (state = { ...survey_app }, action) => {
@@ -44,6 +77,7 @@ const surveyReducer = (state = { ...survey_app }, action) => {
         question: action.question,
       };
 
+<<<<<<< HEAD
     case CLEAR_QUESTION_STATE:
       const chooseQuestionType = state.question.chooseQuestionType;
       return {
@@ -53,6 +87,50 @@ const surveyReducer = (state = { ...survey_app }, action) => {
           chooseQuestionType,
         },
       };
+=======
+const surveyReducer = (state = {...survey_app}, action) => {
+  
+    switch(action.type) {
+        case NEW_QUESTION:
+          return {
+              ...state,
+              question:action.question
+          };
+        case LOGIN_ACTION:
+          return {
+              ...state,
+              auth:{
+                isLoggedIn: true,
+                authID: action.payload
+              }
+          };
+        case LOG_OUT_SURVEY:
+          return {
+              ...state,
+              auth:{
+                isLoggedIn: false,
+                authID: action.payload
+              }
+          };
+        
+        case CLEAR_QUESTION_STATE:
+            const chooseQuestionType=state.question.chooseQuestionType;
+          return {
+              ...state,
+              question:{
+                ...survey_app.question,
+                chooseQuestionType
+              }
+          };
+          
+        case ADD_QUESTION_SURVEY:
+          let count=1;
+          state.survey.questions 
+          && state.survey.questions.length>0  
+          && state.survey.questions.map((m,i)=>{
+          count=parseInt(m.order)+1;          
+          }); 
+>>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
 
     case ADD_QUESTION_SURVEY:
       let count = 1;

@@ -19,12 +19,21 @@ const NewQuestion = (props) => {
   let { question: tempQuestion } = useSelector((store) => ({
     question: store.question,
   }));
-  const [questionBody, setQuestionBody] = useState(tempQuestion.questionBody);
+  const [questionBody, setquestionBody] = useState(tempQuestion.questionBody);
   const [chooseQuestionType, setChooseQuestionType] = useState(
     tempQuestion.chooseQuestionType
   );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      newQuestionAction({
+        ...tempQuestion,
+        questionBody,
+      })
+    );
+  }, [questionBody]);
 
   useEffect(() => {
     dispatch(
@@ -46,16 +55,14 @@ const NewQuestion = (props) => {
 
   const onSaveBtnClick = (event) => {
     if (tempQuestion.questionBody) {
-      if (tempQuestion.orders && tempQuestion.orders > 0) {
+      if (tempQuestion.order && tempQuestion.order > 0) {
         dispatch(updateQuestionAction(tempQuestion));
-        console.log(tempQuestion);
       } else {
         dispatch(addQuestionToTheSurvey(tempQuestion));
-        console.log(tempQuestion);
       }
 
       dispatch(clearQuestionAction());
-      setQuestionBody("");
+      setquestionBody("");
     }
   };
 
@@ -73,7 +80,7 @@ const NewQuestion = (props) => {
             value={tempQuestion.questionBody}
             placeholder="Please enter yout question here"
             onChange={(event) => {
-              setQuestionBody(event.target.value);
+              setquestionBody(event.target.value);
             }}
           ></textarea>
         </div>

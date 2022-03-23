@@ -1,22 +1,15 @@
 import React from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
-import NavigationBar from "../../pages/NavigationBar";
-import PreviewQuestion from "./QuestionAnswerTypes/PreviewQuestion";
-import logoDanket from "../../pages/danketlow.png";
-import MultipleSelect from "../Login/components/MultipleSelect";
+import { Container, Row, Col } from "react-bootstrap";
+import MultipleSelect from "../MultipleSelect";
 import Accordion from "react-bootstrap/Accordion";
-import SurveyInformation from "./QuestionAnswerTypes/SurveyInformation";
+
 
 import Form from "./QuestionAnswerTypes/Form";
 
 function PreviewPage(props) {
-  const { questions } = props;
-  const items = { ...localStorage };
-  console.log(JSON.stringify(items));
+
   return (
     <div>
-      <NavigationBar />
-
       <Container className="text-left ">
         <Row>
           <Col className="background-color-primary" md={2}>

@@ -7,14 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateAnswers } from "../../../redux/surveyActions";
 import { listItemTextClasses } from "@mui/material";
 const LineerScaleAnswer = (props) => {
+<<<<<<< HEAD
   const { answers: tempAnswers, orders } = useSelector((store) => ({
+=======
+  let { answers: tempAnswers ,order } = useSelector((store) => ({
+>>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
     answers: store.question.answers,
     orders: store.question.orders,
   }));
 
   const [minValue, setMinValue] = useState(parseInt(0));
-  const [maxValue, setMaxValue] = useState(parseInt(5));
+  const [maxValue, setMaxValue] = useState(tempAnswers.length>0 ? tempAnswers.length+minValue : 5);
   const dispatch = useDispatch();
+<<<<<<< HEAD
 
   useEffect(() => {
     setMaxValue(parseInt(tempAnswers.length > 0 ? tempAnswers.length : 5));
@@ -29,6 +34,23 @@ const LineerScaleAnswer = (props) => {
     dispatch(updateAnswers(answers));
   };
 
+=======
+  
+   const onChangeAnswer = (event) => {
+    const { name, value } = event.target;
+
+    let answers = tempAnswers.filter((ans,i)=>{
+      const {answerOrder}=ans;
+      return(parseInt(name)!==parseInt(answerOrder)
+    )});
+
+    answers =[...answers,{answerOrder:name,answer:value}]
+
+    dispatch(updateAnswers(answers.sort((a,b)=>(a.answerOrder-b.answerOrder))));
+  };
+ 
+  
+>>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
   return (
     <div className="container">
       <div className="row">
@@ -47,7 +69,8 @@ const LineerScaleAnswer = (props) => {
                     className="background-color-primary"
                     eventKey="0"
                     onClick={(event) => {
-                      setMinValue(parseInt(event.target.innerHTML));
+                      setMinValue(0);
+
                     }}
                   >
                     0
@@ -55,7 +78,8 @@ const LineerScaleAnswer = (props) => {
                   <Dropdown.Item
                     eventKey="1"
                     onClick={(event) => {
-                      setMinValue(parseInt(event.target.innerHTML));
+                      setMinValue(1);
+                      tempAnswers.splice(0,1);                     
                     }}
                   >
                     1
@@ -89,6 +113,7 @@ const LineerScaleAnswer = (props) => {
           <p>Max Value</p>
         </div>
       </div>
+<<<<<<< HEAD
 
       <ul class="list-group">
         {[...Array(parseInt(maxValue))].map((x, j) => {
@@ -124,6 +149,65 @@ const LineerScaleAnswer = (props) => {
           );
           //döngü sonu
         })}
+=======
+     
+      
+      <ul class="list-group">   
+        {
+            tempAnswers.length>0 &&
+            tempAnswers.map((ans,i)=>{
+              const {answerOrder,answer}=ans;              
+              return (                                                
+                <>{
+                  answerOrder >=minValue &&
+                  <li class="list-group-item">
+                    <div className="row">
+                      <div className="col col-1">
+                        <span>{answerOrder})</span>
+                      </div>
+                      <div className="col col-8">
+                        <input
+                          type="text"                          
+                          name={answerOrder}
+                          value={answer}
+                          onChange={onChangeAnswer}
+                          placeholder="options description"
+                        />
+                      </div>
+                    </div>
+                  </li>
+              }
+                </>
+              );
+            }
+            )
+        }    
+        {  ((maxValue*1+minValue*1+1)-tempAnswers.length>0) &&
+           [...Array((maxValue*1+minValue*1+1)-tempAnswers.length)].map((x,j)=>{
+            const o=tempAnswers.length+j;
+            return (
+              <>
+                <li class="list-group-item">
+                  <div className="row">
+                    <div className="col col-1">
+                      <span>{o})</span>
+                    </div>
+                    <div className="col col-8">
+                      <input
+                        type="text"                          
+                        name={o}
+                        value=""
+                        onChange={onChangeAnswer}
+                        placeholder="options description"
+                      />
+                    </div>
+                  </div>
+                </li>
+              </>
+            );
+          })
+        }        
+>>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
       </ul>
     </div>
   );
