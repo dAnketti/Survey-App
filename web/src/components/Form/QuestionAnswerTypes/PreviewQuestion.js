@@ -13,19 +13,19 @@ import {
 
 const PreviewQuestion = (props) => {
   const { question } = props;
-  const { content, chooseQuestionType, answers, order } = question;
+  const { content, chooseQuestionType, answers, orders } = question;
 
   const dispatch = useDispatch();
 
   const deleteClickQuestionByOrderInSurvey = (event) => {
-    dispatch(deleteQuestionByOrderInSurvey(order));
+    dispatch(deleteQuestionByOrderInSurvey(orders));
   };
 
   const replaceUp = () => {
-    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order, "up"));
+    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(orders, "up"));
   };
   const replaceDown = () => {
-    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order, "down"));
+    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(orders, "down"));
   };
 
   const updateClickQuestion = () => {
@@ -36,7 +36,7 @@ const PreviewQuestion = (props) => {
     <div>
       <div className="row d-flex ">
         <div className="col d-flex">
-          <h4 className="float-left">{`Soru : ${order}`} </h4>
+          <h4 className="float-left">{`Soru : ${orders}`} </h4>
         </div>
         <div className="col d-flex float-right">
           <span
@@ -89,13 +89,13 @@ const PreviewQuestion = (props) => {
                     <div className="form-check">
                       <input
                         className="form-check-input"
-                        id={`${order}-${key}`}
+                        id={`${orders}-${key}`}
                         type="radio"
-                        name={order}
+                        name={orders}
                       />
                       <label
                         className="form-check-label ms-2"
-                        for={`${order}-${key}`}
+                        for={`${orders}-${key}`}
                       >
                         {answer}
                       </label>
@@ -105,13 +105,13 @@ const PreviewQuestion = (props) => {
                       <li value={key}>
                         <input
                           className="form-check-input"
-                          id={`${order}-${key}`}
+                          id={`${orders}-${key}`}
                           type="radio"
-                          name={order}
+                          name={orders}
                         />
                         <label
                           className="form-check-label ms-2"
-                          for={`${order}-${key}`}
+                          for={`${orders}-${key}`}
                         >
                           {answer}
                         </label>

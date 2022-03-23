@@ -1,11 +1,12 @@
 import { Dropdown } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {newQuestionAction,
-  addQuestionToTheSurvey, 
+import {
+  newQuestionAction,
+  addQuestionToTheSurvey,
   updateQuestionAction,
-  clearQuestionAction
-  } from '../../../redux/surveyActions';
+  clearQuestionAction,
+} from "../../../redux/surveyActions";
 import {
   QUESTION_MULTIPLE,
   QUESTION_LINEER,
@@ -14,71 +15,70 @@ import {
 import LineerScaleAnswer from "./LineerScaleAnswer";
 import MultipleChoice from "./MultipleChoice";
 
-
-
 const NewQuestion = (props) => {
-  let { question: tempQuestion } = useSelector(store => ({ question: store.question }));
-  const [content,setContent]=useState(tempQuestion.content);
-  const [chooseQuestionType,setChooseQuestionType]=useState(tempQuestion.chooseQuestionType);
+  let { question: tempQuestion } = useSelector((store) => ({
+    question: store.question,
+  }));
+  const [questionBody, setQuestionBody] = useState(tempQuestion.questionBody);
+  const [chooseQuestionType, setChooseQuestionType] = useState(
+    tempQuestion.chooseQuestionType
+  );
 
-  const dispatch=useDispatch();
-       
-  useEffect( ()=>{
-    dispatch(newQuestionAction(      
-      {
-        ...tempQuestion, 
-        content
-      }
-    ))
-  },[content]);
+  const dispatch = useDispatch();
 
-  useEffect( ()=>{
-    dispatch(newQuestionAction(      
-      {
-        ...tempQuestion, 
-        chooseQuestionType
-      }
-    ))
-  },[chooseQuestionType])
+  useEffect(() => {
+    dispatch(
+      newQuestionAction({
+        ...tempQuestion,
+        questionBody,
+      })
+    );
+  }, [questionBody]);
 
+  useEffect(() => {
+    dispatch(
+      newQuestionAction({
+        ...tempQuestion,
+        chooseQuestionType,
+      })
+    );
+  }, [chooseQuestionType]);
 
   const onSaveBtnClick = (event) => {
-    if(tempQuestion.content){ 
-     
-      if(tempQuestion.order && tempQuestion.order>0){
-        dispatch(updateQuestionAction(tempQuestion))                   
-      }else{
-        dispatch(addQuestionToTheSurvey(tempQuestion))        
-      }  
+    if (tempQuestion.questionBody) {
+      if (tempQuestion.orders && tempQuestion.orders > 0) {
+        dispatch(updateQuestionAction(tempQuestion));
+        console.log(tempQuestion);
+      } else {
+        dispatch(addQuestionToTheSurvey(tempQuestion));
+        console.log(tempQuestion);
+      }
 
-      dispatch(clearQuestionAction())     
-      setContent("");
-      
+      dispatch(clearQuestionAction());
+      setQuestionBody("");
     }
   };
-
-  
 
   return (
     <div className="container border border-dark">
       <div className="form-group row ">
-        <label for="content" class="col-sm-2 col-form-label">
+        <label htmlFor="questionBody" class="col-sm-2 col-form-label">
           {" "}
         </label>
         <div className="col-form-label">
           <textarea
             className="form-control col-mb-5"
-            id="content"
+            id="questionBody"
             rows="3"
-            value={tempQuestion.content}
-            placeholder="Please enter yout question here"           
+            value={tempQuestion.questionBody}
+            placeholder="Please enter yout question here"
             onChange={(event) => {
-              setContent(event.target.value)
+              setQuestionBody(event.target.value);
             }}
           ></textarea>
         </div>
         <div className="form-group row">
-          <label for="content" class="col-sm-2 col-form-label">
+          <label htmlFor="questionBody" class="col-sm-2 col-form-label">
             {" "}
           </label>
           <div className="col-md-11">
@@ -97,9 +97,7 @@ const NewQuestion = (props) => {
                     Multiple Choice
                   </Dropdown.Item>
                   <Dropdown.Item
-                    onClick={(event) =>
-                      setChooseQuestionType(QUESTION_LINEER)
-                    }
+                    onClick={(event) => setChooseQuestionType(QUESTION_LINEER)}
                   >
                     Lineer Scale Answer
                   </Dropdown.Item>
@@ -118,14 +116,14 @@ const NewQuestion = (props) => {
       </div>
 
       {tempQuestion.chooseQuestionType === QUESTION_MULTIPLE ? (
-        <MultipleChoice    />
+        <MultipleChoice />
       ) : tempQuestion.chooseQuestionType === QUESTION_LINEER ? (
-        <LineerScaleAnswer   />
+        <LineerScaleAnswer />
       ) : (
         <div className="col-sm-10">
           <textarea
             className="form-control"
-            id="content"
+            id="questionBody"
             rows="1"
             disabled="true"
             placeholder="Answer will create by user "

@@ -17,10 +17,10 @@ export const newQuestionAction = (question) => {
   };
 };
 
-export const updateQuestionAction = question => {
+export const updateQuestionAction = (question) => {
   return {
     type: UPDATE_QUESTION_IN_SURVEY,
-    question
+    question,
   };
 };
 
@@ -38,7 +38,7 @@ export const clearQuestionAction = (question) => {
     type: CLEAR_QUESTION_STATE,
     question: {
       id: "",
-      order: "",
+      orders: "",
       subject: "",
       chooseQuestionType: QUESTION_MULTIPLE,
       content: "",
@@ -61,19 +61,19 @@ export const updateAnswers = (answers) => {
 };
 
 export const replaceSequenceNumberWithAHigherSequenceNumber = (
-  order,
+  orders,
   process
 ) => {
   return {
     type: REPLACE_ORDER_NUMBER,
-    order,
+    orders,
     process,
   };
 };
 
-export const deleteQuestionByOrderInSurvey = (order) => {
+export const deleteQuestionByOrderInSurvey = (orders) => {
   return {
     type: DELETE_QUESTION_BY_ORDER,
-    order,
+    orders,
   };
 };

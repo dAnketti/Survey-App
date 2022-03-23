@@ -14,3 +14,18 @@ export const register = (body) => {
 export const login = (body) => {
   return axios.post(Urls.AUTH_URL + Urls.AUTH_LOGIN, body);
 };
+
+export const saveSurvey = (tempSurvey) => {
+  return axios.post(Urls.SURVEY_URL + Urls.SAVE_SURVEY, {
+    data: {
+      ...tempSurvey,
+    },
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const findAllSurveys = () => {
+  return axios.get(Urls.SURVEY_URL + Urls.FIND_ALL_SURVEYS);
+};
