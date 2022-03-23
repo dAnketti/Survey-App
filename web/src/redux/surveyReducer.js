@@ -7,7 +7,6 @@ import {
   DELETE_QUESTION_BY_ORDER,
   UPDATE_QUESTION_IN_SURVEY,
   UPDATE_SURVEY,
-<<<<<<< HEAD
   CLEAR_QUESTION_STATE,
 } from "./ReduceConstants";
 
@@ -19,7 +18,7 @@ let survey_app = {
   },
   question: {
     id: "",
-    orders: "",
+    place: "",
     subject: "",
     chooseQuestionType: QUESTION_MULTIPLE,
     content: "",
@@ -35,38 +34,6 @@ let survey_app = {
     draft: true,
     questions: [],
   },
-=======
-  LOGIN_ACTION,
-  LOG_OUT_SURVEY,
-  CLEAR_QUESTION_STATE } from './ReduceConstants';
-
-
-let survey_app= {
-    auth:{
-        isLoggedIn: false,
-        userID: undefined,
-        username: undefined        
-    },
-    question: {
-        id:"",
-        order:"",
-        subject:"",
-        chooseQuestionType: QUESTION_MULTIPLE,
-        questionBody: "",    
-        answers: []
-        
-      },
-    survey: {
-        id:"",
-        title:"",
-        caption:"",
-        groupList:[],
-        startDate:0,
-        expirationDate:0,
-        isDraft:true,
-        questions:[]  
-      }  
->>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
 };
 
 const surveyReducer = (state = { ...survey_app }, action) => {
@@ -77,7 +44,6 @@ const surveyReducer = (state = { ...survey_app }, action) => {
         question: action.question,
       };
 
-<<<<<<< HEAD
     case CLEAR_QUESTION_STATE:
       const chooseQuestionType = state.question.chooseQuestionType;
       return {
@@ -87,58 +53,14 @@ const surveyReducer = (state = { ...survey_app }, action) => {
           chooseQuestionType,
         },
       };
-=======
-const surveyReducer = (state = {...survey_app}, action) => {
-  
-    switch(action.type) {
-        case NEW_QUESTION:
-          return {
-              ...state,
-              question:action.question
-          };
-        case LOGIN_ACTION:
-          return {
-              ...state,
-              auth:{
-                isLoggedIn: true,
-                authID: action.payload
-              }
-          };
-        case LOG_OUT_SURVEY:
-          return {
-              ...state,
-              auth:{
-                isLoggedIn: false,
-                authID: action.payload
-              }
-          };
-        
-        case CLEAR_QUESTION_STATE:
-            const chooseQuestionType=state.question.chooseQuestionType;
-          return {
-              ...state,
-              question:{
-                ...survey_app.question,
-                chooseQuestionType
-              }
-          };
-          
-        case ADD_QUESTION_SURVEY:
-          let count=1;
-          state.survey.questions 
-          && state.survey.questions.length>0  
-          && state.survey.questions.map((m,i)=>{
-          count=parseInt(m.order)+1;          
-          }); 
->>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
 
     case ADD_QUESTION_SURVEY:
       let count = 1;
       state.survey.questions &&
         state.survey.questions.length > 0 &&
         state.survey.questions.map((m, i) => {
-          console.log(m.orders);
-          count = parseInt(m.orders) + 1;
+          console.log(m.place);
+          count = parseInt(m.place) + 1;
         });
 
       const question = {
@@ -173,18 +95,18 @@ const surveyReducer = (state = {...survey_app}, action) => {
       };
 
     case DELETE_QUESTION_BY_ORDER:
-      const index = action.orders;
+      const index = action.place;
       let array = state.survey.questions.filter((value, i, arr) => {
-        let or = value.orders;
+        let or = value.place;
         return or !== index;
       });
 
       array = array.filter((value, i, arr) => {
         let q = value.question;
-        value.orders = i + 1;
+        value.place = i + 1;
         q = {
           ...q,
-          orders: parseInt(i) + 1,
+          place: parseInt(i) + 1,
         };
         value.question = q;
         return value;
@@ -200,24 +122,24 @@ const surveyReducer = (state = {...survey_app}, action) => {
 
     case REPLACE_ORDER_NUMBER:
       const tempQuestions = state.survey.questions;
-      const orderNum = parseInt(action.orders) - 1;
+      const orderNum = parseInt(action.place) - 1;
       const process = action.process; // up/down
       if (process === "down" && orderNum < tempQuestions.length - 1) {
         let temp = tempQuestions[orderNum];
         tempQuestions[orderNum] = tempQuestions[orderNum + 1];
-        tempQuestions[orderNum].orders = orderNum + 1;
-        tempQuestions[orderNum].question.orders = orderNum + 1;
+        tempQuestions[orderNum].place = orderNum + 1;
+        tempQuestions[orderNum].question.place = orderNum + 1;
         tempQuestions[orderNum + 1] = temp;
-        tempQuestions[orderNum + 1].orders = orderNum + 2;
-        tempQuestions[orderNum + 1].question.orders = orderNum + 2;
+        tempQuestions[orderNum + 1].place = orderNum + 2;
+        tempQuestions[orderNum + 1].question.place = orderNum + 2;
       } else if (process === "up" && orderNum > 0) {
         let temp = tempQuestions[orderNum]; //2
         tempQuestions[orderNum] = tempQuestions[orderNum - 1]; //1
-        tempQuestions[orderNum].orders = orderNum + 1;
-        tempQuestions[orderNum].question.orders = orderNum + 1;
+        tempQuestions[orderNum].place = orderNum + 1;
+        tempQuestions[orderNum].question.place = orderNum + 1;
         tempQuestions[orderNum - 1] = temp;
-        tempQuestions[orderNum - 1].orders = orderNum;
-        tempQuestions[orderNum - 1].question.orders = orderNum;
+        tempQuestions[orderNum - 1].place = orderNum;
+        tempQuestions[orderNum - 1].question.place = orderNum;
       }
 
       return {
@@ -230,7 +152,7 @@ const surveyReducer = (state = {...survey_app}, action) => {
 
     case UPDATE_QUESTION_IN_SURVEY:
       const temp = state.survey.questions;
-      temp[parseInt(action.question.orders) - 1].question = action.question;
+      temp[parseInt(action.question.place) - 1].question = action.question;
 
       return {
         ...state,

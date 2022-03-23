@@ -5,7 +5,6 @@ import surveyReducer from "./surveyReducer.js";
 
 const survey_state = localStorage.getItem("survey_app");
 
-<<<<<<< HEAD
 let survey_app = {
   auth: {
     isLoggedIn: false,
@@ -14,7 +13,7 @@ let survey_app = {
   },
   question: {
     id: "",
-    orders: "",
+    place: "",
     subject: "",
     chooseQuestionType: QUESTION_MULTIPLE,
     questionBody: "",
@@ -30,32 +29,6 @@ let survey_app = {
     questions: [],
   },
 };
-=======
-let survey_app= {
-    auth:{
-        isLoggedIn: false,
-        userID: undefined,
-        username: undefined        
-    },
-    question: {
-        id:"",
-        order:"",
-        subject:"",
-        chooseQuestionType: QUESTION_MULTIPLE,
-        questionBody: "",    
-        answers: []     
-      },
-    survey: {
-        id:"",
-        title:"",
-        caption:"",
-        startDate:0,
-        expirationDate:0,
-        isDraft:true,
-        questions:[]   
-      }  
-};   
->>>>>>> a909351565bbc24e932a56904b6620f0ba20ed74
 
 if (survey_state) {
   survey_app = JSON.parse(survey_state);

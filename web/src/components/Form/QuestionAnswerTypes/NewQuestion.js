@@ -55,7 +55,7 @@ const NewQuestion = (props) => {
 
   const onSaveBtnClick = (event) => {
     if (tempQuestion.questionBody) {
-      if (tempQuestion.order && tempQuestion.order > 0) {
+      if (tempQuestion.place && tempQuestion.place > 0) {
         dispatch(updateQuestionAction(tempQuestion));
       } else {
         dispatch(addQuestionToTheSurvey(tempQuestion));

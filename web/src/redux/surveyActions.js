@@ -38,7 +38,7 @@ export const clearQuestionAction = (question) => {
     type: CLEAR_QUESTION_STATE,
     question: {
       id: "",
-      orders: "",
+      place: "",
       subject: "",
       chooseQuestionType: QUESTION_MULTIPLE,
       questionBody: "",
@@ -61,19 +61,19 @@ export const updateAnswers = (answers) => {
 };
 
 export const replaceSequenceNumberWithAHigherSequenceNumber = (
-  orders,
+  place,
   process
 ) => {
   return {
     type: REPLACE_ORDER_NUMBER,
-    orders,
+    place,
     process,
   };
 };
 
-export const deleteQuestionByOrderInSurvey = (orders) => {
+export const deleteQuestionByOrderInSurvey = (place) => {
   return {
     type: DELETE_QUESTION_BY_ORDER,
-    orders,
+    place,
   };
 };
