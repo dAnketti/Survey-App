@@ -23,7 +23,8 @@ public class GetQuestionResponseDto {
     private String questionBody;
     private String subject;
     private String chooseQuestionType;
-    private Map<Integer,String> answers;
+    private List<Answer> answers;
+    private int place;
 //    private List<Answer> answerGivenByUsers;
 
     public GetQuestionResponseDto(Question question) {
@@ -32,6 +33,7 @@ public class GetQuestionResponseDto {
         this.questionBody = question.getQuestionBody();
         this.subject = question.getSubject();
         this.chooseQuestionType = question.getChooseQuestionType();
+        this.place = question.getPlace();
 //        this.answers = question.getAnswers();
 //        this.answerGivenByUsers = question.getAnswerGivenByUsers();
     }
