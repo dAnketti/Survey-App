@@ -17,7 +17,8 @@ public class CreateQuestionRequestDto {
     private String questionBody;
     private String subject;
     private String chooseQuestionType;
-    private Map<Integer,String> answers;
+    private int place;
+    private List<CreateAnswerRequestDto> answers;
 //    private List<CreateAnswerRequestDto> answerGivenByUsers;
 
 
