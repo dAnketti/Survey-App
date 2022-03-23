@@ -1,19 +1,23 @@
 package com.amateurj.mapper;
 
+import com.amateurj.dto.request.CreateAnswerRequestDto;
 import com.amateurj.dto.request.CreateQuestionRequestDto;
+import com.amateurj.dto.request.UpdateAnswerRequestDto;
 import com.amateurj.dto.request.UpdateQuestionRequestDto;
 import com.amateurj.dto.response.GetQuestionResponseDto;
 import com.amateurj.dto.response.GetQuestionResponseDto.GetQuestionResponseDtoBuilder;
+import com.amateurj.repository.entity.Answer;
+import com.amateurj.repository.entity.Answer.AnswerBuilder;
 import com.amateurj.repository.entity.Question;
 import com.amateurj.repository.entity.Question.QuestionBuilder;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-23T22:17:22+0300",
+    date = "2022-03-23T22:41:40+0300",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,10 +34,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.questionBody( dto.getQuestionBody() );
         question.subject( dto.getSubject() );
         question.chooseQuestionType( dto.getChooseQuestionType() );
-        Map<Integer, String> map = dto.getAnswers();
-        if ( map != null ) {
-            question.answers( new HashMap<Integer, String>( map ) );
-        }
+        question.answers( createAnswerRequestDtoListToAnswerList( dto.getAnswers() ) );
 
         return question.build();
     }
@@ -50,10 +51,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.questionBody( dto.getQuestionBody() );
         question.subject( dto.getSubject() );
         question.chooseQuestionType( dto.getChooseQuestionType() );
-        Map<Integer, String> map = dto.getAnswers();
-        if ( map != null ) {
-            question.answers( new HashMap<Integer, String>( map ) );
-        }
+        question.answers( updateAnswerRequestDtoListToAnswerList( dto.getAnswers() ) );
 
         return question.build();
     }
@@ -70,11 +68,64 @@ public class QuestionMapperImpl implements QuestionMapper {
         getQuestionResponseDto.questionBody( question.getQuestionBody() );
         getQuestionResponseDto.subject( question.getSubject() );
         getQuestionResponseDto.chooseQuestionType( question.getChooseQuestionType() );
-        Map<Integer, String> map = question.getAnswers();
-        if ( map != null ) {
-            getQuestionResponseDto.answers( new HashMap<Integer, String>( map ) );
+        List<Answer> list = question.getAnswers();
+        if ( list != null ) {
+            getQuestionResponseDto.answers( new ArrayList<Answer>( list ) );
         }
 
         return getQuestionResponseDto.build();
+    }
+
+    protected Answer createAnswerRequestDtoToAnswer(CreateAnswerRequestDto createAnswerRequestDto) {
+        if ( createAnswerRequestDto == null ) {
+            return null;
+        }
+
+        AnswerBuilder answer = Answer.builder();
+
+        answer.answerOrder( createAnswerRequestDto.getAnswerOrder() );
+        answer.answer( createAnswerRequestDto.getAnswer() );
+
+        return answer.build();
+    }
+
+    protected List<Answer> createAnswerRequestDtoListToAnswerList(List<CreateAnswerRequestDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Answer> list1 = new ArrayList<Answer>( list.size() );
+        for ( CreateAnswerRequestDto createAnswerRequestDto : list ) {
+            list1.add( createAnswerRequestDtoToAnswer( createAnswerRequestDto ) );
+        }
+
+        return list1;
+    }
+
+    protected Answer updateAnswerRequestDtoToAnswer(UpdateAnswerRequestDto updateAnswerRequestDto) {
+        if ( updateAnswerRequestDto == null ) {
+            return null;
+        }
+
+        AnswerBuilder answer = Answer.builder();
+
+        answer.id( updateAnswerRequestDto.getId() );
+        answer.answerOrder( updateAnswerRequestDto.getAnswerOrder() );
+        answer.answer( updateAnswerRequestDto.getAnswer() );
+
+        return answer.build();
+    }
+
+    protected List<Answer> updateAnswerRequestDtoListToAnswerList(List<UpdateAnswerRequestDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Answer> list1 = new ArrayList<Answer>( list.size() );
+        for ( UpdateAnswerRequestDto updateAnswerRequestDto : list ) {
+            list1.add( updateAnswerRequestDtoToAnswer( updateAnswerRequestDto ) );
+        }
+
+        return list1;
     }
 }

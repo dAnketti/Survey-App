@@ -23,7 +23,7 @@ public class GetQuestionResponseDto {
     private String questionBody;
     private String subject;
     private String chooseQuestionType;
-    private Map<Integer,String> answers;
+    private List<Answer> answers;
 //    private List<Answer> answerGivenByUsers;
 
     public GetQuestionResponseDto(Question question) {

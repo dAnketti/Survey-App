@@ -6,6 +6,7 @@ import com.amateurj.dto.response.GetQuestionResponseDto;
 import com.amateurj.dto.response.GetSurveyResponseDto;
 import com.amateurj.mapper.QuestionMapper;
 import com.amateurj.mapper.SurveyMapper;
+import com.amateurj.repository.IAnswerRepository;
 import com.amateurj.repository.IQuestionRepository;
 import com.amateurj.repository.ISurveyRepository;
 import com.amateurj.repository.entity.Question;
@@ -25,6 +26,8 @@ public class SurveyService {
 
     private final ISurveyRepository surveyRepository;
     private final IQuestionRepository questionRepository;
+    private final IAnswerRepository answerRepository;
+
     private final QuestionMapper questionMapper;
     private final SurveyMapper surveyMapper;
 
@@ -58,7 +61,8 @@ public class SurveyService {
         List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromCreateDto).collect(Collectors.toList());
         qList.forEach((question)->{
             question.setSurvey(survey);
-            questionRepository.save(question);
+            Question temp = questionRepository.save(question);
+            answerRepository.saveAll(temp.getAnswers());
         });
         survey.setQuestionList(qList);
         return survey;

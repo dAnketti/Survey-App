@@ -8,9 +8,8 @@ import lombok.*;
 @Builder
 public class CreateAnswerRequestDto {
 
-    private long questionId;
-    private String answerBody;
-    private String answerType;
+    private int answerOrder;
+    private String answer;
 
 
 
