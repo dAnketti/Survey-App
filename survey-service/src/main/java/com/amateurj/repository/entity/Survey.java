@@ -23,7 +23,7 @@ public class Survey {
     private String caption;
     private String className;
     private boolean isDraft;
-//    private long creatorId;
+    private long creatorId;
 
     private Date updatedDate;
     private Date startDate;
@@ -36,6 +36,6 @@ public class Survey {
 
 
     @OneToMany(mappedBy = "survey")
-    private List<Question> questions;
+    private List<Question> questionList;
 
 }

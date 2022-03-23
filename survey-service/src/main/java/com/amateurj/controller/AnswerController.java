@@ -1,17 +1,7 @@
 package com.amateurj.controller;
 
-import com.amateurj.dto.request.CreateAnswerRequestDto;
-import com.amateurj.dto.response.QuestionResponseDto;
-import com.amateurj.mapper.AnswerMapper;
-import com.amateurj.mapper.QuestionMapper;
-import com.amateurj.repository.entity.Answer;
-import com.amateurj.service.AnswerService;
-import com.amateurj.service.SurveyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/response")

@@ -1,12 +1,9 @@
 package com.amateurj.service;
 
-import com.amateurj.dto.request.CreateQuestionRequestDto;
 import com.amateurj.dto.request.CreateSurveyRequestDto;
 import com.amateurj.dto.request.UpdateSurveyRequestDto;
 import com.amateurj.dto.response.GetQuestionResponseDto;
 import com.amateurj.dto.response.GetSurveyResponseDto;
-import com.amateurj.dto.response.QuestionResponseDto;
-import com.amateurj.mapper.AnswerMapper;
 import com.amateurj.mapper.QuestionMapper;
 import com.amateurj.mapper.SurveyMapper;
 import com.amateurj.repository.IQuestionRepository;
@@ -53,36 +50,30 @@ public class SurveyService {
 
     public List<GetQuestionResponseDto> getAllQuestions(long id){
         Survey survey = findSurveyById(id);
-        return survey.getQuestions().stream().map(questionMapper::fromQuestion).collect(Collectors.toList());
+        return survey.getQuestionList().stream().map(questionMapper::fromQuestion).collect(Collectors.toList());
     }
 
     public Survey saveSurvey (CreateSurveyRequestDto dto){
         Survey survey = surveyRepository.save(surveyMapper.fromCreateDto(dto));
-
-        List<Question> qList = dto.getQuestionList().stream().map(questionMapper::toQuestion).collect(Collectors.toList());
+        List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromCreateDto).collect(Collectors.toList());
         qList.forEach((question)->{
             question.setSurvey(survey);
             questionRepository.save(question);
         });
-        survey.setQuestions(qList);
+        survey.setQuestionList(qList);
         return survey;
 
     }
 
     public Survey updateSurvey(UpdateSurveyRequestDto dto){
-        Survey survey = findSurveyById(dto.getId());
-        survey = surveyMapper.fromUpdateDto(dto);
-        List<Question> qList = dto.getQuestionList().stream().map(questionMapper::fromUpdateDto).collect(Collectors.toList());
-        Survey finalSurvey = survey;
+        Survey survey = surveyMapper.fromUpdateDto(dto);
+        List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromUpdateDto).collect(Collectors.toList());
+        surveyRepository.save(survey);
         qList.stream().map((question)->{
-            question.setSurvey(finalSurvey);
+            question.setSurvey(survey);
             return questionRepository.save(question);
         }).collect(Collectors.toList());
-        finalSurvey.setQuestions(qList);
-        return surveyRepository.save(finalSurvey);
-
-
+        survey.setQuestionList(qList);
+        return survey;
     }
-
-
 }

@@ -20,7 +20,7 @@ public class UpdateSurveyRequestDto {
     private String caption;
     private String className;
     private boolean isDraft;
-    private List<UpdateQuestionRequestDto> questionList;
+    private List<UpdateQuestionRequestDto> questions;
     private Date startDate;
     private Date expirationDate;
     private Date updatedDate;

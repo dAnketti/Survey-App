@@ -24,7 +24,7 @@ public class GetSurveyResponseDto {
     private String caption;
     private String className;
     private boolean isDraft;
-    private List<GetQuestionResponseDto> questionList;
+    private List<GetQuestionResponseDto> questions;
     private Date startDate;
     private Date expirationDate;
     private Date updatedDate;
@@ -35,7 +35,7 @@ public class GetSurveyResponseDto {
         this.caption = survey.getCaption();
         this.className = survey.getClassName();
         this.isDraft = survey.isDraft();
-        this.questionList = survey.getQuestions().stream().map(GetQuestionResponseDto::new).collect(Collectors.toList());
+        this.questions = survey.getQuestionList().stream().map(GetQuestionResponseDto::new).collect(Collectors.toList());
         this.startDate = survey.getStartDate();
         this.expirationDate = survey.getExpirationDate();
         this.updatedDate = survey.getUpdatedDate();

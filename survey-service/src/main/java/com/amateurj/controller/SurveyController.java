@@ -35,7 +35,7 @@ public class SurveyController {
     public ResponseEntity<GetSurveyResponseDto> update(@RequestParam @RequestBody UpdateSurveyRequestDto dto){
         return ResponseEntity.ok(new GetSurveyResponseDto(surveyService.updateSurvey(dto)));
     }
-//
+
 
     @DeleteMapping("/deleteById/{id}/")
     public ResponseEntity<String> deleteById(@RequestBody @PathVariable long id){

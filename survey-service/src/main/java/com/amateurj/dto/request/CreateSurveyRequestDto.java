@@ -15,7 +15,7 @@ public class CreateSurveyRequestDto {
     private String caption;
     private String className;
     private boolean isDraft;
-    private List<CreateQuestionRequestDto> questionList;
+    private List<CreateQuestionRequestDto> questions;
     private Date startDate;
     private Date expirationDate;
 
