@@ -1,17 +1,17 @@
 package com.amateurj.mapper;
 
-import com.amateurj.dto.request.SurveyDto;
-import com.amateurj.dto.response.FindAllSurveyDto;
+import com.amateurj.dto.request.CreateSurveyRequestDto;
+import com.amateurj.dto.request.UpdateSurveyRequestDto;
 import com.amateurj.repository.entity.Survey;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.context.annotation.Bean;
 
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface SurveyMapper {
 
-    Survey toSurvey(SurveyDto dto);
-    FindAllSurveyDto toFindAllSurvey(Survey survey);
+    Survey fromCreateDto(CreateSurveyRequestDto dto);
+    Survey fromUpdateDto(UpdateSurveyRequestDto dto);
+
 
 }

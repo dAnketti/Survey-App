@@ -10,7 +10,7 @@
         </processorPath>
         <module name="Survey-App.survey-service.main" />
         <module name="Survey-App.main" />
-        <module name="Survey-App.response-service.main" />
+        <module name="Survey-App.user-service.main" />
         <module name="Survey-App.auth-service.main" />
       </profile>
     </annotationProcessing>

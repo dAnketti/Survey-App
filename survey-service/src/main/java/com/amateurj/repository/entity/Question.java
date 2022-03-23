@@ -1,19 +1,17 @@
 package com.amateurj.repository.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
 
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 @Entity
 @Table(name ="tbl_question" )
@@ -24,23 +22,27 @@ public class Question{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy ="question")
-    private List<Answer> answerList;
-
     private String questionBody;
+    private String subject;
+    private String chooseQuestionType;
+//    private int order;
+
+//    @OneToMany(mappedBy ="question")
+//    private List<Answer> answerGivenByUsers;
+
+    @ElementCollection
+    @CollectionTable(name = "question_answers_mapping",
+            joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "answers_id")
+    private Map<Integer,String> answers;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "survey_id")
-    @JsonIgnoreProperties("questionList")
     private Survey survey;
-    /**
-     * Text = 0
-     * MultipleChoice = 1
-     * YesNo = 2
-     * Numeric = 3
-     */
-    private String questionType;
-    private long createdDate = System.currentTimeMillis();
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Date createdDate;
 
 
 

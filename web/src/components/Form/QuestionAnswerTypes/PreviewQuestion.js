@@ -13,29 +13,29 @@ import {
 
 const PreviewQuestion = (props) => {
   const { question } = props;
-  const { questionBody, chooseQuestionType, answers, order } = question;
+  const { questionBody, chooseQuestionType, answers, place } = question;
 
   const dispatch = useDispatch();
 
   const deleteClickQuestionByOrderInSurvey = (event) => {
-    dispatch(deleteQuestionByOrderInSurvey(order));
+    dispatch(deleteQuestionByOrderInSurvey(place));
   };
 
   const replaceUp = () => {
-    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order, "up"));
+    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(place, "up"));
   };
   const replaceDown = () => {
-    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(order, "down"));
+    dispatch(replaceSequenceNumberWithAHigherSequenceNumber(place, "down"));
   };
 
-  const updateClickQuestion = () => {   
+  const updateClickQuestion = () => {
     dispatch(newQuestionAction(question));
   };
   return (
     <div>
       <div className="row d-flex ">
         <div className="col d-flex">
-          <h4 className="float-left">{`Soru : ${order}`} </h4>
+          <h4 className="float-left">{`Soru : ${place}`} </h4>
         </div>
         <div className="col d-flex float-right">
           <span
@@ -88,13 +88,13 @@ const PreviewQuestion = (props) => {
                     <div className="form-check">
                       <input
                         className="form-check-input"
-                        id={`${order}-${key}`}
+                        id={`${place}-${key}`}
                         type="radio"
-                        name={order}
+                        name={place}
                       />
                       <label
                         className="form-check-label ms-2"
-                        for={`${order}-${key}`}
+                        htmlFor={`${place}-${key}`}
                       >
                         {answer}
                       </label>
@@ -104,13 +104,13 @@ const PreviewQuestion = (props) => {
                       <li value={key}>
                         <input
                           className="form-check-input"
-                          id={`${order}-${key}`}
+                          id={`${place}-${key}`}
                           type="radio"
-                          name={order}
+                          name={place}
                         />
                         <label
                           className="form-check-label ms-2"
-                          for={`${order}-${key}`}
+                          htmlFor={`${place}-${key}`}
                         >
                           {answer}
                         </label>

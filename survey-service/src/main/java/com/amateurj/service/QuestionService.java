@@ -14,22 +14,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestionService {
 
-    private final IQuestionRepository repository;
 
-    public void update(Question question){
-        repository.save(question);
-    }
-
-    public List<Question> findAll(){
-
-        return repository.findAll();
-    }
-
-//    public List<Response> getAllResponses(long id){
-//        Optional<Question> question;
-//        question = repository.findById(id);
-//        return question.get().getResponseList();
-//
-//    }
 
 }
