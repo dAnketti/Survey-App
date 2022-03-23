@@ -35,7 +35,10 @@ function NewClass() {
             </Form.Floating>
 
             <Form.Floating>
-              <Form.Select aria-label="Default select example">
+              <Form.Select
+                className="pt-3 pb-3"
+                aria-label="Default select example"
+              >
                 <option>Select Office</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -44,7 +47,10 @@ function NewClass() {
             </Form.Floating>
 
             <Form.Floating>
-              <Form.Select aria-label="Default select example">
+              <Form.Select
+                className="pt-3 pb-3"
+                aria-label="Default select example"
+              >
                 <option>Select Master Trainer</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -53,7 +59,10 @@ function NewClass() {
             </Form.Floating>
 
             <Form.Floating>
-              <Form.Select aria-label="Default select example">
+              <Form.Select
+                className="pt-3 pb-3"
+                aria-label="Default select example"
+              >
                 <option>Select Assistant Trainer</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
