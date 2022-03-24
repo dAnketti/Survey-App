@@ -62,7 +62,9 @@ public class SurveyService {
         qList.forEach((question)->{
             question.setSurvey(survey);
             Question temp = questionRepository.save(question);
-            answerRepository.saveAll(temp.getAnswers());
+            if(temp.getAnswers() != null) {
+                answerRepository.saveAll(temp.getAnswers());
+            }
         });
         survey.setQuestionList(qList);
         return survey;

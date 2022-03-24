@@ -27,8 +27,9 @@ public class SurveyController {
 
 
     @PostMapping("/saveSurvey")
-    public ResponseEntity<GetSurveyResponseDto> save(@RequestBody CreateSurveyRequestDto dto){
-        return ResponseEntity.ok(new GetSurveyResponseDto(surveyService.saveSurvey(dto)));
+    public ResponseEntity<String> save(@RequestBody CreateSurveyRequestDto dto){
+        surveyService.saveSurvey(dto);
+        return ResponseEntity.ok("ok");
 
     }
     @PutMapping("/updateSurvey/{id}")

@@ -78,7 +78,10 @@ function NewTrainer() {
             </Form.Floating>
 
             <Form.Floating className="mb-3">
-              <Form.Select aria-label="Default select example">
+              <Form.Select
+                className="pt-3 pb-3"
+                aria-label="Default select example"
+              >
                 <option>Select Trainer Type</option>
                 <option value="1">Master</option>
                 <option value="2">Assistant</option>
