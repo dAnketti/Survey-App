@@ -23,9 +23,12 @@ let survey_app = {
     id: "",
     title: "",
     caption: "",
+    className: "",
+    isDraft: true,
+    groupList: [],
     startDate: 0,
     expirationDate: 0,
-    draft: true,
+    updateDate:"",
     questions: [],
   },
 };

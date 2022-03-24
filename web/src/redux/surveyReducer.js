@@ -7,6 +7,8 @@ import {
   DELETE_QUESTION_BY_ORDER,
   UPDATE_QUESTION_IN_SURVEY,
   UPDATE_SURVEY,
+  CLEAR_SURVEY_TEMPLATE,
+  RESPONSE_SURVEY_UPDATE,
   CLEAR_QUESTION_STATE,
 } from "./ReduceConstants";
 
@@ -21,17 +23,19 @@ let survey_app = {
     place: "",
     subject: "",
     chooseQuestionType: QUESTION_MULTIPLE,
-    content: "",
+    questionBody: "",
     answers: [],
   },
   survey: {
     id: "",
     title: "",
     caption: "",
+    className: "",
+    isDraft: true,
     groupList: [],
     startDate: 0,
     expirationDate: 0,
-    draft: true,
+    updateDate:"",
     questions: [],
   },
 };
@@ -42,6 +46,22 @@ const surveyReducer = (state = { ...survey_app }, action) => {
       return {
         ...state,
         question: action.question,
+      };
+
+    case CLEAR_SURVEY_TEMPLATE:
+      return {
+        ...state,
+       survey:{
+         ...survey_app.survey
+       }
+      };
+
+    case RESPONSE_SURVEY_UPDATE:
+      return {
+        ...state,
+       survey:{
+         ...action.survey
+       }
       };
 
     case CLEAR_QUESTION_STATE:
@@ -56,22 +76,21 @@ const surveyReducer = (state = { ...survey_app }, action) => {
 
     case ADD_QUESTION_SURVEY:
       let count = 1;
-      state.survey.questions &&
-        state.survey.questions.length > 0 &&
-        state.survey.questions.map((m, i) => {
-          console.log(m.place);
-          count = parseInt(m.place) + 1;
-        });
+      if(state.survey.questions && state.survey.questions.length > 0){
+          count = state.survey.questions.length*1+1;
+        }
+        
 
       const question = {
         ...action.question,
+        place:count
       };
 
       return {
         ...state,
         survey: {
           ...state.survey,
-          questions: [...state.survey.questions, { question: question }],
+          questions: [...state.survey.questions,question],
         },
       };
 
@@ -80,7 +99,7 @@ const surveyReducer = (state = { ...survey_app }, action) => {
         ...state,
         survey: {
           ...state.survey,
-          caption: action.caption,
+          title: action.title,
           expirationDate: action.expirationDate,
         },
       };
@@ -121,27 +140,23 @@ const surveyReducer = (state = { ...survey_app }, action) => {
       };
 
     case REPLACE_ORDER_NUMBER:
-      const tempQuestions = state.survey.questions;
-      const orderNum = parseInt(action.place) - 1;
-      const process = action.process; // up/down
-      if (process === "down" && orderNum < tempQuestions.length - 1) {
-        let temp = tempQuestions[orderNum];
-        tempQuestions[orderNum] = tempQuestions[orderNum + 1];
-        tempQuestions[orderNum].place = orderNum + 1;
-        tempQuestions[orderNum].question.place = orderNum + 1;
-        tempQuestions[orderNum + 1] = temp;
-        tempQuestions[orderNum + 1].place = orderNum + 2;
-        tempQuestions[orderNum + 1].question.place = orderNum + 2;
-      } else if (process === "up" && orderNum > 0) {
-        let temp = tempQuestions[orderNum]; //2
-        tempQuestions[orderNum] = tempQuestions[orderNum - 1]; //1
-        tempQuestions[orderNum].place = orderNum + 1;
-        tempQuestions[orderNum].question.place = orderNum + 1;
-        tempQuestions[orderNum - 1] = temp;
-        tempQuestions[orderNum - 1].place = orderNum;
-        tempQuestions[orderNum - 1].question.place = orderNum;
-      }
+        let tempQuestions=state.survey.questions;
+        const placeNum = parseInt(action.place)-1;
+        console.log("placeNum:",placeNum);
+        const process = action.process; // up/down
+        let tempQ=tempQuestions[placeNum];
+      if (process === "down" && placeNum < tempQuestions.length - 1) { 
+        tempQ.place=parseInt(placeNum)+2;
+        tempQuestions[placeNum]=tempQuestions[parseInt(placeNum)+1];     
+        tempQuestions[placeNum].place=parseInt(placeNum) +1;    
+        tempQuestions[parseInt(placeNum)+1]=tempQ;
 
+      }else if (process === "up" && placeNum > 0) {     
+        tempQ.place=parseInt(placeNum);  
+        tempQuestions[placeNum]=tempQuestions[parseInt(placeNum)-1]; 
+        tempQuestions[placeNum].place=parseInt(placeNum)+1;     
+        tempQuestions[parseInt(placeNum)-1]=tempQ;     
+      }
       return {
         ...state,
         survey: {

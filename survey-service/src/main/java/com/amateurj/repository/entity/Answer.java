@@ -1,5 +1,6 @@
 package com.amateurj.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 
@@ -21,8 +22,10 @@ public class Answer implements Serializable {
     private int answerOrder;
     private String answer;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "question_id")
+    @ManyToOne
+    @JoinColumn(name="question_id", referencedColumnName="id")
+    @ToString.Exclude
+    @JsonIgnore
     private Question question;
 
 

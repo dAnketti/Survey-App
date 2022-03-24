@@ -7,6 +7,8 @@ import {
   REPLACE_ORDER_NUMBER,
   UPDATE_QUESTION_IN_SURVEY,
   DELETE_QUESTION_BY_ORDER,
+  CLEAR_SURVEY_TEMPLATE,
+  RESPONSE_SURVEY_UPDATE,
   UPDATE_SURVEY,
 } from "./ReduceConstants";
 
@@ -24,11 +26,11 @@ export const updateQuestionAction = (question) => {
   };
 };
 
-export const updateSurveyInformation = (caption, expirationDate) => {
-  console.log(caption, expirationDate);
+export const updateSurveyInformation = (title, expirationDate) => {
+ 
   return {
     type: UPDATE_SURVEY,
-    caption,
+    title,
     expirationDate,
   };
 };
@@ -53,10 +55,24 @@ export const addQuestionToTheSurvey = (question) => {
   };
 };
 
+export const clearSurveyTemplate = () => {
+  return {
+    type: CLEAR_SURVEY_TEMPLATE,
+    
+  };
+};
+
 export const updateAnswers = (answers) => {
   return {
     type: UPDATE_ANSWERS,
     answers,
+  };
+};
+
+export const responseSurveyUpdate = (survey) => {
+  return {
+    type: RESPONSE_SURVEY_UPDATE,
+    survey,
   };
 };
 

@@ -4,10 +4,12 @@ package com.amateurj.controller;
 import com.amateurj.dto.request.CreateSurveyRequestDto;
 import com.amateurj.dto.request.UpdateSurveyRequestDto;
 import com.amateurj.dto.response.GetQuestionResponseDto;
+import com.amateurj.dto.response.GetResponseIdTextResponse;
 import com.amateurj.dto.response.GetSurveyResponseDto;
 import com.amateurj.mapper.QuestionMapper;
 
 import com.amateurj.mapper.SurveyMapper;
+import com.amateurj.repository.entity.Survey;
 import com.amateurj.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,9 @@ public class SurveyController {
 
 
     @PostMapping("/saveSurvey")
-    public ResponseEntity<String> save(@RequestBody CreateSurveyRequestDto dto){
-        surveyService.saveSurvey(dto);
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<Survey> save(@RequestBody CreateSurveyRequestDto dto){
+
+        return ResponseEntity.ok(surveyService.saveSurvey(dto));
 
     }
     @PutMapping("/updateSurvey/{id}")
@@ -38,7 +40,7 @@ public class SurveyController {
     }
 
 
-    @DeleteMapping("/deleteById/{id}/")
+    @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<String> deleteById(@RequestBody @PathVariable long id){
         return ResponseEntity.ok(surveyService.deleteById(id));
     }
@@ -50,14 +52,20 @@ public class SurveyController {
 
 
     @GetMapping("/findSurveyById/{id}")
-    public ResponseEntity<GetSurveyResponseDto> findSurveyById(@PathVariable int id) {
-        return ResponseEntity.ok(new GetSurveyResponseDto(surveyService.findSurveyById(id)));
+    public ResponseEntity<Survey> findSurveyById(@PathVariable int id) {
+        return ResponseEntity.ok(surveyService.findSurveyById(id));
     }
 
 
     @GetMapping("/surveys/{id}/getQuestionList")
     public ResponseEntity<List<GetQuestionResponseDto>> getAllQuestions(@PathVariable long id){
        return ResponseEntity.ok(surveyService.getAllQuestions(id));
+
+    }
+
+    @GetMapping("/surveys_title")
+    public ResponseEntity<List<GetResponseIdTextResponse>> getAllSurveyTitle(){
+        return ResponseEntity.ok(surveyService.getSurveyAndTitle());
 
     }
 

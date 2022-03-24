@@ -35,7 +35,7 @@ public class GetSurveyResponseDto {
         this.caption = survey.getCaption();
         this.className = survey.getClassName();
         this.isDraft = survey.isDraft();
-        this.questions = survey.getQuestionList().stream().map(GetQuestionResponseDto::new).collect(Collectors.toList());
+        this.questions = survey.getQuestions().stream().map(GetQuestionResponseDto::new).collect(Collectors.toList());
         this.startDate = survey.getStartDate();
         this.expirationDate = survey.getExpirationDate();
         this.updatedDate = survey.getUpdatedDate();

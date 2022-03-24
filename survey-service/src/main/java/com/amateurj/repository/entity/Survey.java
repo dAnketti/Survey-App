@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Survey {
 
 
 
-    @OneToMany(mappedBy = "survey")
-    private List<Question> questionList;
+    @OneToMany(mappedBy = "survey" , orphanRemoval = true)
+    private List<Question> questions=new ArrayList<>();
 
 }

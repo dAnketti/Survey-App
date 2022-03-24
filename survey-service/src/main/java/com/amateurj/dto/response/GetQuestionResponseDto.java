@@ -29,12 +29,11 @@ public class GetQuestionResponseDto {
 
     public GetQuestionResponseDto(Question question) {
         this.id = question.getId();
-//        this.order = question.getOrder();
         this.questionBody = question.getQuestionBody();
         this.subject = question.getSubject();
         this.chooseQuestionType = question.getChooseQuestionType();
         this.place = question.getPlace();
-//        this.answers = question.getAnswers();
-//        this.answerGivenByUsers = question.getAnswerGivenByUsers();
+        this.answers = question.getAnswers();
+
     }
 }

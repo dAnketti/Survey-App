@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MultipleSelect from "../MultipleSelect";
 import Accordion from "react-bootstrap/Accordion";
 
 
 import Form from "./QuestionAnswerTypes/Form";
+import SurveyTitlesPreview from "./QuestionAnswerTypes/SurveyTitlesPreview";
 
 function PreviewPage(props) {
 
@@ -13,17 +14,7 @@ function PreviewPage(props) {
       <Container className="text-left ">
         <Row>
           <Col className="background-color-primary" md={2}>
-            <Accordion>
-              <h4 className="mt-5">Surveys</h4>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Accordion Item #1</Accordion.Header>
-                <Accordion.Body></Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>Accordion Item #2</Accordion.Header>
-                <Accordion.Body></Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+          <SurveyTitlesPreview/>
           </Col>
           <Col className="bg-mid" md={7}>
             <Form />

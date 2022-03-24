@@ -1,14 +1,15 @@
 package com.amateurj.service;
 
-import com.amateurj.dto.request.CreateSurveyRequestDto;
-import com.amateurj.dto.request.UpdateSurveyRequestDto;
+import com.amateurj.dto.request.*;
 import com.amateurj.dto.response.GetQuestionResponseDto;
+import com.amateurj.dto.response.GetResponseIdTextResponse;
 import com.amateurj.dto.response.GetSurveyResponseDto;
 import com.amateurj.mapper.QuestionMapper;
 import com.amateurj.mapper.SurveyMapper;
 import com.amateurj.repository.IAnswerRepository;
 import com.amateurj.repository.IQuestionRepository;
 import com.amateurj.repository.ISurveyRepository;
+import com.amateurj.repository.entity.Answer;
 import com.amateurj.repository.entity.Question;
 import com.amateurj.repository.entity.Survey;
 import lombok.RequiredArgsConstructor;
@@ -53,20 +54,35 @@ public class SurveyService {
 
     public List<GetQuestionResponseDto> getAllQuestions(long id){
         Survey survey = findSurveyById(id);
-        return survey.getQuestionList().stream().map(questionMapper::fromQuestion).collect(Collectors.toList());
+        return survey.getQuestions().stream().map(questionMapper::fromQuestion).collect(Collectors.toList());
     }
 
     public Survey saveSurvey (CreateSurveyRequestDto dto){
-        Survey survey = surveyRepository.save(surveyMapper.fromCreateDto(dto));
-        List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromCreateDto).collect(Collectors.toList());
-        qList.forEach((question)->{
-            question.setSurvey(survey);
-            Question temp = questionRepository.save(question);
-            if(temp.getAnswers() != null) {
-                answerRepository.saveAll(temp.getAnswers());
+        Survey survey = surveyRepository.save(Survey.builder()
+                        .title(dto.getTitle())
+                        .caption(dto.getCaption())
+                        .className(dto.getClassName())
+                        .isDraft(false)
+                .build());
+        for (CreateQuestionRequestDto q:dto.getQuestions()
+             ) {
+            Question dbQuestion=questionMapper.fromCreateDto(q);
+            dbQuestion.setSurvey(survey);
+            questionRepository.save(dbQuestion);
+            if(q.getAnswers().size()>0){
+                for (CreateAnswerRequestDto a:q.getAnswers()
+                     ) {
+                    Answer dbAnswer= Answer.builder()
+                            .answerOrder(a.getAnswerOrder())
+                            .answer(a.getAnswer())
+                            .question(dbQuestion)
+                            .build();
+                    answerRepository.save(dbAnswer);
+                }
             }
-        });
-        survey.setQuestionList(qList);
+        }
+
+
         return survey;
 
     }
@@ -79,7 +95,11 @@ public class SurveyService {
             question.setSurvey(survey);
             return questionRepository.save(question);
         }).collect(Collectors.toList());
-        survey.setQuestionList(qList);
+        survey.setQuestions(qList);
         return survey;
+    }
+
+    public List<GetResponseIdTextResponse> getSurveyAndTitle(){
+        return surveyRepository.getTitleAndId();
     }
 }

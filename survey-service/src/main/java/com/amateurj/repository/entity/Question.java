@@ -2,10 +2,12 @@ package com.amateurj.repository.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +34,13 @@ public class Question{
 //    @OneToMany(mappedBy ="question")
 //    private List<Answer> answerGivenByUsers;
 
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers;
+    @OneToMany(mappedBy = "question",orphanRemoval = true)
+    private List<Answer> answers=new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "survey_id")
+    @ManyToOne
+    @JoinColumn(name="survey_id", referencedColumnName="id")
+    @ToString.Exclude
+    @JsonIgnore
     private Survey survey;
 
     @Temporal(TemporalType.TIMESTAMP)
