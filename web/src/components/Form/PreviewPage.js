@@ -6,6 +6,7 @@ import Accordion from "react-bootstrap/Accordion";
 
 import Form from "./QuestionAnswerTypes/Form";
 import SurveyTitlesPreview from "./QuestionAnswerTypes/SurveyTitlesPreview";
+import { Button } from "@mui/material";
 
 function PreviewPage(props) {
 
@@ -19,15 +20,16 @@ function PreviewPage(props) {
           <Col className="bg-mid" md={7}>
             <Form />
           </Col>
-          <Col className="bg-secondary" md={3}>
+          <Col md={3}>
             <h4 className="mt-5">Select Class To Share Survey</h4>
             <MultipleSelect />
             <h4>Please Enter Mails to Send Survey Manual</h4>
+            <Button variant="contained">Publish</Button>
           </Col>
         </Row>
       </Container>
 
-      {/* <PreviewQuestion /> */}
+    
     </div>
   );
 }

@@ -57,22 +57,23 @@ public class SurveyService {
         return survey.getQuestions().stream().map(questionMapper::fromQuestion).collect(Collectors.toList());
     }
 
-    public Survey saveSurvey (CreateSurveyRequestDto dto){
+    public Survey saveSurvey (CreateSurveyRequestDto dto) {
         Survey survey = surveyRepository.save(Survey.builder()
-                        .title(dto.getTitle())
-                        .caption(dto.getCaption())
-                        .className(dto.getClassName())
-                        .isDraft(false)
+                .title(dto.getTitle())
+                .caption(dto.getCaption())
+                .className(dto.getClassName())
+                .isDraft(false)
                 .build());
-        for (CreateQuestionRequestDto q:dto.getQuestions()
-             ) {
-            Question dbQuestion=questionMapper.fromCreateDto(q);
+        if(dto.getQuestions()!=null){
+        for (CreateQuestionRequestDto q : dto.getQuestions()
+        ) {
+            Question dbQuestion = questionMapper.fromCreateDto(q);
             dbQuestion.setSurvey(survey);
             questionRepository.save(dbQuestion);
-            if(q.getAnswers().size()>0){
-                for (CreateAnswerRequestDto a:q.getAnswers()
-                     ) {
-                    Answer dbAnswer= Answer.builder()
+            if (q.getAnswers().size() > 0) {
+                for (CreateAnswerRequestDto a : q.getAnswers()
+                ) {
+                    Answer dbAnswer = Answer.builder()
                             .answerOrder(a.getAnswerOrder())
                             .answer(a.getAnswer())
                             .question(dbQuestion)
@@ -81,22 +82,59 @@ public class SurveyService {
                 }
             }
         }
-
+    }
 
         return survey;
 
     }
 
-    public Survey updateSurvey(UpdateSurveyRequestDto dto){
-        Survey survey = surveyMapper.fromUpdateDto(dto);
-        List<Question> qList = dto.getQuestions().stream().map(questionMapper::fromUpdateDto).collect(Collectors.toList());
+    public Survey updateSurvey(long id,UpdateSurveyRequestDto dto){
+        Survey survey = getFindByID(id);
+                survey.setTitle(dto.getTitle());
+                survey.setCaption(dto.getCaption());
+                survey.setClassName(dto.getClassName());
+                survey.setDraft(dto.isDraft());
         surveyRepository.save(survey);
-        qList.stream().map((question)->{
-            question.setSurvey(survey);
-            return questionRepository.save(question);
-        }).collect(Collectors.toList());
-        survey.setQuestions(qList);
+        for (UpdateQuestionRequestDto q:dto.getQuestions()
+        ) {
+            Optional<Question> dbQuestionOpt = questionRepository.findById(q.getId());
+            if(dbQuestionOpt.isPresent()){
+                Question dbQuestion= dbQuestionOpt.get();
+                dbQuestion.setQuestionBody(q.getQuestionBody());
+                dbQuestion.setSubject(q.getSubject());
+                dbQuestion.setChooseQuestionType(q.getChooseQuestionType());
+                dbQuestion.setPlace(q.getPlace());
+                questionRepository.save(dbQuestion);
+                if (!q.getChooseQuestionType().equals("question_paragraph")) {
+                    for (UpdateAnswerRequestDto a : q.getAnswers()
+                    ) {
+                        Optional<Answer> dbOptAnswer=answerRepository.findById(a.getId());
+                        if(dbOptAnswer.isPresent()){
+                            Answer dbAnswer = dbOptAnswer.get();
+                            dbAnswer.setAnswerOrder(a.getAnswerOrder());
+                            dbAnswer.setAnswer(a.getAnswer());
+                            answerRepository.save(dbAnswer);
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+
+
         return survey;
+    }
+
+    public Survey getFindByID(long id){
+        Optional<Survey> dbSurvey=surveyRepository.findById(id);
+        if(dbSurvey.isPresent()){
+            return dbSurvey.get();
+        }else{
+            throw new EntityNotFoundException("Survey Not found: id:" +id);
+        }
+
     }
 
     public List<GetResponseIdTextResponse> getSurveyAndTitle(){

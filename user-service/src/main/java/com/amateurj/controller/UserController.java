@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/finduserbyauthid")
-    public ResponseEntity<String> findUserByAuthId(@RequestBody AuthIdDto authIdDto){
+    public ResponseEntity<User> findUserByAuthId(@RequestBody AuthIdDto authIdDto){
         return ResponseEntity.ok(userService.findByAuthId(authIdDto));
     }
 }

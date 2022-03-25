@@ -7,6 +7,7 @@ import com.amateurj.repository.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -30,12 +31,12 @@ public class UserService {
         userRepository.findAll();
     }
 
-    public String findByAuthId(AuthIdDto authIdDto){
+    public User findByAuthId(AuthIdDto authIdDto){
         Optional<User> user = userRepository.findByAuthId(authIdDto.getAuthId());
         if (user.isPresent())
-            return String.valueOf(user.get().getId());
+            return user.get();
         else
-            return "Kullanıcı Bulunamadı";
+            throw new EntityNotFoundException("User not found > id:"+authIdDto.getAuthId());
     }
 
 }

@@ -16,6 +16,7 @@ import java.io.Serializable;
 
 public class Answer implements Serializable {
 
+    private static final long serialVersionUID = 1493120669006048616L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

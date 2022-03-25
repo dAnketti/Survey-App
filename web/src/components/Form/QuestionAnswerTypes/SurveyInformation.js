@@ -8,30 +8,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSurveyInformation } from "../../../redux/surveyActions";
 
 function SurveyInformation() {
-  const { title: tempTitle, expirationDate: tempExpirationDate } =
+  const { title: tempTitle,caption: tempCaption, expirationDate: tempExpirationDate } =
     useSelector((store) => ({
       title: store.survey.title,
+      caption: store.survey.caption,
       expirationDate: store.survey.expirationDate,
     }));
   const [title, setTitle] = useState(tempTitle);
+  const [caption, setCaption] = useState(tempCaption);
   const [value, setValue] = useState(tempExpirationDate);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(updateSurveyInformation(title, value));
-  }, [title, value]);
+    dispatch(updateSurveyInformation(title, value,caption));
+  }, [title, value,caption]);
   useEffect(() => {
     setTitle(tempTitle)
   }, [tempTitle]);
+
+  useEffect(() => {
+    setCaption(tempCaption)
+  }, [tempCaption]);
   
   return (
     <div className="card">
       <h2 className="card-title text-center">Survey Information</h2>
       <TextField
-        id="outlined-basic"
+        id="title"
         label="Survey title"
         value={title}
         onChange={(e) => {
           setTitle(e.target.value);
+        }}
+        variant="outlined"
+      />{" "}
+      <TextField
+        id="caption"
+        label="Survey description"
+        value={caption}
+        onChange={(e) => {
+          setCaption(e.target.value);
         }}
         variant="outlined"
       />{" "}

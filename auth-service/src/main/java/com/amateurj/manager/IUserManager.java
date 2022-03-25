@@ -2,6 +2,7 @@ package com.amateurj.manager;
 
 import com.amateurj.dto.request.UserRequestDto;
 import com.amateurj.dto.response.AuthIdDto;
+import com.amateurj.dto.response.UserDto;
 import com.amateurj.dto.response.UserResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,6 @@ public interface IUserManager {
     public ResponseEntity<String> save(@RequestBody UserRequestDto userRequestDto);
 
     @PostMapping("/finduserbyauthid")
-    public ResponseEntity<String> findUserByAuthId(@RequestBody AuthIdDto authIdDto);
+    public ResponseEntity<UserDto> findUserByAuthId(@RequestBody AuthIdDto authIdDto);
 
 }

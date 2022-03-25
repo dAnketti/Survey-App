@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UpdateAnswerRequestDto {
+    private long id;
     private int answerOrder;
     private String answer;
 }

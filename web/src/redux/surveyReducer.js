@@ -1,5 +1,7 @@
 import { QUESTION_MULTIPLE } from "../shared/Constants";
 import {
+  LOGIN_ACTION,
+  LOG_OUT_SURVEY,
   ADD_QUESTION_SURVEY,
   NEW_QUESTION,
   UPDATE_ANSWERS,
@@ -51,6 +53,9 @@ const surveyReducer = (state = { ...survey_app }, action) => {
     case CLEAR_SURVEY_TEMPLATE:
       return {
         ...state,
+        question:{
+          ...survey_app.question
+        },
        survey:{
          ...survey_app.survey
        }
@@ -100,6 +105,7 @@ const surveyReducer = (state = { ...survey_app }, action) => {
         survey: {
           ...state.survey,
           title: action.title,
+          caption: action.caption,
           expirationDate: action.expirationDate,
         },
       };
@@ -176,7 +182,27 @@ const surveyReducer = (state = { ...survey_app }, action) => {
           questions: temp,
         },
       };
-    default:
+   
+      case LOGIN_ACTION:
+        return{
+          ...state,
+          auth:{
+            isLoggedIn:true,
+            user:action.payload
+          }
+          
+        };
+      case LOG_OUT_SURVEY:
+        return{
+          ...state,
+          auth:{
+            isLoggedIn:false,
+            authId:-1
+          }
+          
+        };
+
+      default:
       return state;
   }
 };

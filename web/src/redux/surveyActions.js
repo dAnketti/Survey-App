@@ -26,12 +26,13 @@ export const updateQuestionAction = (question) => {
   };
 };
 
-export const updateSurveyInformation = (title, expirationDate) => {
+export const updateSurveyInformation = (title, expirationDate,caption) => {
  
   return {
     type: UPDATE_SURVEY,
     title,
     expirationDate,
+    caption,
   };
 };
 

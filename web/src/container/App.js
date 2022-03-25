@@ -18,7 +18,7 @@ import NewClass from "../components/Manager/NewClass";
 import NewStudent from "../components/Manager/NewStudent";
 const App = () => {
   const { isLoggedIn } = useSelector((store) => ({
-    isLoggedIn: true,
+    isLoggedIn: store.auth.isLoggedIn,
   }));
   return (
     <div>

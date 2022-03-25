@@ -12,7 +12,7 @@ import {
 } from "../../../shared/Constants";
 
 const PreviewQuestion = (props) => {
-  const { question } = props;
+  const { question, key:tempKey } = props;
   const { questionBody, chooseQuestionType, answers, place } = question;
 
   const dispatch = useDispatch();
@@ -32,35 +32,35 @@ const PreviewQuestion = (props) => {
     dispatch(newQuestionAction(question));
   };
   return (
-    <div>
+    <div key={tempKey}>
       <div className="row d-flex ">
         <div className="col d-flex">
           <h4 className="float-left">{`Soru : ${place}`} </h4>
         </div>
         <div className="col d-flex float-right">
           <span
-            class="material-icons float-right"
+            className="material-icons float-right"
             style={{ cursor: "pointer" }}
             onClick={deleteClickQuestionByOrderInSurvey}
           >
             delete
           </span>
           <span
-            class="material-icons float-right"
+            className="material-icons float-right"
             style={{ cursor: "pointer" }}
             onClick={replaceUp}
           >
             arrow_drop_up{" "}
           </span>
           <span
-            class="material-icons float-right"
+            className="material-icons float-right"
             style={{ cursor: "pointer" }}
             onClick={replaceDown}
           >
             arrow_drop_down{" "}
           </span>
-          <span
-            class="material-icons"
+          <span          
+            className="material-icons"
             style={{ cursor: "pointer" }}
             onClick={updateClickQuestion}
           >
@@ -72,7 +72,7 @@ const PreviewQuestion = (props) => {
       <div>
         <ol>
           {chooseQuestionType === QUESTION_PARAGRAPH ? (
-            <textarea
+            <textarea            
               className="form-control"
               id="questionBody"
               rows="3"
@@ -85,14 +85,15 @@ const PreviewQuestion = (props) => {
               return (
                 <>
                   {chooseQuestionType === QUESTION_MULTIPLE ? (
-                    <div className="form-check">
-                      <input
+                    <div key={index} className="form-check">
+                      <input  key={index}
                         className="form-check-input"
                         id={`${place}-${key}`}
                         type="radio"
                         name={place}
                       />
                       <label
+                        key={index}
                         className="form-check-label ms-2"
                         htmlFor={`${place}-${key}`}
                       >
@@ -101,14 +102,15 @@ const PreviewQuestion = (props) => {
                     </div>
                   ) : (
                     chooseQuestionType === QUESTION_LINEER && (
-                      <li value={key}>
-                        <input
+                      <li key={index} value={key}>
+                        <input  key={index}
                           className="form-check-input"
                           id={`${place}-${key}`}
                           type="radio"
                           name={place}
                         />
                         <label
+                           key={index}
                           className="form-check-label ms-2"
                           htmlFor={`${place}-${key}`}
                         >

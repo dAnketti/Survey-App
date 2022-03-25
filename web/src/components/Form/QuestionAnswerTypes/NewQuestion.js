@@ -69,7 +69,7 @@ const NewQuestion = (props) => {
   return (
     <div className="container border border-dark">
       <div className="form-group row ">
-        <label htmlFor="questionBody" class="col-sm-2 col-form-label">
+        <label htmlFor="questionBody" className="col-sm-2 col-form-label">
           {" "}
         </label>
         <div className="col-form-label">
@@ -85,11 +85,11 @@ const NewQuestion = (props) => {
           ></textarea>
         </div>
         <div className="form-group row">
-          <label htmlFor="questionBody" class="col-sm-2 col-form-label">
+          <label htmlFor="questionBody" className="col-sm-2 col-form-label">
             {" "}
           </label>
           <div className="col-md-11">
-            <div class="btn-group mb-3 color-primary " role="group">
+            <div className="btn-group mb-3 color-primary " role="group">
               <Dropdown>
                 <Dropdown.Toggle className="background-color-primary ">
                   Select question type

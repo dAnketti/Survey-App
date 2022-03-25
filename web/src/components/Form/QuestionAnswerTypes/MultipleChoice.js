@@ -65,7 +65,7 @@ function MultipleChoice(props) {
         <label className="col-form-label">Add Choices</label>
         <div className="col col-md-11">
           <input
-            class="form-control"
+            className="form-control"
             type="text"
             placeholder="Answer Area"
             value={answer}

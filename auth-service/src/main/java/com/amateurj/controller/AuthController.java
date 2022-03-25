@@ -3,6 +3,7 @@ package com.amateurj.controller;
 import com.amateurj.dto.request.LoginRequestDto;
 import com.amateurj.dto.request.RegisterRequestDto;
 import com.amateurj.dto.response.AuthIdDto;
+import com.amateurj.dto.response.UserDto;
 import com.amateurj.dto.response.UserResponseDto;
 import com.amateurj.manager.IUserManager;
 import com.amateurj.mapper.IAuthUserMapper;
@@ -30,11 +31,12 @@ public class AuthController  {
     public ResponseEntity<String> saveUser (@RequestBody @Valid RegisterRequestDto registerDto) {
         AuthUser authUser = authService.saveReturnUser (registerDto);
         String id = userManager.save(userMapper.toUserRequestDto(authUser)).getBody();
+
         return ResponseEntity.ok (id);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String > findUser (@RequestBody @Valid LoginRequestDto loginDto) {
+    public ResponseEntity<UserDto> findUser (@RequestBody @Valid LoginRequestDto loginDto) {
         return authService.getUser(loginDto);
     }
 

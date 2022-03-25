@@ -20,6 +20,9 @@ export const login = (credentials) => {
 export const saveSurvey = (tempSurvey) => {  
   return axios.post(Urls.SURVEY_URL + Urls.SAVE_SURVEY,tempSurvey );
 };
+export const updateSurvey = (tempSurvey) => {  
+  return axios.put(Urls.SURVEY_URL + Urls.UPDATE_SURVEY+"/"+tempSurvey.id,tempSurvey );
+};
 
 export const deleteSurvey = (id) => {  
   return axios.delete(Urls.SURVEY_URL + Urls.DELETE_SURVEY+"/"+id );

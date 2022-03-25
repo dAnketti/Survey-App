@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +16,9 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name ="tbl_survey" )
-public class Survey {
+public class Survey implements Serializable {
 
+    private static final long serialVersionUID = -4386512598165629057L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

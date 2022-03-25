@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,8 +20,9 @@ import java.util.Map;
 @Entity
 @Table(name ="tbl_question" )
 
-public class Question{
+public class Question implements Serializable {
 
+    private static final long serialVersionUID = -1465536408419343425L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
