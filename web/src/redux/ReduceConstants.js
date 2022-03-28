@@ -11,5 +11,4 @@ export const RESPONSE_SURVEY_UPDATE = "response_survey_update";
 export const CLEAR_SURVEY_TEMPLATE = "clear_survey_template";
 export const LOGIN_ACTION = "login_aciton";
 export const LOG_OUT_SURVEY = "log_out_survey";
-
-
+export const LOGIN_REMEMBER_ME = "login_remember_me";

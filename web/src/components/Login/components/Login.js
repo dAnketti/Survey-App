@@ -5,24 +5,29 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../api/ApiCalls";
-import { useDispatch } from "react-redux";
-import { loginSuccess } from "../../../redux/AuthAction";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { loginSuccess, rememberClicked } from "../../../redux/AuthAction";
+import { useState } from "react";
 function Login() {
-  const dispatch=useDispatch();
+  const { auth: tempAuth } = useSelector((store) => ({
+    auth: store.auth,
+  }));
+
+  const dispatch = useDispatch();
 
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: tempAuth.rememberMe && tempAuth.user && tempAuth.user.email,
       password: "",
     },
-    onSubmit: async(values) => {      
-      try{
-        const response = await login(values)
+    onSubmit: async (values) => {
+      try {
+        const response = await login(values);
         dispatch(loginSuccess(response.data));
-        navigate("/home")
-      }catch(e){
-          console.log(e.data);
+        navigate("/home");
+      } catch (e) {
+        console.log(e.data);
       }
     },
   });
@@ -76,7 +81,14 @@ function Login() {
             <div className="form-group mt-2 mb-2">
               <div className="custom-control custom-checkbox">
                 <Form.Group className="mb-3 " controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Check me out" />
+                  <Form.Check
+                    type="checkbox"
+                    label="Check me out"
+                    checked={tempAuth.rememberMe}
+                    onChange={(e) => {
+                      dispatch(rememberClicked(e.target.checked));
+                    }}
+                  />
                 </Form.Group>
               </div>
             </div>

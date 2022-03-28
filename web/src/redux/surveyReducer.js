@@ -12,6 +12,7 @@ import {
   CLEAR_SURVEY_TEMPLATE,
   RESPONSE_SURVEY_UPDATE,
   CLEAR_QUESTION_STATE,
+  LOGIN_REMEMBER_ME,
 } from "./ReduceConstants";
 
 let survey_app = {
@@ -19,6 +20,7 @@ let survey_app = {
     isLoggedIn: false,
     userID: undefined,
     username: undefined,
+    rememberMe: false,
   },
   question: {
     id: "",
@@ -186,16 +188,40 @@ const surveyReducer = (state = { ...survey_app }, action) => {
       return {
         ...state,
         auth: {
+          ...state.auth,
           isLoggedIn: true,
           user: action.payload,
         },
       };
     case LOG_OUT_SURVEY:
+      if (state.auth.rememberMe === true) {
+        const tempAuth = {
+          isLoggedIn: false,
+          rememberMe: state.auth.rememberMe,
+          user: {
+            email: state.auth.user.email,
+          },
+        };
+        return {
+          ...state,
+          auth: tempAuth,
+        };
+      } else {
+        return {
+          ...state,
+          auth: {
+            isLoggedIn: false,
+            authId: -1,
+          },
+        };
+      }
+
+    case LOGIN_REMEMBER_ME:
       return {
         ...state,
         auth: {
-          isLoggedIn: false,
-          authId: -1,
+          ...state.auth,
+          rememberMe: action.rememberMe,
         },
       };
 
