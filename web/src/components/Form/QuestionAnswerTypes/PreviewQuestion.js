@@ -9,6 +9,7 @@ import {
   QUESTION_MULTIPLE,
   QUESTION_PARAGRAPH,
   QUESTION_LINEER,
+  QUESTION_MULTIPLE_RESPONSE,
 } from "../../../shared/Constants";
 
 const PreviewQuestion = (props) => {
@@ -100,7 +101,25 @@ const PreviewQuestion = (props) => {
                         {answer}
                       </label>
                     </div>
-                  ) : (
+                  ) 
+                  :chooseQuestionType === QUESTION_MULTIPLE_RESPONSE ? (
+                    <div key={index} className="form-check">
+                      <input  key={index}
+                        className="form-check-input"
+                        id={`${place}-${key}`}
+                        type="checkbox"
+                        name={place}
+                      />
+                      <label
+                        key={index}
+                        className="form-check-label ms-2"
+                        htmlFor={`${place}-${key}`}
+                      >
+                        {answer}
+                      </label>
+                    </div>
+                  ) 
+                  : (
                     chooseQuestionType === QUESTION_LINEER && (
                       <li key={index} value={key}>
                         <input  key={index}

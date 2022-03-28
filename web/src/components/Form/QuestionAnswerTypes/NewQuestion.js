@@ -11,6 +11,7 @@ import {
   QUESTION_MULTIPLE,
   QUESTION_LINEER,
   QUESTION_PARAGRAPH,
+  QUESTION_MULTIPLE_RESPONSE,
 } from "../../../shared/Constants";
 import LineerScaleAnswer from "./LineerScaleAnswer";
 import MultipleChoice from "./MultipleChoice";
@@ -101,7 +102,14 @@ const NewQuestion = (props) => {
                       setChooseQuestionType(QUESTION_MULTIPLE)
                     }
                   >
-                    Multiple Choice
+                    Multiple Single Choice
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={(event) =>
+                      setChooseQuestionType(QUESTION_MULTIPLE_RESPONSE)
+                    }
+                  >
+                    Multiple Response Choice
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={(event) => setChooseQuestionType(QUESTION_LINEER)}
@@ -122,7 +130,7 @@ const NewQuestion = (props) => {
         </div>
       </div>
 
-      {tempQuestion.chooseQuestionType === QUESTION_MULTIPLE ? (
+      {tempQuestion.chooseQuestionType === QUESTION_MULTIPLE || tempQuestion.chooseQuestionType === QUESTION_MULTIPLE_RESPONSE ? (
         <MultipleChoice />
       ) : tempQuestion.chooseQuestionType === QUESTION_LINEER ? (
         <LineerScaleAnswer />
