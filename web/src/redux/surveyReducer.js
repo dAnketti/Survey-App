@@ -36,8 +36,8 @@ let survey_app = {
     isDraft: true,
     groupList: [],
     startDate: 0,
-    expirationDate: 0,
-    updateDate:"",
+    fnishDate: 0,
+    updateDate: "",
     questions: [],
   },
 };
@@ -53,20 +53,20 @@ const surveyReducer = (state = { ...survey_app }, action) => {
     case CLEAR_SURVEY_TEMPLATE:
       return {
         ...state,
-        question:{
-          ...survey_app.question
+        question: {
+          ...survey_app.question,
         },
-       survey:{
-         ...survey_app.survey
-       }
+        survey: {
+          ...survey_app.survey,
+        },
       };
 
     case RESPONSE_SURVEY_UPDATE:
       return {
         ...state,
-       survey:{
-         ...action.survey
-       }
+        survey: {
+          ...action.survey,
+        },
       };
 
     case CLEAR_QUESTION_STATE:
@@ -81,21 +81,20 @@ const surveyReducer = (state = { ...survey_app }, action) => {
 
     case ADD_QUESTION_SURVEY:
       let count = 1;
-      if(state.survey.questions && state.survey.questions.length > 0){
-          count = state.survey.questions.length*1+1;
-        }
-        
+      if (state.survey.questions && state.survey.questions.length > 0) {
+        count = state.survey.questions.length * 1 + 1;
+      }
 
       const question = {
         ...action.question,
-        place:count
+        place: count,
       };
 
       return {
         ...state,
         survey: {
           ...state.survey,
-          questions: [...state.survey.questions,question],
+          questions: [...state.survey.questions, question],
         },
       };
 
@@ -106,7 +105,8 @@ const surveyReducer = (state = { ...survey_app }, action) => {
           ...state.survey,
           title: action.title,
           caption: action.caption,
-          expirationDate: action.expirationDate,
+          fnishDate: action.fnishDate,
+          startDate: action.startDate,
         },
       };
 
@@ -146,22 +146,21 @@ const surveyReducer = (state = { ...survey_app }, action) => {
       };
 
     case REPLACE_ORDER_NUMBER:
-        let tempQuestions=state.survey.questions;
-        const placeNum = parseInt(action.place)-1;
-        console.log("placeNum:",placeNum);
-        const process = action.process; // up/down
-        let tempQ=tempQuestions[placeNum];
-      if (process === "down" && placeNum < tempQuestions.length - 1) { 
-        tempQ.place=parseInt(placeNum)+2;
-        tempQuestions[placeNum]=tempQuestions[parseInt(placeNum)+1];     
-        tempQuestions[placeNum].place=parseInt(placeNum) +1;    
-        tempQuestions[parseInt(placeNum)+1]=tempQ;
-
-      }else if (process === "up" && placeNum > 0) {     
-        tempQ.place=parseInt(placeNum);  
-        tempQuestions[placeNum]=tempQuestions[parseInt(placeNum)-1]; 
-        tempQuestions[placeNum].place=parseInt(placeNum)+1;     
-        tempQuestions[parseInt(placeNum)-1]=tempQ;     
+      let tempQuestions = state.survey.questions;
+      const placeNum = parseInt(action.place) - 1;
+      console.log("placeNum:", placeNum);
+      const process = action.process; // up/down
+      let tempQ = tempQuestions[placeNum];
+      if (process === "down" && placeNum < tempQuestions.length - 1) {
+        tempQ.place = parseInt(placeNum) + 2;
+        tempQuestions[placeNum] = tempQuestions[parseInt(placeNum) + 1];
+        tempQuestions[placeNum].place = parseInt(placeNum) + 1;
+        tempQuestions[parseInt(placeNum) + 1] = tempQ;
+      } else if (process === "up" && placeNum > 0) {
+        tempQ.place = parseInt(placeNum);
+        tempQuestions[placeNum] = tempQuestions[parseInt(placeNum) - 1];
+        tempQuestions[placeNum].place = parseInt(placeNum) + 1;
+        tempQuestions[parseInt(placeNum) - 1] = tempQ;
       }
       return {
         ...state,
@@ -182,27 +181,25 @@ const surveyReducer = (state = { ...survey_app }, action) => {
           questions: temp,
         },
       };
-   
-      case LOGIN_ACTION:
-        return{
-          ...state,
-          auth:{
-            isLoggedIn:true,
-            user:action.payload
-          }
-          
-        };
-      case LOG_OUT_SURVEY:
-        return{
-          ...state,
-          auth:{
-            isLoggedIn:false,
-            authId:-1
-          }
-          
-        };
 
-      default:
+    case LOGIN_ACTION:
+      return {
+        ...state,
+        auth: {
+          isLoggedIn: true,
+          user: action.payload,
+        },
+      };
+    case LOG_OUT_SURVEY:
+      return {
+        ...state,
+        auth: {
+          isLoggedIn: false,
+          authId: -1,
+        },
+      };
+
+    default:
       return state;
   }
 };

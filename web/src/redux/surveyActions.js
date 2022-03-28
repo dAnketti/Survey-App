@@ -26,12 +26,17 @@ export const updateQuestionAction = (question) => {
   };
 };
 
-export const updateSurveyInformation = (title, expirationDate,caption) => {
- 
+export const updateSurveyInformation = (
+  title,
+  startDate,
+  fnishDate,
+  caption
+) => {
   return {
     type: UPDATE_SURVEY,
     title,
-    expirationDate,
+    fnishDate,
+    startDate,
     caption,
   };
 };
@@ -59,7 +64,6 @@ export const addQuestionToTheSurvey = (question) => {
 export const clearSurveyTemplate = () => {
   return {
     type: CLEAR_SURVEY_TEMPLATE,
-    
   };
 };
 

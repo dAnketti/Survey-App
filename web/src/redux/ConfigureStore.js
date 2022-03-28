@@ -27,19 +27,19 @@ let survey_app = {
     isDraft: true,
     groupList: [],
     startDate: 0,
-    expirationDate: 0,
-    updateDate:"",
+    fnishDate: 0,
+    updateDate: "",
     questions: [],
   },
 };
-
-if (survey_state) {
-  survey_app = JSON.parse(survey_state);
-}
-
 const updateStateInStorage = (newState) => {
   localStorage.setItem("survey_app", JSON.stringify(newState));
 };
+if (survey_state) {
+  survey_app = JSON.parse(survey_state);
+} else {
+  updateStateInStorage(survey_app);
+}
 
 const ConfigureStore = () => {
   const composeEnhancers =

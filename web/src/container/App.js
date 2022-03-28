@@ -20,6 +20,8 @@ const App = () => {
   const { isLoggedIn } = useSelector((store) => ({
     isLoggedIn: store.auth.isLoggedIn,
   }));
+
+  // store.auth.isLoggedIn
   return (
     <div>
       <BrowserRouter>
