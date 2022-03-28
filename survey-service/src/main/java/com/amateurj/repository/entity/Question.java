@@ -36,7 +36,7 @@ public class Question implements Serializable {
 //    @OneToMany(mappedBy ="question")
 //    private List<Answer> answerGivenByUsers;
 
-    @OneToMany(mappedBy = "question",orphanRemoval = true)
+    @OneToMany(mappedBy = "question",orphanRemoval = true,cascade = CascadeType.ALL)
     private List<Answer> answers=new ArrayList<>();
 
     @ManyToOne

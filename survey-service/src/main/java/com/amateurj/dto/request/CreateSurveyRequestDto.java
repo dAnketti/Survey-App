@@ -17,7 +17,7 @@ public class CreateSurveyRequestDto {
     private boolean isDraft;
     private List<CreateQuestionRequestDto> questions;
     private Date startDate;
-    private Date expirationDate;
+    private Date finishDate;
 
 
 }

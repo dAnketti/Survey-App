@@ -22,7 +22,7 @@ public class UpdateSurveyRequestDto {
     private boolean isDraft;
     private List<UpdateQuestionRequestDto> questions;
     private Date startDate;
-    private Date expirationDate;
+    private Date finishDate;
     private Date updatedDate;
 
 

@@ -60,6 +60,8 @@ public class SurveyService {
     public Survey saveSurvey (CreateSurveyRequestDto dto) {
         Survey survey = surveyRepository.save(Survey.builder()
                 .title(dto.getTitle())
+                        .startDate(dto.getStartDate())
+                        .finishDate(dto.getFinishDate())
                 .caption(dto.getCaption())
                 .className(dto.getClassName())
                 .isDraft(false)
@@ -90,6 +92,8 @@ public class SurveyService {
 
     public Survey updateSurvey(long id,UpdateSurveyRequestDto dto){
         Survey survey = getFindByID(id);
+                survey.setStartDate(dto.getStartDate());
+                survey.setFinishDate(dto.getFinishDate());
                 survey.setTitle(dto.getTitle());
                 survey.setCaption(dto.getCaption());
                 survey.setClassName(dto.getClassName());

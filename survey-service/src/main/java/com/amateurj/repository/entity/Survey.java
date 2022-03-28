@@ -30,7 +30,7 @@ public class Survey implements Serializable {
 
     private Date updatedDate;
     private Date startDate;
-    private Date expirationDate;
+    private Date finishDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
@@ -38,7 +38,7 @@ public class Survey implements Serializable {
 
 
 
-    @OneToMany(mappedBy = "survey" , orphanRemoval = true)
+    @OneToMany(mappedBy = "survey" , orphanRemoval = true,cascade = CascadeType.ALL)
     private List<Question> questions=new ArrayList<>();
 
 }

@@ -11,6 +11,7 @@ const LineerScaleAnswer = (props) => {
     place: store.question.place,
   }));
 
+  const [answersState,setAnswersState]=useState(tempAnswers);
   const [maxValue, setMaxValue] = useState(
     tempAnswers.length > 0 ? tempAnswers.length : 5
   );
@@ -18,27 +19,43 @@ const LineerScaleAnswer = (props) => {
 
   const onChangeAnswer = (event) => {
     const { name, value } = event.target;
-
     let answers = tempAnswers.filter((ans, i) => {
       const { answerOrder } = ans;
       return parseInt(name) !== parseInt(answerOrder);
     });
+    answers = [...answers, { answerOrder: name, answer: value }];  
+    setAnswersState(answers.sort((a, b) => a.answerOrder - b.answerOrder));
+  };
 
-    answers = [...answers, { answerOrder: name, answer: value }];
+  useEffect(()=>{
+    dispatch(
+      updateAnswers(answersState.sort((a, b) => a.answerOrder - b.answerOrder))
+    );
+  },[answersState]);
+
+  useEffect(()=>{
+    let answers = tempAnswers.filter((ans, i) => {
+      const { answerOrder } = ans;
+      return parseInt(answerOrder) <= maxValue ;
+     
+    });
+
+    answers = [...answers];
 
     dispatch(
       updateAnswers(answers.sort((a, b) => a.answerOrder - b.answerOrder))
     );
-  };
+  },[maxValue]);
 
+  const lastAnswerOrderCount=(tempAnswers.length>0 && tempAnswers[tempAnswers.length-1].answerOrder>=maxValue*1) ? tempAnswers[tempAnswers.length-1].answerOrder*1 : maxValue*1;
   return (
     <div className="container">
       <div className="row">
         <div className="col col-md-4">
-          <p>Min Value</p>
+         
           <span>
             <Stack direction="horizontal" gap={3}>
-              <p>Min / Max Value </p>        
+              <p>Max Value </p>        
 
               <Dropdown>
                 <Dropdown.Toggle variant="dark background-color-primary">
@@ -62,61 +79,36 @@ const LineerScaleAnswer = (props) => {
             </Stack>
           </span>
         </div>
-        <div className="col col-md-4">
-          <p>Max Value</p>
-        </div>
+       
       </div>
 
       <ul class="list-group">
-        {tempAnswers.length > 0 &&
-          tempAnswers.map((ans, i) => {
-            const { answerOrder, answer } = ans;    
-              return (
-                    <li class="list-group-item">
-                      <div className="row">
-                        <div className="col col-1">
-                          <span>{answerOrder})</span>
-                        </div>
-                        <div className="col col-8">
-                          <input
-                            type="text"
-                            name={answerOrder}
-                            value={answerOrder>maxValue ? "":answer}
-                            onChange={onChangeAnswer}
-                            placeholder="options description"
-                          />
-                        </div>
-                      </div>
-                    </li>
-               
-            
-              );
-            
-           
-          })}
-        {maxValue * 1  - tempAnswers.length > 0 &&
-          [...Array(maxValue * 1  - tempAnswers.length)].map(
+    
+        {
+          [...Array(lastAnswerOrderCount)].map(
             (x, j) => {
-              const o = tempAnswers.length + j+1;             
-              return (
-                <>
-                  <li class="list-group-item">
-                    <div className="row">
+              const o = j+1;  
+              console.log(o);
+              const key=tempAnswers[j] ? tempAnswers[j].answerOrder : o ;           
+              return (           
+                  <li class="list-group-item" key={key}>
+                    <div className="row" key={key}>
                       <div className="col col-1">
-                        <span>{o})</span>
+                        <span>{key})</span>
                       </div>
                       <div className="col col-8">
                         <input
+                         key={key}
                           type="text"
-                          name={o}
-                          value=""
+                          name={key}
+                          value={tempAnswers[j] && tempAnswers[j].answer}
                           onChange={onChangeAnswer}
                           placeholder="options description"
                         />
                       </div>
                     </div>
                   </li>
-                </>
+               
               );
               
             }
