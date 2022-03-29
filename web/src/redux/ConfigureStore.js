@@ -10,6 +10,7 @@ let survey_app = {
     isLoggedIn: false,
     userID: undefined,
     username: undefined,
+    rememberMe: false,
   },
   question: {
     id: "",

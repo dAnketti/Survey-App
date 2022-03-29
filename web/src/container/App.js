@@ -16,6 +16,8 @@ import NewTrainer from "../components/Admin/NewTrainer";
 import NewOffice from "../components/Admin/NewOffice";
 import NewClass from "../components/Manager/NewClass";
 import NewStudent from "../components/Manager/NewStudent";
+import UserPreviewQuestion from "../components/Form/UserSurvey/UserPreviewQuestion";
+import UserPreviewSurvey from "../components/Form/UserSurvey/UserPreviewSurvey";
 const App = () => {
   const { isLoggedIn } = useSelector((store) => ({
     isLoggedIn: store.auth.isLoggedIn,
@@ -38,6 +40,14 @@ const App = () => {
               <Route path="/newoffice" element={<NewOffice />} />
               <Route path="/newclass" element={<NewClass />} />
               <Route path="/newstudent" element={<NewStudent />} />
+              <Route
+                path="/userpreviewquestion"
+                element={<UserPreviewQuestion />}
+              />
+              <Route
+                path="/userpreviewsurvey"
+                element={<UserPreviewSurvey />}
+              />
             </>
           )}
 
