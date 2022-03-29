@@ -1,14 +1,11 @@
 package com.amateurj.dto.response;
 
-import com.amateurj.dto.request.CreateQuestionRequestDto;
-import com.amateurj.repository.entity.Question;
+
 import com.amateurj.repository.entity.Survey;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +34,7 @@ public class GetSurveyResponseDto {
         this.isDraft = survey.isDraft();
         this.questions = survey.getQuestions().stream().map(GetQuestionResponseDto::new).collect(Collectors.toList());
         this.startDate = survey.getStartDate();
-        this.expirationDate = survey.getExpirationDate();
+        this.expirationDate = survey.getFinishDate();
         this.updatedDate = survey.getUpdatedDate();
     }
 }

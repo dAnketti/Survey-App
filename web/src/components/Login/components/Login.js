@@ -5,9 +5,8 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../api/ApiCalls";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, rememberClicked } from "../../../redux/AuthAction";
-import { useState } from "react";
 function Login() {
   const { auth: tempAuth } = useSelector((store) => ({
     auth: store.auth,
@@ -18,12 +17,16 @@ function Login() {
   let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      email: tempAuth.rememberMe && tempAuth.user && tempAuth.user.email,
+      email: tempAuth.rememberMe && tempAuth.user ? tempAuth.user.email :"",
       password: "",
     },
     onSubmit: async (values) => {
       try {
-        const response = await login(values);
+        const credentials={
+          email:values.email,
+          password:values.password
+        }
+        const response = await login(credentials);
         dispatch(loginSuccess(response.data));
         navigate("/home");
       } catch (e) {
